@@ -6,6 +6,21 @@ GET http://localhost:3000/youth
 ###Get youth by id
 GET http://localhost:3000/youth/68e619977fac01e7ccf60233
 
+###Get youth by age
+GET http://localhost:3000/youth/by-age?min=14&max=16
+
+###Get youth by ward
+GET http://localhost:3000/youth/by-ward?ward=Sherwood%20Park%201st%20Ward
+
+###Get youth by medical
+GET http://localhost:3000/youth/by-medical
+
+###Get youth by allergies
+GET http://localhost:3000/youth/by-allergies
+
+###Get youth by food
+GET http://localhost:3000/youth/by-food
+
 ###Create youth
 POST http://localhost:3000/youth
 Content-Type: application/json
@@ -94,5 +109,5 @@ Content-Type: application/json
 }
 
 ###Delete youth by id
-DELETE http://localhost:3000/youth/68e6217e0cfff562ff2a5460
+DELETE http://localhost:3000/youth/68e7485ee046bb11fdf2d19e
 

@@ -1,6 +1,30 @@
-const { body, validationResult } = require('express-validator');
+const { body, query, validationResult } = require('express-validator');
 
 const validate = {};
+
+validate.validateAgeParams = () => {
+    return [
+        query('min')
+            .trim()
+            .notEmpty().withMessage('Minimum age is required.')
+            .isInt({ min: 0, max: 19 }).withMessage('Minimum age must be a valid number between 0 and 19.')
+            .toInt(),
+
+        query('max')
+            .trim()
+            .notEmpty().withMessage('Maximum age is required.')
+            .isInt({ min: 0, max: 19 }).withMessage('Maximum age must be a valid number between 0 and 19.')
+            .toInt(),
+
+        // ensure min < max
+        query('max').custom((value, { req }) => {
+            if (parseInt(value) < parseInt(req.query.min)) {
+                throw new Error('Maximum age must be greater than or equal to minimum age.');
+            }
+            return true;
+        })
+    ];
+};
 
 // Validate youth data  
 validate.validateYouth = () => {
@@ -190,6 +214,18 @@ validate.checkYouthValidation = async (req, res, next) => {
     if (!errors.isEmpty()) {
         console.error('Error checkYouthValidation:', errors);
         res.status(500).json({ message: `We encountered an error validating youth registration: ` + errors.array()[0].msg });
+        return
+    }
+    next()
+};
+
+// Check the parameters passed in for the age range are validated.
+validate.checkYouthAgeValidation = async (req, res, next) => {
+    let errors = [];
+    errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        console.error('Error checkYouthAgeValidation:', errors);
+        res.status(500).json({ message: `We encountered an error validating the age range requested: ` + errors.array()[0].msg });
         return
     }
     next()

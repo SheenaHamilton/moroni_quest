@@ -18,7 +18,7 @@ const getAllYouth = async (req, res) => {
 const getYouth = async (req, res) => {
     //#swagger.tags=['Youth']
     if (!ObjectId.isValid(req.params.id)) {
-        return res.status(400).json({ message: `Not valid identifier` });
+        return res.status(400).json({ message: `getYouth: Not valid identifier` });
     }
     try {
         const youthId = new ObjectId(req.params.id);
@@ -33,10 +33,95 @@ const getYouth = async (req, res) => {
     }
 };
 
+const getYouthByMedical = async (req, res) => {
+    //#swagger.tags=['Youth']
+    try {
+        // Query: find youth by health issues or medications. 
+        const result = await mongodb.getDatabase().db().collection('youth').find({ $or: [{ health_conditions: true }, { medications: true }] }).toArray();
+        res.status(200).json(result);
+
+    } catch (err) {
+        console.error('Error querying youth by health and medications:', err);
+        res.status(500).json({ message: 'Error retrieving youth by health and medications' });
+    }
+};
+
+const getYouthByAllergies = async (req, res) => {
+    //#swagger.tags=['Youth']
+    try {
+
+        // Query: find youth by allergies. 
+        const result = await mongodb.getDatabase().db().collection('youth').find({ allergies: true }).toArray();
+        res.status(200).json(result);
+
+    } catch (err) {
+        console.error('Error querying youth by allergies:', err);
+        res.status(500).json({ message: 'Error retrieving youth by allergies' });
+    }
+};
+const getYouthByFoodIssues = async (req, res) => {
+    //#swagger.tags=['Youth']
+    try {
+        // Query: find youth by diet_specific needs
+        const result = await mongodb.getDatabase().db().collection('youth').find({ diet_specific: true }).toArray();
+        res.status(200).json(result);
+
+    } catch (err) {
+        console.error('Error querying youth by diet specific needs:', err);
+        res.status(500).json({ message: 'Error retrieving youth by diet specific needs' });
+    }
+};
+
+const getYouthByWard = async (req, res) => {
+    //#swagger.tags=['Youth']
+    try {
+        const ward = req.query.ward;
+
+        // Query: find youth by ward
+        const result = await mongodb.getDatabase().db().collection('youth').find({ ward: ward }).toArray();
+        res.status(200).json(result);
+
+    } catch (err) {
+        console.error('Error querying youth by ward:', err);
+        res.status(500).json({ message: 'Error retrieving youth by ward' });
+    }
+};
+
+const getYouthByAge = async (req, res) => {
+    //#swagger.tags=['Youth']
+    try {
+        const minAge = parseInt(req.query.min);
+        const maxAge = parseInt(req.query.max);
+
+        const now = new Date();
+        const currentYear = now.getFullYear();
+
+        // event date cutoff — July 5 of this year
+        const eventMonth = 6;
+        const eventDay = 5;
+
+        const maxBirthYear = currentYear - maxAge;
+        const minBirthYear = currentYear - minAge;
+
+        //Use youth age on the date of the event
+        const minBirthDate = new Date(minBirthYear, eventMonth, eventDay);
+        const maxBirthDate = new Date(maxBirthYear, eventMonth, eventDay);
+
+
+        // Query: find youth whose birthdate is >=  min and <= Max 
+        const result = await mongodb.getDatabase().db().collection('youth').find({ birthdate: { $gte: maxBirthDate, $lte: minBirthDate } }).toArray();
+        res.status(200).json(result);
+
+    } catch (err) {
+        console.error('Error querying youth by age:', err);
+        res.status(500).json({ message: 'Error retrieving youth by age' });
+    }
+};
+
 const updateYouth = async (req, res) => {
     //#swagger.tags=['Youth']
     if (!ObjectId.isValid(req.params.id)) {
-        return res.status(400).json({ message: `Not valid identifier` });
+        return res.status(400).json({ message: `updateYouth: Not valid identifier` });
     }
     const youthId = new ObjectId(req.params.id);
     const youth = {
@@ -45,7 +130,7 @@ const updateYouth = async (req, res) => {
         first_name: req.body.first_name,
         last_name: req.body.last_name,
         ward: req.body.ward,
-        birthdate: req.body.birthdate,
+        birthdate: new Date(req.body.birthdate),
         address_street: req.body.address_street,
         address_city: req.body.address_city,
         address_province: req.body.address_province,
@@ -87,7 +172,7 @@ const updateYouth = async (req, res) => {
         media_release_understood: req.body.media_release_understood,
 
         form_completed_by: req.body.form_completed_by,
-        date_completed: req.body.date_completed
+        date_completed: new Date(req.body.date_completed)
     };
     try {
         const response = await mongodb.getDatabase().db().collection('youth').replaceOne({ _id: youthId }, youth);
@@ -111,7 +196,7 @@ const createYouth = async (req, res) => {
         first_name: req.body.first_name,
         last_name: req.body.last_name,
         ward: req.body.ward,
-        birthdate: req.body.birthdate,
+        birthdate: new Date(req.body.birthdate),
         address_street: req.body.address_street,
         address_city: req.body.address_city,
         address_province: req.body.address_province,
@@ -182,4 +267,4 @@ const deleteYouth = async (req, res) => {
     }
 };
 
-module.exports = { getAllYouth, getYouth, updateYouth, createYouth, deleteYouth }
+module.exports = { getAllYouth, getYouth, getYouthByAge, getYouthByWard, getYouthByMedical, getYouthByAllergies, getYouthByFoodIssues, updateYouth, createYouth, deleteYouth }

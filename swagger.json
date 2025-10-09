@@ -11,6 +11,105 @@
     "https"
   ],
   "paths": {
+    "/youth/by-age": {
+      "get": {
+        "tags": [
+          "Youth"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "min",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "max",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/youth/by-ward": {
+      "get": {
+        "tags": [
+          "Youth"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "ward",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/youth/by-medical": {
+      "get": {
+        "tags": [
+          "Youth"
+        ],
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/youth/by-allergies": {
+      "get": {
+        "tags": [
+          "Youth"
+        ],
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/youth/by-food": {
+      "get": {
+        "tags": [
+          "Youth"
+        ],
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
     "/youth/{id}": {
       "get": {
         "tags": [
