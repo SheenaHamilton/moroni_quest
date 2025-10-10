@@ -3,6 +3,7 @@ const ObjectId = require('mongodb').ObjectId;
 
 // Get all photos
 const getAllPhotos = async (req, res) => {
+    //#swagger.tags=['Photos']
     try {
         const result = await mongodb
             .getDatabase()
@@ -19,6 +20,7 @@ const getAllPhotos = async (req, res) => {
 
 // Get photo by id
 const getPhotoById = async (req, res) => {
+    //#swagger.tags=['Photos']
     try {
         const photoId = new ObjectId(req.params.id);
         const result = await mongodb
@@ -38,6 +40,7 @@ const getPhotoById = async (req, res) => {
 
 // Get photos by event
 const getPhotosByEvent = async (req, res) => {
+    //#swagger.tags=['Photos']
     try {
         const event = req.params.event;
         const result = await mongodb
@@ -55,6 +58,7 @@ const getPhotosByEvent = async (req, res) => {
 
 // Get photos by date
 const getPhotosByDate = async (req, res) => {
+    //#swagger.tags=['Photos']
     try {
         const date = req.params.date;
         const result = await mongodb
@@ -72,6 +76,7 @@ const getPhotosByDate = async (req, res) => {
 
 // Create new photo
 const createPhoto = async (req, res) => {
+    //#swagger.tags=['Photos']
     try {
         const photo = {
             url: req.body.url,
@@ -102,6 +107,7 @@ const createPhoto = async (req, res) => {
 
 // Update photo
 const updatePhoto = async (req, res) => {
+    //#swagger.tags=['Photos']
     try {
         const photoId = new ObjectId(req.params.id);
         const photo = {
@@ -130,6 +136,7 @@ const updatePhoto = async (req, res) => {
 
 // Delete photo
 const deletePhoto = async (req, res) => {
+    //#swagger.tags=['Photos']
     try {
         const photoId = new ObjectId(req.params.id);
         const result = await mongodb

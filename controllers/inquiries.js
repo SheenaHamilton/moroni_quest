@@ -3,6 +3,7 @@ const ObjectId = require('mongodb').ObjectId;
 
 // Get all inquiries
 const getAllInquiries = async (req, res) => {
+    //#swagger.tags=['Inquiries']
     try {
         const result = await mongodb
             .getDatabase()
@@ -19,6 +20,7 @@ const getAllInquiries = async (req, res) => {
 
 // Get inquiry by id
 const getInquiryById = async (req, res) => {
+    //#swagger.tags=['Inquiries']
     try {
         const inquiryId = new ObjectId(req.params.id);
         const result = await mongodb
@@ -38,6 +40,7 @@ const getInquiryById = async (req, res) => {
 
 // Get inquiries by status
 const getInquiriesByStatus = async (req, res) => {
+    //#swagger.tags=['Inquiries']
     try {
         const status = req.params.status;
         const result = await mongodb
@@ -55,6 +58,7 @@ const getInquiriesByStatus = async (req, res) => {
 
 // Create new inquiry
 const createInquiry = async (req, res) => {
+    //#swagger.tags=['Inquiries']
     try {
         const inquiry = {
             name: req.body.name,
@@ -85,6 +89,7 @@ const createInquiry = async (req, res) => {
 
 // Update inquiry
 const updateInquiry = async (req, res) => {
+    //#swagger.tags=['Inquiries']
     try {
         const inquiryId = new ObjectId(req.params.id);
         const inquiry = {
@@ -113,6 +118,7 @@ const updateInquiry = async (req, res) => {
 
 // Delete inquiry
 const deleteInquiry = async (req, res) => {
+    //#swagger.tags=['Inquiries']
     try {
         const inquiryId = new ObjectId(req.params.id);
         const result = await mongodb

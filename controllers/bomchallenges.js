@@ -3,6 +3,7 @@ const ObjectId = require('mongodb').ObjectId;
 
 // Get all Book of Mormon challenges
 const getAllChallenges = async (req, res) => {
+    //#swagger.tags=['Book of Mormon Challenges']
     try {
         const result = await mongodb
             .getDatabase()
@@ -19,6 +20,7 @@ const getAllChallenges = async (req, res) => {
 
 // Get challenge by id
 const getChallengeById = async (req, res) => {
+    //#swagger.tags=['Book of Mormon Challenges']
     try {
         const challengeId = new ObjectId(req.params.id);
         const result = await mongodb
@@ -38,6 +40,7 @@ const getChallengeById = async (req, res) => {
 
 // Get challenges by book
 const getChallengesByBook = async (req, res) => {
+    //#swagger.tags=['Book of Mormon Challenges']
     try {
         const book = req.params.book;
         const result = await mongodb
@@ -55,6 +58,7 @@ const getChallengesByBook = async (req, res) => {
 
 // Get challenges by schedule/date
 const getChallengesBySchedule = async (req, res) => {
+    //#swagger.tags=['Book of Mormon Challenges']
     try {
         const date = req.params.date;
         const result = await mongodb
@@ -81,6 +85,7 @@ const getChallengesBySchedule = async (req, res) => {
 
 // Create new challenge
 const createChallenge = async (req, res) => {
+    //#swagger.tags=['Book of Mormon Challenges']
     try {
         const challenge = {
             title: req.body.title,
@@ -113,6 +118,7 @@ const createChallenge = async (req, res) => {
 
 // Update challenge
 const updateChallenge = async (req, res) => {
+    //#swagger.tags=['Book of Mormon Challenges']
     try {
         const challengeId = new ObjectId(req.params.id);
         const challenge = {
@@ -143,6 +149,7 @@ const updateChallenge = async (req, res) => {
 
 // Delete challenge
 const deleteChallenge = async (req, res) => {
+    //#swagger.tags=['Book of Mormon Challenges']
     try {
         const challengeId = new ObjectId(req.params.id);
         const result = await mongodb
