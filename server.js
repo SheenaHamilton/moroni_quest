@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
 const mongodb = require('./data/database');
+const dotenv = require('dotenv').config();
 
 const port = process.env.PORT || 3000;
 

@@ -5,32 +5,456 @@
     "description": "Moroni's Quest application for the Sherwood Park, Alberta stake.",
     "version": "1.0.0"
   },
-  "host": "localhost:3000",
+  "host": "moroni-quest.onrender.com",
   "basePath": "/",
   "schemes": [
-    "https",
-    "http"
+    "https"
   ],
   "paths": {
-    "/": {
+    "/youth/by-age": {
       "get": {
         "tags": [
-          "Moroni"
+          "Youth"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "min",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "max",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/youth/by-ward": {
+      "get": {
+        "tags": [
+          "Youth"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "ward",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/youth/by-medical": {
+      "get": {
+        "tags": [
+          "Youth"
         ],
         "description": "",
         "responses": {
           "200": {
             "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
           }
         }
       }
     },
-    "/questapi-docs": {
+    "/youth/by-allergies": {
       "get": {
+        "tags": [
+          "Youth"
+        ],
         "description": "",
         "responses": {
-          "default": {
-            "description": ""
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/youth/by-food": {
+      "get": {
+        "tags": [
+          "Youth"
+        ],
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/youth/{id}": {
+      "get": {
+        "tags": [
+          "Youth"
+        ],
+        "description": "",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Youth"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "email": {
+                  "example": "any"
+                },
+                "first_name": {
+                  "example": "any"
+                },
+                "last_name": {
+                  "example": "any"
+                },
+                "ward": {
+                  "example": "any"
+                },
+                "birthdate": {
+                  "example": "any"
+                },
+                "address_street": {
+                  "example": "any"
+                },
+                "address_city": {
+                  "example": "any"
+                },
+                "address_province": {
+                  "example": "any"
+                },
+                "address_postal": {
+                  "example": "any"
+                },
+                "emergency_contact_name": {
+                  "example": "any"
+                },
+                "emergency_contact_primary": {
+                  "example": "any"
+                },
+                "emergency_contact_secondary": {
+                  "example": "any"
+                },
+                "health_number": {
+                  "example": "any"
+                },
+                "diet_specific": {
+                  "example": "any"
+                },
+                "diet_description": {
+                  "example": "any"
+                },
+                "allergies": {
+                  "example": "any"
+                },
+                "allergies_description": {
+                  "example": "any"
+                },
+                "medications": {
+                  "example": "any"
+                },
+                "medications_self_administer": {
+                  "example": "any"
+                },
+                "medications_administer_description": {
+                  "example": "any"
+                },
+                "medications_description": {
+                  "example": "any"
+                },
+                "health_conditions": {
+                  "example": "any"
+                },
+                "health_conditions_description": {
+                  "example": "any"
+                },
+                "surgery_recent": {
+                  "example": "any"
+                },
+                "surgery_description": {
+                  "example": "any"
+                },
+                "physical_limitations": {
+                  "example": "any"
+                },
+                "other_needs": {
+                  "example": "any"
+                },
+                "parent_guardian_name": {
+                  "example": "any"
+                },
+                "parent_guardian_relationship": {
+                  "example": "any"
+                },
+                "permission_granted": {
+                  "example": "any"
+                },
+                "permission_date": {
+                  "example": "any"
+                },
+                "terms_understood": {
+                  "example": "any"
+                },
+                "media_consent_internal": {
+                  "example": "any"
+                },
+                "media_consent_external": {
+                  "example": "any"
+                },
+                "media_release_understood": {
+                  "example": "any"
+                },
+                "form_completed_by": {
+                  "example": "any"
+                },
+                "date_completed": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Youth"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/youth/": {
+      "get": {
+        "tags": [
+          "Youth"
+        ],
+        "description": "",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Youth"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "email": {
+                  "example": "any"
+                },
+                "first_name": {
+                  "example": "any"
+                },
+                "last_name": {
+                  "example": "any"
+                },
+                "ward": {
+                  "example": "any"
+                },
+                "birthdate": {
+                  "example": "any"
+                },
+                "address_street": {
+                  "example": "any"
+                },
+                "address_city": {
+                  "example": "any"
+                },
+                "address_province": {
+                  "example": "any"
+                },
+                "address_postal": {
+                  "example": "any"
+                },
+                "emergency_contact_name": {
+                  "example": "any"
+                },
+                "emergency_contact_primary": {
+                  "example": "any"
+                },
+                "emergency_contact_secondary": {
+                  "example": "any"
+                },
+                "health_number": {
+                  "example": "any"
+                },
+                "diet_specific": {
+                  "example": "any"
+                },
+                "diet_description": {
+                  "example": "any"
+                },
+                "allergies": {
+                  "example": "any"
+                },
+                "allergies_description": {
+                  "example": "any"
+                },
+                "medications": {
+                  "example": "any"
+                },
+                "medications_self_administer": {
+                  "example": "any"
+                },
+                "medications_administer_description": {
+                  "example": "any"
+                },
+                "medications_description": {
+                  "example": "any"
+                },
+                "health_conditions": {
+                  "example": "any"
+                },
+                "health_conditions_description": {
+                  "example": "any"
+                },
+                "surgery_recent": {
+                  "example": "any"
+                },
+                "surgery_description": {
+                  "example": "any"
+                },
+                "physical_limitations": {
+                  "example": "any"
+                },
+                "other_needs": {
+                  "example": "any"
+                },
+                "parent_guardian_name": {
+                  "example": "any"
+                },
+                "parent_guardian_relationship": {
+                  "example": "any"
+                },
+                "permission_granted": {
+                  "example": "any"
+                },
+                "permission_date": {
+                  "example": "any"
+                },
+                "terms_understood": {
+                  "example": "any"
+                },
+                "media_consent_internal": {
+                  "example": "any"
+                },
+                "media_consent_external": {
+                  "example": "any"
+                },
+                "media_release_understood": {
+                  "example": "any"
+                },
+                "form_completed_by": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "500": {
+            "description": "Internal Server Error"
           }
         }
       }
