@@ -110,4 +110,3 @@ Content-Type: application/json
 
 ###Delete youth by id
 DELETE http://localhost:3000/youth/68e7485ee046bb11fdf2d19e
-
