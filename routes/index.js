@@ -7,8 +7,6 @@ router.get('/', (req, res) => {
     res.send('Moroni\'s Quest');
 });
 
-//router.use('/registration_youth', require('./regYouth'));
-
-//router.use('/registration_leader', require('./regLeader'));
+router.use('/youth', require('./youth'));
 
 module.exports = router;
