@@ -14,6 +14,6 @@ router.use('/bomchallenges', require('./bomchallenges'));
 
 // Sheena's collections
 router.use('/youth', require('./youth'));
-//router.use('/leaders', require('./leaders')); // Uncomment when leaders is ready
+router.use('/leader', require('./leader'));
 
 module.exports = router;
