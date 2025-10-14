@@ -7,6 +7,9 @@ router.get('/', (req, res) => {
     res.send("Moroni's Quest");
 });
 
+// Authentication routes
+router.use('/auth', require('./auth'));
+
 // Tyler's collections
 router.use('/photos', require('./photos'));
 router.use('/inquiries', require('./inquiries'));
