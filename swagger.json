@@ -2,14 +2,55 @@
   "swagger": "2.0",
   "info": {
     "title": "Moroni's Quest Application",
-    "description": "Moroni's Quest application for the Sherwood Park, Alberta stake.",
+    "description": "API documentation for Moronis Quest event management system. Provides endpoints for youth and leader registration, Book of Mormon challenges, photo gallery, and inquiry management for the Sherwood Park, Alberta stake.",
     "version": "1.0.0"
   },
   "host": "moroni-quest.onrender.com",
   "basePath": "/",
+  "tags": [
+    {
+      "name": "Moroni",
+      "description": "Main application endpoints"
+    },
+    {
+      "name": "Authentication",
+      "description": "OAuth 2.0 authentication endpoints"
+    },
+    {
+      "name": "Youth",
+      "description": "Youth registration endpoints"
+    },
+    {
+      "name": "Leaders",
+      "description": "Leader registration endpoints"
+    },
+    {
+      "name": "Book of Mormon Challenges",
+      "description": "Book of Mormon challenge management"
+    },
+    {
+      "name": "Photos",
+      "description": "Photo gallery management"
+    },
+    {
+      "name": "Inquiries",
+      "description": "User inquiry management"
+    }
+  ],
   "schemes": [
     "https"
   ],
+  "securityDefinitions": {
+    "oauth2": {
+      "type": "oauth2",
+      "authorizationUrl": "/auth/login",
+      "flow": "implicit",
+      "scopes": {
+        "read:user": "Read user information",
+        "write:user": "Modify user information"
+      }
+    }
+  },
   "paths": {
     "/photos/by-event/{event}": {
       "get": {
@@ -1152,6 +1193,17 @@
           "Leader"
         ],
         "description": "",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "event",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK"
