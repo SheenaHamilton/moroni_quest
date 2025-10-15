@@ -3,7 +3,7 @@ const swaggerAutogen = require('swagger-autogen')();
 //host: 'moroni-quest.onrender.com',
 const doc = {
     info: {
-        title: "Moroni's Quest Application",
+        title: 'Moroni\'s Quest Application',
         description:
             'API documentation for Moronis Quest event management system. Provides endpoints for youth and leader registration, Book of Mormon challenges, photo gallery, and inquiry management for the Sherwood Park, Alberta stake.',
         version: '1.0.0',
@@ -24,7 +24,7 @@ const doc = {
             description: 'Youth registration endpoints',
         },
         {
-            name: 'Leaders',
+            name: 'Leader',
             description: 'Leader registration endpoints',
         },
         {
@@ -40,17 +40,6 @@ const doc = {
             description: 'User inquiry management',
         },
     ],
-    securityDefinitions: {
-        oauth2: {
-            type: 'oauth2',
-            authorizationUrl: '/auth/login',
-            flow: 'implicit',
-            scopes: {
-                'read:user': 'Read user information',
-                'write:user': 'Modify user information',
-            },
-        },
-    },
     definitions: {
         Youth: {
             email: 'youth@example.com',
@@ -90,9 +79,48 @@ const doc = {
             media_release_understood: true,
             form_completed_by: 'Jane Doe',
         },
+        Leader: {
+            timestamp: '2025-10-08T15:32:00Z',
+            email: 'leader.jane@example.com',
+            first_name: 'Jane',
+            last_name: 'Thompson',
+            ward: 'Sherwood Park 2nd Ward',
+            birthdate: '1982-05-15T00:00:00Z',
+            address_street: '456 Maple Crescent',
+            address_city: 'Sherwood Park',
+            address_province: 'AB',
+            address_postal: 'T8A 2N7',
+
+            emergency_contact_name: 'Tom Thompson',
+            emergency_contact_primary: '780-555-8888',
+            emergency_contact_secondary: '780-555-9999',
+
+            health_number: '1234567890',
+
+            diet_specific: true,
+            diet_description: 'Gluten-free',
+
+            allergies: true,
+            allergies_description: 'Peanuts',
+
+            role: 'Ward Leader',
+            arrival_date: '2025-07-03T12:00:00Z',
+            departure_date: '2025-07-06T15:00:00Z',
+
+            lodging_type: 'assigned',
+            lodging_description: 'Assigned on-site lodging',
+
+            terms_understood: true,
+            media_consent_internal: true,
+            media_consent_external: false,
+            media_release_understood: true,
+
+            form_completed_by: 'Jane Thompson',
+            date_completed: '2025-05-10T00:00:00Z'
+        },
         BOMChallenge: {
             title: 'Read 1 Nephi 1-5',
-            description: "Read about Lehi's vision and journey",
+            description: 'Read about Lehi\'s vision and journey',
             book: '1 Nephi',
             chapters: '1-5',
             verses: '1-20',
@@ -121,7 +149,7 @@ const doc = {
 };
 
 const outputFile = './swagger.json';
-const endpointsFiles = ['./routes/index.js'];
+const endpointsFiles = ['./routes/index.js', './routes/auth.js'];
 
 // Generate swagger.json
 swaggerAutogen(outputFile, endpointsFiles, doc);
