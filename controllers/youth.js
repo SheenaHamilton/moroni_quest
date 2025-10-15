@@ -18,7 +18,7 @@ const getAllYouth = async (req, res) => {
 const getYouth = async (req, res) => {
     //#swagger.tags=['Youth']
     if (!ObjectId.isValid(req.params.id)) {
-        return res.status(400).json({ message: `getYouth: Not valid identifier` });
+        return res.status(500).json({ message: `getYouth: Not valid identifier` });
     }
     try {
         const youthId = new ObjectId(req.params.id);

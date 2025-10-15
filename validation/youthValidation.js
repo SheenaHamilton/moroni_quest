@@ -225,7 +225,7 @@ validate.checkYouthAgeValidation = async (req, res, next) => {
     errors = validationResult(req);
     if (!errors.isEmpty()) {
         console.error('Error checkYouthAgeValidation:', errors);
-        res.status(500).json({ message: `We encountered an error validating the age range requested: ` + errors.array()[0].msg });
+        res.status(400).json({ message: `We encountered an error validating the age range requested: ` + errors.array()[0].msg });
         return
     }
     next()
