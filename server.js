@@ -49,6 +49,7 @@ app.use((req, res, next) => {
 app.use('/', require('./routes'));
 
 //Catch all Error
+// Catch all Error
 process.on('uncaughtException', (err, origin) => {
     console.log(
         process.stderr.fd,
