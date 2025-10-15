@@ -2,15 +2,58 @@
   "swagger": "2.0",
   "info": {
     "title": "Moroni's Quest Application",
-    "description": "Moroni's Quest application for the Sherwood Park, Alberta stake.",
+    "description": "API documentation for Moronis Quest event management system. Provides endpoints for youth and leader registration, Book of Mormon challenges, photo gallery, and inquiry management for the Sherwood Park, Alberta stake.",
     "version": "1.0.0"
   },
   "host": "moroni-quest.onrender.com",
   "basePath": "/",
+  "tags": [
+    {
+      "name": "Moroni",
+      "description": "Main application endpoints"
+    },
+    {
+      "name": "Authentication",
+      "description": "OAuth 2.0 authentication endpoints"
+    },
+    {
+      "name": "Youth",
+      "description": "Youth registration endpoints"
+    },
+    {
+      "name": "Leader",
+      "description": "Leader registration endpoints"
+    },
+    {
+      "name": "Book of Mormon Challenges",
+      "description": "Book of Mormon challenge management"
+    },
+    {
+      "name": "Photos",
+      "description": "Photo gallery management"
+    },
+    {
+      "name": "Inquiries",
+      "description": "User inquiry management"
+    }
+  ],
   "schemes": [
     "https"
   ],
   "paths": {
+    "/": {
+      "get": {
+        "tags": [
+          "Moroni"
+        ],
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/photos/by-event/{event}": {
       "get": {
         "tags": [
@@ -147,6 +190,9 @@
           "400": {
             "description": "Bad Request"
           },
+          "401": {
+            "description": "Unauthorized"
+          },
           "404": {
             "description": "Not Found"
           },
@@ -171,6 +217,9 @@
         "responses": {
           "200": {
             "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
           },
           "404": {
             "description": "Not Found"
@@ -240,6 +289,9 @@
           "400": {
             "description": "Bad Request"
           },
+          "401": {
+            "description": "Unauthorized"
+          },
           "500": {
             "description": "Internal Server Error"
           }
@@ -270,6 +322,9 @@
           "400": {
             "description": "Bad Request"
           },
+          "401": {
+            "description": "Unauthorized"
+          },
           "500": {
             "description": "Internal Server Error"
           }
@@ -296,6 +351,9 @@
         "responses": {
           "200": {
             "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
           },
           "404": {
             "description": "Not Found"
@@ -352,6 +410,9 @@
           "400": {
             "description": "Bad Request"
           },
+          "401": {
+            "description": "Unauthorized"
+          },
           "404": {
             "description": "Not Found"
           },
@@ -377,6 +438,9 @@
           "200": {
             "description": "OK"
           },
+          "401": {
+            "description": "Unauthorized"
+          },
           "404": {
             "description": "Not Found"
           },
@@ -398,6 +462,9 @@
         "responses": {
           "200": {
             "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
           },
           "500": {
             "description": "Internal Server Error"
@@ -444,6 +511,9 @@
           },
           "400": {
             "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
           },
           "500": {
             "description": "Internal Server Error"
@@ -593,6 +663,9 @@
           "400": {
             "description": "Bad Request"
           },
+          "401": {
+            "description": "Unauthorized"
+          },
           "404": {
             "description": "Not Found"
           },
@@ -617,6 +690,9 @@
         "responses": {
           "200": {
             "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
           },
           "404": {
             "description": "Not Found"
@@ -692,6 +768,9 @@
           "400": {
             "description": "Bad Request"
           },
+          "401": {
+            "description": "Unauthorized"
+          },
           "500": {
             "description": "Internal Server Error"
           }
@@ -720,6 +799,12 @@
           "200": {
             "description": "OK"
           },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
           "500": {
             "description": "Internal Server Error"
           }
@@ -743,6 +828,9 @@
           "200": {
             "description": "OK"
           },
+          "401": {
+            "description": "Unauthorized"
+          },
           "500": {
             "description": "Internal Server Error"
           }
@@ -758,6 +846,9 @@
         "responses": {
           "200": {
             "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
           },
           "500": {
             "description": "Internal Server Error"
@@ -775,6 +866,9 @@
           "200": {
             "description": "OK"
           },
+          "401": {
+            "description": "Unauthorized"
+          },
           "500": {
             "description": "Internal Server Error"
           }
@@ -790,6 +884,9 @@
         "responses": {
           "200": {
             "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
           },
           "500": {
             "description": "Internal Server Error"
@@ -818,8 +915,8 @@
           "200": {
             "description": "OK"
           },
-          "400": {
-            "description": "Bad Request"
+          "401": {
+            "description": "Unauthorized"
           },
           "500": {
             "description": "Internal Server Error"
@@ -966,6 +1063,9 @@
           "400": {
             "description": "Bad Request"
           },
+          "401": {
+            "description": "Unauthorized"
+          },
           "500": {
             "description": "Internal Server Error"
           }
@@ -988,6 +1088,9 @@
           "204": {
             "description": "No Content"
           },
+          "401": {
+            "description": "Unauthorized"
+          },
           "500": {
             "description": "Internal Server Error"
           }
@@ -1006,6 +1109,9 @@
         "responses": {
           "200": {
             "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
           },
           "500": {
             "description": "Internal Server Error"
@@ -1140,6 +1246,9 @@
           "201": {
             "description": "Created"
           },
+          "401": {
+            "description": "Unauthorized"
+          },
           "500": {
             "description": "Internal Server Error"
           }
@@ -1156,6 +1265,9 @@
           "200": {
             "description": "OK"
           },
+          "401": {
+            "description": "Unauthorized"
+          },
           "500": {
             "description": "Internal Server Error"
           }
@@ -1171,6 +1283,9 @@
         "responses": {
           "200": {
             "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
           },
           "500": {
             "description": "Internal Server Error"
@@ -1194,6 +1309,12 @@
         "responses": {
           "200": {
             "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
           },
           "500": {
             "description": "Internal Server Error"
@@ -1224,6 +1345,9 @@
           },
           "400": {
             "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
           },
           "500": {
             "description": "Internal Server Error"
@@ -1343,6 +1467,9 @@
           "400": {
             "description": "Bad Request"
           },
+          "401": {
+            "description": "Unauthorized"
+          },
           "500": {
             "description": "Internal Server Error"
           }
@@ -1365,6 +1492,9 @@
           "204": {
             "description": "No Content"
           },
+          "401": {
+            "description": "Unauthorized"
+          },
           "500": {
             "description": "Internal Server Error"
           }
@@ -1383,6 +1513,9 @@
         "responses": {
           "200": {
             "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
           },
           "500": {
             "description": "Internal Server Error"
@@ -1490,9 +1623,422 @@
           "201": {
             "description": "Created"
           },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
           "500": {
             "description": "Internal Server Error"
           }
+        }
+      }
+    },
+    "/auth/login": {
+      "get": {
+        "tags": [
+          "Authentication"
+        ],
+        "description": "Documentation only to show available end-point. Can not be used from within Swagger."
+      }
+    },
+    "/auth/user": {
+      "get": {
+        "tags": [
+          "Authentication"
+        ],
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        }
+      }
+    },
+    "/auth/logout": {
+      "get": {
+        "tags": [
+          "Authentication"
+        ],
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Youth": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string",
+          "example": "youth@example.com"
+        },
+        "first_name": {
+          "type": "string",
+          "example": "John"
+        },
+        "last_name": {
+          "type": "string",
+          "example": "Doe"
+        },
+        "ward": {
+          "type": "string",
+          "example": "Sherwood Park 1st Ward"
+        },
+        "birthdate": {
+          "type": "string",
+          "example": "2010-05-15"
+        },
+        "address_street": {
+          "type": "string",
+          "example": "123 Main St"
+        },
+        "address_city": {
+          "type": "string",
+          "example": "Sherwood Park"
+        },
+        "address_province": {
+          "type": "string",
+          "example": "AB"
+        },
+        "address_postal": {
+          "type": "string",
+          "example": "T8A 1A1"
+        },
+        "emergency_contact_name": {
+          "type": "string",
+          "example": "Jane Doe"
+        },
+        "emergency_contact_primary": {
+          "type": "string",
+          "example": "780-555-1234"
+        },
+        "emergency_contact_secondary": {
+          "type": "string",
+          "example": "780-555-5678"
+        },
+        "health_number": {
+          "type": "string",
+          "example": "1234567890"
+        },
+        "diet_specific": {
+          "type": "boolean",
+          "example": false
+        },
+        "diet_description": {
+          "type": "string",
+          "example": ""
+        },
+        "allergies": {
+          "type": "boolean",
+          "example": false
+        },
+        "allergies_description": {
+          "type": "string",
+          "example": ""
+        },
+        "medications": {
+          "type": "boolean",
+          "example": false
+        },
+        "medications_self_administer": {
+          "type": "boolean",
+          "example": false
+        },
+        "medications_administer_description": {
+          "type": "string",
+          "example": ""
+        },
+        "medications_description": {
+          "type": "string",
+          "example": ""
+        },
+        "health_conditions": {
+          "type": "boolean",
+          "example": false
+        },
+        "health_conditions_description": {
+          "type": "string",
+          "example": ""
+        },
+        "surgery_recent": {
+          "type": "boolean",
+          "example": false
+        },
+        "surgery_description": {
+          "type": "string",
+          "example": ""
+        },
+        "physical_limitations": {
+          "type": "string",
+          "example": ""
+        },
+        "other_needs": {
+          "type": "string",
+          "example": ""
+        },
+        "parent_guardian_name": {
+          "type": "string",
+          "example": "Jane Doe"
+        },
+        "parent_guardian_relationship": {
+          "type": "string",
+          "example": "Mother"
+        },
+        "permission_granted": {
+          "type": "boolean",
+          "example": true
+        },
+        "permission_date": {
+          "type": "string",
+          "example": "2025-01-15"
+        },
+        "terms_understood": {
+          "type": "boolean",
+          "example": true
+        },
+        "media_consent_internal": {
+          "type": "boolean",
+          "example": true
+        },
+        "media_consent_external": {
+          "type": "boolean",
+          "example": false
+        },
+        "media_release_understood": {
+          "type": "boolean",
+          "example": true
+        },
+        "form_completed_by": {
+          "type": "string",
+          "example": "Jane Doe"
+        }
+      }
+    },
+    "Leader": {
+      "type": "object",
+      "properties": {
+        "timestamp": {
+          "type": "string",
+          "example": "2025-10-08T15:32:00Z"
+        },
+        "email": {
+          "type": "string",
+          "example": "leader.jane@example.com"
+        },
+        "first_name": {
+          "type": "string",
+          "example": "Jane"
+        },
+        "last_name": {
+          "type": "string",
+          "example": "Thompson"
+        },
+        "ward": {
+          "type": "string",
+          "example": "Sherwood Park 2nd Ward"
+        },
+        "birthdate": {
+          "type": "string",
+          "example": "1982-05-15T00:00:00Z"
+        },
+        "address_street": {
+          "type": "string",
+          "example": "456 Maple Crescent"
+        },
+        "address_city": {
+          "type": "string",
+          "example": "Sherwood Park"
+        },
+        "address_province": {
+          "type": "string",
+          "example": "AB"
+        },
+        "address_postal": {
+          "type": "string",
+          "example": "T8A 2N7"
+        },
+        "emergency_contact_name": {
+          "type": "string",
+          "example": "Tom Thompson"
+        },
+        "emergency_contact_primary": {
+          "type": "string",
+          "example": "780-555-8888"
+        },
+        "emergency_contact_secondary": {
+          "type": "string",
+          "example": "780-555-9999"
+        },
+        "health_number": {
+          "type": "string",
+          "example": "1234567890"
+        },
+        "diet_specific": {
+          "type": "boolean",
+          "example": true
+        },
+        "diet_description": {
+          "type": "string",
+          "example": "Gluten-free"
+        },
+        "allergies": {
+          "type": "boolean",
+          "example": true
+        },
+        "allergies_description": {
+          "type": "string",
+          "example": "Peanuts"
+        },
+        "role": {
+          "type": "string",
+          "example": "Ward Leader"
+        },
+        "arrival_date": {
+          "type": "string",
+          "example": "2025-07-03T12:00:00Z"
+        },
+        "departure_date": {
+          "type": "string",
+          "example": "2025-07-06T15:00:00Z"
+        },
+        "lodging_type": {
+          "type": "string",
+          "example": "assigned"
+        },
+        "lodging_description": {
+          "type": "string",
+          "example": "Assigned on-site lodging"
+        },
+        "terms_understood": {
+          "type": "boolean",
+          "example": true
+        },
+        "media_consent_internal": {
+          "type": "boolean",
+          "example": true
+        },
+        "media_consent_external": {
+          "type": "boolean",
+          "example": false
+        },
+        "media_release_understood": {
+          "type": "boolean",
+          "example": true
+        },
+        "form_completed_by": {
+          "type": "string",
+          "example": "Jane Thompson"
+        },
+        "date_completed": {
+          "type": "string",
+          "example": "2025-05-10T00:00:00Z"
+        }
+      }
+    },
+    "BOMChallenge": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string",
+          "example": "Read 1 Nephi 1-5"
+        },
+        "description": {
+          "type": "string",
+          "example": "Read about Lehi's vision and journey"
+        },
+        "book": {
+          "type": "string",
+          "example": "1 Nephi"
+        },
+        "chapters": {
+          "type": "string",
+          "example": "1-5"
+        },
+        "verses": {
+          "type": "string",
+          "example": "1-20"
+        },
+        "startDate": {
+          "type": "string",
+          "example": "2025-07-01"
+        },
+        "endDate": {
+          "type": "string",
+          "example": "2025-07-05"
+        },
+        "points": {
+          "type": "number",
+          "example": 100
+        }
+      }
+    },
+    "Photo": {
+      "type": "object",
+      "properties": {
+        "url": {
+          "type": "string",
+          "example": "https://example.com/photo.jpg"
+        },
+        "title": {
+          "type": "string",
+          "example": "Opening Ceremony"
+        },
+        "description": {
+          "type": "string",
+          "example": "Youth gathering for opening activities"
+        },
+        "event": {
+          "type": "string",
+          "example": "Moronis Quest 2025"
+        },
+        "date": {
+          "type": "string",
+          "example": "2025-07-05"
+        },
+        "uploadedBy": {
+          "type": "string",
+          "example": "Admin User"
+        }
+      }
+    },
+    "Inquiry": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "example": "John Smith"
+        },
+        "email": {
+          "type": "string",
+          "example": "john@example.com"
+        },
+        "phone": {
+          "type": "string",
+          "example": "780-555-9999"
+        },
+        "subject": {
+          "type": "string",
+          "example": "Registration Question"
+        },
+        "message": {
+          "type": "string",
+          "example": "I have a question about youth registration deadlines."
+        },
+        "status": {
+          "type": "string",
+          "example": "pending"
         }
       }
     }

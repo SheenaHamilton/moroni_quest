@@ -1,4 +1,9 @@
 
+//We don't want the authentication blocking the tests. Mock the function to bypass"
+jest.mock('../../middleware/authenticate', () => ({
+    isAuthenticated: (req, res, next) => next(), // bypass auth
+}));
+
 const request = require('supertest');
 const app = require('../../server');
 const testDB = require('../testDB');

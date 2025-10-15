@@ -4,7 +4,7 @@ router.use('/', require('./swagger'));
 
 router.get('/', (req, res) => {
     //#swagger.tags=['Moroni']
-    res.send("Moroni's Quest");
+    res.send("Moroni's Quest: " + (req.session.user !== undefined ? `Logged in as ${req.session.user.displayName}` : "Logged Out"));
 });
 
 // Tyler's collections
