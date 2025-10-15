@@ -70,7 +70,7 @@ const getLeaderBySleepingArrangement = async (req, res) => {
 
     } catch (err) {
         console.error('Error querying Leader by sleeping arrangement:', err);
-        res.status(500).json({ message: 'Error retrieving Leader by diet sleeping arrangement' });
+        res.status(500).json({ message: 'Error retrieving Leader by sleeping arrangement' });
     }
 };
 

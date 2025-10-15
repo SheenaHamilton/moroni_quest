@@ -10,7 +10,7 @@ router.get('/by-allergies', leaderController.getLeaderByAllergies);
 router.get('/by-food', leaderController.getLeaderByFoodIssues);
 //router.get('/by-food', isAuthenticated, leaderController.getLeaderByFoodIssues);
 
-router.get('/by-sleep', leaderController.getLeaderBySleepingArrangement);
+router.get('/by-sleep', validate.validateGetLodging(), validate.checkLeaderValidation, leaderController.getLeaderBySleepingArrangement);
 //router.get('/by-sleep', isAuthenticated, leaderController.getLeaderBySleepingArrangement);
 
 router.get('/:id', leaderController.getLeader);

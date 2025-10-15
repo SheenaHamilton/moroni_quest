@@ -1,4 +1,4 @@
-const { body, validationResult } = require('express-validator');
+const { body, query, validationResult } = require('express-validator');
 
 const validate = {};
 
@@ -158,6 +158,18 @@ validate.validateLeader = () => {
 
     ]
 };
+// Validate lodging data  
+validate.validateGetLodging = () => {
+    return [
+        query('lodging_type')
+            .trim()
+            .notEmpty()
+            .withMessage('Lodging type is required.')
+            .isIn(['camper', 'tent', 'assigned', 'not_staying'])
+            .withMessage('Lodging type must be one of: camper, tent, assigned or not staying.')
+            .escape()
+    ]
+};
 
 // Check leader data and return errors or continue to modify/add the leader
 validate.checkLeaderValidation = async (req, res, next) => {
@@ -165,7 +177,7 @@ validate.checkLeaderValidation = async (req, res, next) => {
     errors = validationResult(req);
     if (!errors.isEmpty()) {
         console.error('Error checkLeaderValidation:', errors);
-        res.status(500).json({ message: `We encountered an error validating leader registration: ` + errors.array()[0].msg });
+        res.status(400).json({ message: `We encountered an error validating: ` + errors.array()[0].msg });
         return
     }
     next()
