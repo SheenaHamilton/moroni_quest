@@ -5,7 +5,7 @@ router.get('/', (req, res) => {
     res.render('index', {
         title: process.env.SITE_TITLE || "Moroni's Quest",
         stake: process.env.STAKE_NAME || 'Sherwood Park Stake',
-        campStartISO: process.env.CAMP_START_ISO || '2026-07-10T00:00:00-06:00',
+        campStartISO: process.env.CAMP_START_ISO || '2026-07-07T00:00:00-06:00',
         slogan: ' A Journey Through the Scriptures. Live the Stories.',
         user: req.session.user || null
     });
