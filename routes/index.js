@@ -1,13 +1,16 @@
 const router = require('express').Router();
 
-router.use('/', require('./swagger'));
-
 router.get('/', (req, res) => {
     //#swagger.tags=['Moroni']
-    res.send("Moroni's Quest: " + (req.session.user !== undefined ? `Logged in as ${req.session.user.displayName}` : "Logged Out"));
+    res.render('index', {
+        title: process.env.SITE_TITLE || "Moroni's Quest",
+        stake: process.env.STAKE_NAME || 'Sherwood Park Stake',
+        campStartISO: process.env.CAMP_START_ISO || '2026-07-10T00:00:00-06:00',
+        slogan: ' A Journey Through the Scriptures. Live the Stories.',
+        user: req.session.user || null
+    });
 });
 
-// Tyler's collections
 router.use('/photos', require('./photos'));
 router.use('/inquiries', require('./inquiries'));
 router.use('/bomchallenges', require('./bomchallenges'));
