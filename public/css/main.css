@@ -356,7 +356,7 @@ img, svg, video { max-width: 100%; height: auto; }
 .menu {
   display: none; /* mobile hidden by default */
   position: absolute; right: 1rem; top: calc(100% + 8px);
-  padding: .6rem; background: rgba(0,0,0,.75); backdrop-filter: blur(8px);
+  padding: .6rem; background: rgba(0,0,0,.90); backdrop-filter: blur(8px);
   border: 1px solid rgba(255,255,255,.08); border-radius: 12px;
   min-width: 240px;
 }
