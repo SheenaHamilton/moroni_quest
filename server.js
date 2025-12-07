@@ -11,6 +11,16 @@ const helmet = require('helmet');
 const app = express();
 const port = process.env.PORT || 3000;
 
+app.locals.SITE_TITLE = process.env.SITE_TITLE || "Moroni's Quest";
+app.locals.SITE_DESC = "Moroni's Quest — Sherwood Park Stake";
+app.locals.campStartISO = process.env.CAMP_START_ISO || '2026-07-07T00:00:00-06:00',
+
+    app.use((req, res, next) => {
+        res.locals.title = app.locals.SITE_TITLE;  // fallback if not set by route
+        res.locals.description = app.locals.SITE_DESC;
+        next();
+    });
+
 app.use(cors({
     origin: process.env.CLIENT_URL, // if you need multiple origins, use a function here
     credentials: true,
@@ -33,6 +43,8 @@ app.use(helmet({
             "style-src": ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com"],
             "font-src": ["'self'", "https://fonts.gstatic.com"],
             "script-src": ["'self'"],
+            "frameSrc": ["'self'", "https://www.google.com", "https://maps.google.com"],
+            "childSrc": ["'self'", "https://www.google.com", "https://maps.google.com"],
         }
     }
 }));

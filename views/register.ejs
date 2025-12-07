@@ -1,0 +1,124 @@
+<%- include('partials/head') %>
+<%- include('partials/header') %>
+
+<main id="main" class="page">
+  <!-- Inner hero / page header -->
+  <section class="hero hero--inner">
+    <div class="overlay"></div>
+    <header class="center">
+      <h1>Registration</h1>
+      <p class="tagline">Opening January 2026</p>
+    </header>
+  </section>
+
+
+
+  <!-- Registration details -->
+  <section id="registration" class="registration">
+
+    <div class="wrap">
+
+
+
+
+      <div class="registration-steps">
+        <h2 class="registration-steps__title">Starting your Journey</h2>
+
+        <p class="intro"> What to expect when registration opens.</p>
+                <div class="reg-shield-divider">
+          <span class="shield-icon">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 2L4 5V11C4 16.52 7.84 20.74 12 22C16.16 20.74 20 16.52 20 11V5L12 2Z"
+                    fill="#D2AA31" stroke="#D2AA31" stroke-width="1.5" />
+            </svg>
+          </span>
+        </div>
+
+
+        <ol class="stepper">
+          <li class="stepper__item">
+            <div class="stepper__marker">1</div>
+            <div class="stepper__body">
+              <h4>Fill out the online form</h4>
+              <p>Complete the Moroni’s Quest registration form with your information.</p>
+            </div>
+          </li>
+
+          <li class="stepper__item">
+            <div class="stepper__marker">2</div>
+            <div class="stepper__body">
+              <h4>Prepare your era outfit</h4>
+              <p>Visit the Prepare section for ideas and guidelines for your historical attire.</p>
+            </div>
+          </li>
+
+          <li class="stepper__item">
+            <div class="stepper__marker">3</div>
+            <div class="stepper__body">
+              <h4>Join the Book of Mormon Challenge</h4>
+              <p>Read along to deepen your connection to the stories we’ll bring to life.</p>
+            </div>
+          </li>
+
+          <li class="stepper__item">
+            <div class="stepper__marker">4</div>
+            <div class="stepper__body">
+              <h4>Watch for annoucements</h4>
+              <p>Keep an eye out for updates on Facebook or here for pre-Quest gatherings or important notices. </p>
+            </div>
+          </li>
+
+          <li class="stepper__item">
+            <div class="stepper__marker">5</div>
+            <div class="stepper__body">
+              <h4>Pack your bags</h4>
+              <p>Find packing lists in the Prepare section to help you get ready.</p>
+            </div>
+          </li>
+        </ol>
+        <div class="reg-note">
+          <p class="zeyada-regular">Can’t wait to see you at camp <br>— it’s going to be unforgettable!</p>
+        </div>
+
+      </div>
+
+      <div class="grid">
+        <article>
+          <h3>Who Can Register?</h3>
+          <p>
+            Youth turning <strong>14</strong> in the 2025–26 school year up to those
+            graduating Grade 12 in 2026 who live in the <%= stake %>.
+          </p>
+          <p>
+            Adult leaders will also register through the registration process
+          </p>
+        </article>
+
+        <article>
+          <h3>What You’ll Need Ready</h3>
+          <ul class="checklist">
+            <li>Basic personal information</li>
+            <li>Parent/guardian contact details</li>
+            <li>Emergency contact information</li>
+            <li>Medical info & dietary needs</li>
+            <li>Waivers and permission forms</li>
+            <li>Ward/leader information</li>
+          </ul>
+        </article>
+
+      </div>
+
+
+    </div>
+
+    
+
+  </section>
+
+</main>
+
+<footer class="footer">
+  © <span id="year"></span> <%= title %> · <%= stake %>
+</footer>
+
+<%- include('partials/foot') %>
