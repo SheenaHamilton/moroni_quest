@@ -9,6 +9,7 @@
   --bg1: #0b0b0b;
   --bg2: #2a1a0e;
   --text: #f8f5ef;
+  --lightgold: #f7da7e;
   --highlight1: #FFEA00;
 
   /* Sizing (mobile-first) */
@@ -367,7 +368,7 @@ a, button { min-height: var(--tap-min); }
 .camp-details {
   background: #f8f5ef;
   color: #2a1a0e;
-  padding: 4rem 1.5rem 4.5rem;
+  padding: 2rem 0rem 4.5rem;
 }
 
 .camp-details .wrap {
@@ -411,6 +412,9 @@ a, button { min-height: var(--tap-min); }
 @media (min-width: 800px) {
   .camp-grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  .camp-details {
+    padding: 4rem 1.5rem 4.5rem;
   }
 }
 
@@ -632,7 +636,7 @@ body.nav-open { overflow: hidden; }
 
 /* Registration section */
 .registration {
-  padding: 1rem 1.5rem 5rem;
+  padding: 1rem 0rem 5rem;
   background:#f8f5ef;
 }
 
@@ -661,7 +665,7 @@ body.nav-open { overflow: hidden; }
 
 .registration article {
   background: rgba(0,0,0,0.45);
-  padding: 1.8rem;
+  padding: 1rem;
   border-radius: 12px;
   backdrop-filter: blur(3px);
 }
@@ -670,7 +674,7 @@ body.nav-open { overflow: hidden; }
   margin-top: 0;
   margin-bottom: 1rem;
   font-family: Cinzel, serif;
-  color: var(--gold);
+  color: var(--lightgold);
   text-shadow: 0 0 4px #000;
 }
 
@@ -796,6 +800,13 @@ body.nav-open { overflow: hidden; }
 
   .stepper__body p {
     font-size: 0.95rem;
+  }
+  .registration article {
+    padding: 1.8rem;
+  }
+
+  .registration {
+    padding: 1rem 1.5rem 5rem;
   }
 }
 
