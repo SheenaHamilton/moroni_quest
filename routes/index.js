@@ -39,7 +39,11 @@ router.get('/prepare', (req, res) => {
         departTime: process.env.DEPART_TIME,   // e.g., "8:00 AM, July 7"
         departPlace: process.env.DEPART_PLACE, // e.g., "Stake Center Gym"
         returnTime: process.env.RETURN_TIME,   // e.g., "5:00 PM, July 10"
-        returnPlace: process.env.RETURN_PLACE  // e.g., "Stake Center"
+        returnPlace: process.env.RETURN_PLACE,  // e.g., "Stake Center"
+
+        title: process.env.SITE_TITLE || "Moroni’s Quest",
+        stake: process.env.STAKE_NAME || 'Sherwood Park Stake',
+        campStartISO: process.env.CAMP_START_ISO || '2026-07-07T00:00:00-06:00'
     });
 });
 
