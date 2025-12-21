@@ -1194,6 +1194,10 @@ body.nav-open { overflow: hidden; }
   background: #f8f5ef;
 }
 
+.hero--bom {
+  background-image: url("/img/brass_plates.jpeg");
+}
+
 .bom__title {
   font-family: Cinzel, serif;
   color: var(--gold);
@@ -1487,4 +1491,394 @@ body.nav-open { overflow: hidden; }
   margin-top: .35rem;
   font-size: .9rem;
   color: rgba(0,0,0,.65);
+}
+
+/* ===== Leader Resources ===== */
+.leader-resources {
+  padding: 1rem 1rem;
+  background: #f8f5ef; /* parchment */
+}
+
+.leader-resources .wrap {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.leader-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.leader-header h1 {
+  font-family: Cinzel, serif;
+  color: var(--gold);
+  margin-bottom: 0.5rem;
+}
+
+.leader-subtitle {
+  font-weight: 600;
+  color: var(--bg1);
+}
+
+.resource-section {
+  margin-bottom: 4rem;
+}
+
+.resource-section h2 {
+  font-family: Cinzel, serif;
+  color: var(--gold);
+  margin-bottom: 1.5rem;
+}
+
+/* Documents */
+.doc-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.25rem;
+}
+
+.doc-card {
+  background: white;
+  border: 1px solid rgba(0,0,0,.08);
+  border-radius: 10px;
+  padding: 1.25rem;
+  text-decoration: none;
+  color: inherit;
+  transition: transform .15s ease, box-shadow .15s ease;
+}
+
+.doc-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(0,0,0,.12);
+}
+
+.doc-card h3 {
+  margin-top: 0;
+  color: var(--bg1);
+}
+
+.doc-card p {
+  font-size: 0.95rem;
+  opacity: 0.9;
+}
+
+.doc-link {
+  display: inline-block;
+  margin-top: 0.75rem;
+  color: var(--gold);
+  font-weight: 600;
+}
+
+/* Images */
+.image-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.25rem;
+}
+
+.image-card {
+  background: white;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid rgba(0,0,0,.08);
+}
+
+.image-card img {
+  width: 100%;
+  display: block;
+}
+
+.image-card figcaption {
+  padding: 0.75rem;
+  text-align: center;
+  font-weight: 600;
+  background: #faf7f1;
+}
+
+/* Empty state */
+.empty-state {
+  font-style: italic;
+  opacity: 0.7;
+}
+
+/*Leader Resources Page*/
+.hero--leaders {
+  background-image: url("/img/nephite_scribes.jpg");
+  background-size: cover;
+  background-position: center;
+}
+/* ===== Document list (single-line rows) ===== */
+.doc-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid rgba(0,0,0,.1);
+}
+
+.doc-row {
+  border-bottom: 1px solid rgba(0,0,0,.1);
+}
+
+.doc-link-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem 0.5rem;
+  text-decoration: none;
+  color: inherit;
+  transition: background .15s ease;
+}
+
+.doc-link-row:hover {
+  background: rgba(212,175,55,.08); /* gold tint */
+}
+
+.doc-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.doc-title {
+  color: var(--bg1);
+  font-weight: 600;
+}
+
+.doc-description {
+  font-size: 0.9rem;
+  opacity: 0.8;
+  color: black;
+}
+
+.doc-action {
+  color: var(--gold);
+  font-weight: 600;
+  white-space: nowrap;
+}
+.embed-frame {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9; /* looks like a photo */
+  background: #eee;
+}
+
+.embed-frame iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+/* Make the card behave predictably */
+.image-card {
+  background: white;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid rgba(0,0,0,.08);
+}
+
+/* This defines the "photo area" height */
+.image-card .media {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;   /* change to 4/3 if you prefer */
+  background: #eee;
+}
+
+/* Images fill the media area */
+.image-card .media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Iframe fills the media area */
+.image-card .media iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  display: block;
+}
+
+/* caption stays consistent */
+.image-card figcaption {
+  padding: 0.75rem;
+  text-align: center;
+  font-weight: 600;
+  background: white;
+  color: black
+}
+
+/* Clickable image media */
+.media-btn {
+  position: relative;
+  border: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  cursor: pointer;
+  display: block;
+}
+
+.media-zoom {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  background: rgba(0,0,0,.55);
+  color: #fff;
+  padding: 0.35rem 0.6rem;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 0.85rem;
+}
+
+/* Map "open" link overlay */
+.media-open {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  background: rgba(0,0,0,.55);
+  color: #fff;
+  padding: 0.35rem 0.6rem;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 0.85rem;
+  text-decoration: none;
+  z-index: 2;
+}
+/* Lightbox */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  display: none;
+  z-index: 9999;
+}
+
+.lightbox.is-open { display: block; }
+
+.lightbox__backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,.75);
+}
+
+/* Panel */
+.lightbox__panel {
+  position: absolute;
+  inset: 5%;
+  background: #111;
+  border-radius: 12px;
+  overflow: hidden;           /* OK for rounded corners */
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 30px 80px rgba(0,0,0,.45);
+}
+
+.lightbox__close {
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  z-index: 2;
+  border: 0;
+  background: rgba(255,255,255,.12);
+  color: #fff;
+  width: 40px;
+  height: 40px;
+  border-radius: 999px;
+  cursor: pointer;
+  font-size: 18px;
+}
+
+/* Content area = remaining height after caption */
+.lightbox__content {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #000;
+  overflow: hidden;           /* prevents scrolling */
+  padding: 0;                 /* remove padding so it can truly fit */
+}
+
+/* THIS is the key: fit image fully, no crop, no scroll */
+.lightbox__content img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;        /* shows whole image */
+  display: block;
+}
+
+/* Caption stays at bottom */
+.lightbox__caption {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.9rem 1rem;
+  color: #fff;
+  background: rgba(0,0,0,.55);
+}
+
+.lightbox__caption a {
+  color: #fff;
+  font-weight: 600;
+  text-decoration: none;
+  opacity: 0.9;
+}
+.lightbox__caption a:hover { opacity: 1; }
+
+@media (max-width: 700px) {
+  .lightbox__panel { inset: 3%; }
+}
+
+/*403 Page*/
+/* ===== 403 Forbidden Page ===== */
+.forbidden {
+  padding: 5rem 1rem;
+  background: #f8f5ef;
+  text-align: center;
+}
+
+.forbidden h1 {
+  font-family: Cinzel, serif;
+  color: var(--gold);
+  margin-bottom: 1rem;
+}
+
+.forbidden-message {
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--bg1);
+  margin-bottom: 0.75rem;
+}
+
+.forbidden-subtext {
+  opacity: 0.85;
+  max-width: 520px;
+  margin: 0 auto 2rem;
+}
+
+.forbidden-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.forbidden .btn {
+  padding: 0.7rem 1.4rem;
+  border-radius: 999px;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.forbidden .btn-secondary {
+  background: transparent;
+  border: 2px solid var(--gold);
+  color: var(--gold);
 }
