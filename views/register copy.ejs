@@ -1,0 +1,110 @@
+<%- include('partials/head') %>
+<%- include('partials/header') %>
+
+<main id="main" class="page">
+  <!-- Inner hero / page header -->
+  <section class="hero hero--inner">
+    <div class="overlay"></div>
+    <header class="center">
+      <h1>Registration</h1>
+      <p class="tagline">Opening January 2026</p>
+    </header>
+  </section>
+
+  <!-- Registration details -->
+  <section id="registration" class="registration">
+    <div class="wrap">
+      <h2>How Registration Will Work</h2>
+
+      <p class="intro">
+        Youth and leaders from the <strong><%= stake %></strong> are invited to join us at
+        Tanner Youth Camp for Moroni’s Quest. Review the details below so you’re ready
+        when online registration opens.
+      </p>
+
+      <div class="grid">
+        <article>
+          <h3>Who Can Register?</h3>
+          <p>
+            Youth turning <strong>14</strong> in the 2025–26 school year up to those
+            graduating Grade 12 in 2026 who live in the <%= stake %>.
+          </p>
+          <p>
+            Adult leaders will also register through the registration process
+          </p>
+        </article>
+
+        <article>
+          <h3>What You’ll Need Ready</h3>
+          <ul class="checklist">
+            <li>Basic personal information</li>
+            <li>Parent/guardian contact details</li>
+            <li>Emergency contact information</li>
+            <li>Medical info & dietary needs</li>
+            <li>Waivers and permission forms</li>
+            <li>Ward/leader information</li>
+          </ul>
+        </article>
+
+        <article>
+          <h3>Registration Steps</h3>
+          <ol class="steps">
+            <li>Fill out the online registration form.</li>
+            <li>Print and sign all required waivers.</li>
+            <li>Return forms to your ward leaders by the deadline.</li>
+            <li>Watch for confirmation and packing details.</li>
+            <li>Attend any pre-camp firesides or info nights.</li>
+          </ol>
+        </article>
+      </div>
+    </div>
+  </section>
+
+ <section class="registration-faq">
+  <div class="wrap">
+    <h2>Registration FAQ</h2>
+
+    <ul class="faq-list">
+      <li>
+        <h3>When will registration open?</h3>
+        <p>
+          The stake will announce registration dates through ward bulletins,
+          emails, and texts. Leaders will ensure every youth knows when it’s time
+          to sign up.
+        </p>
+      </li>
+
+      <li>
+        <h3>Is there a cost?</h3>
+        <p>
+          There is currently no cost for youth of the <%= stake %>. If that 
+          changes, leaders will provide details and support options.
+        </p>
+      </li>
+
+      <li>
+        <h3>How will I know I’m registered?</h3>
+        <p>
+          After your form and waivers are received, leaders will confirm your spot
+          and share packing lists, schedules, and tribe information.
+        </p>
+      </li>
+
+      <li>
+        <h3>Who do I contact with questions?</h3>
+        <p>
+          Reach out to your ward Young Men/Young Women leaders or the stake camp
+          committee for any registration or prep questions.
+        </p>
+      </li>
+    </ul>
+  </div>
+</section>
+
+</main>
+
+<footer class="footer">
+  © <span id="year"></span> <%= title %> · <%= stake %>
+</footer>
+
+<%- include('partials/foot') %>

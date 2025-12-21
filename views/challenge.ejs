@@ -1,0 +1,154 @@
+<%- include('partials/head') %>
+<%- include('partials/header') %>
+
+<main id="main" class="page">
+  <!-- Inner hero / page header -->
+  <section class="hero hero--inner hero--prepare">
+    <div class="overlay"></div>
+    <header class="center hero__content">
+      <h1>Book of Mormon Challenge</h1>
+      <p class="tagline">One challenge each week. Simple. Doable. Powerful.</p>
+    </header>
+  </section>
+
+  <!-- BOM content -->
+  <section id="bom-challenge" class="bom">
+    <div class="prepare-intro">
+      <div class="wrap">
+        <h2 class="bom__title">Get Ready for the Stories</h2>
+                <div class="reg-shield-divider">
+          <span class="shield-icon">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 2L4 5V11C4 16.52 7.84 20.74 12 22C16.16 20.74 20 16.52 20 11V5L12 2Z"
+                    fill="#D2AA31" stroke="#D2AA31" stroke-width="1.5" />
+            </svg>
+          </span>
+        </div>
+        <p class="bom__intro">In Moroni’s Quest, the scriptures come to life. Each week, we’ll invite you to read a short Book of Mormon story so you can recognize it, understand it, and experience it more fully when you see it in person. <br><br>These weekly challenges are simple, doable, and designed to help you connect with the story before you live it.</p>
+        <div class="bom__download">
+          <a href="/downloads/book-of-mormon-challenge-guide.pdf" class="bom__downloadLink">
+            ⬇ <strong>Download the Book of Mormon Challenge Guide (PDF)</strong>
+          </a>
+          <div class="bom__downloadMeta">
+            A condensed reference of all weekly challenges
+          </div>
+        </div>
+
+
+      </div>
+    </div>
+    <section id="bom-challenge-carousel">
+      <div class="bom__nav">
+        <button class="bom__arrow" id="prevWeek" aria-label="Previous week">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M15 18L9 12L15 6"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="5"
+              stroke-linecap="square"
+              stroke-linejoin="miter" />
+          </svg>
+        </button>
+        <div class="bom__meta">
+          <div class="bom__metaLabel">Featured Weekly Challenge</div>
+          <div class="bom__metaWeek" id="weekLabel">Week 1</div>
+        </div>
+        <button class="bom__arrow" id="nextWeek" aria-label="Next week">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M9 6L15 12L9 18"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="5"
+              stroke-linecap="square"
+              stroke-linejoin="miter" />
+          </svg>
+        </button>
+      </div>
+
+      <div class="bom__viewport" aria-live="polite" tabindex="0">
+        <!-- WEEK 1 -->
+        <article class="bomCard is-active" data-week="1" data-bg="/img/bom-challenge/nephi_laman_lemuel_sam.jpeg">
+          <div class="bomCard__media" style="--card-img: url('/img/bom-challenge/nephi_laman_lemuel_sam.jpeg');"></div>
+
+          <div class="bomCard__content">
+            <div class="bomCard__top">
+              <span class="bomCard__headline">
+                <img src="/img/MQ_logo_gold_small.png" alt="Moroni’s Quest" class="bomCard__icon" />
+                Be Reconciled
+              </span>
+            </div>
+
+            <div class="bomCard__row">
+              <div class="bomCard__label">Scripture</div>
+              <div class="bomCard__value">3 Nephi 12:24</div>
+            </div>
+
+            <div class="bomCard__row">
+              <div class="bomCard__label">This Week’s Challenge</div>
+              <div class="bomCard__value">
+                Make peace with someone (a message, apology, kind act, or prayer for them).
+              </div>
+            </div>
+
+            <div class="bomCard__callout">
+              <div class="bomCard__calloutTitle">Quick Start</div>
+              <ul>
+                <li>Pick one person.</li>
+                <li>Choose one small action.</li>
+                <li>Do it before Sunday night.</li>
+              </ul>
+            </div>
+          </div>
+        </article>
+
+        <!-- WEEK 2 -->
+        <article class="bomCard" data-week="2" data-bg="/img/bom-challenge/zoram_treasury.jpeg">
+          <div class="bomCard__media" style="--card-img: url('/img/bom-challenge/zoram_treasury.jpeg');"></div>
+
+          <div class="bomCard__content">
+            <div class="bomCard__top">
+              <span class="bomCard__headline">
+                <img src="/img/MQ_logo_gold_small.png" alt="Moroni’s Quest" class="bomCard__icon" />
+                Feast on the Word
+              </span>
+            </div>
+
+            <div class="bomCard__row">
+              <div class="bomCard__label">Scripture</div>
+              <div class="bomCard__value">2 Nephi 32:3</div>
+            </div>
+
+            <div class="bomCard__row">
+              <div class="bomCard__label">This Week’s Challenge</div>
+              <div class="bomCard__value">Place a challenge here for week 2 reading challenge</div>
+            </div>
+
+            <div class="bomCard__callout">
+              <div class="bomCard__calloutTitle">Quick Start</div>
+              <ul>
+                <li>Choose your 3 days now.</li>
+                <li>Text a friend to join you.</li>
+                <li>Share one verse you liked.</li>
+              </ul>
+            </div>
+          </div>
+        </article>
+
+      </div>
+
+      <div class="bom__dots" role="tablist" aria-label="Select week">
+        <button class="bom__dot is-active" data-jump="1" aria-label="Week 1"></button>
+        <button class="bom__dot" data-jump="2" aria-label="Week 2"></button>
+        <!-- add more weeks as needed -->
+      </div>
+    </section>
+  </section>
+
+
+</main>
+
+<footer class="footer">
+  © <span id="year"></span> <%= title %> · <%= stake %>
+</footer>
+
+<%- include('partials/foot') %>

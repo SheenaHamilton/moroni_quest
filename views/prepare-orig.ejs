@@ -1,0 +1,166 @@
+<%- include('partials/head') %>
+<%- include('partials/header') %>
+
+<main id="main" class="page-wrap">
+  <h1>Prepare for Moroni’s Quest</h1>
+
+  <!-- PACKING -->
+  <section id="packing" class="card" aria-labelledby="packing-h">
+    <h2 id="packing-h">Packing List</h2>
+    <p>Label everything. Pack for outdoor weather and active days.</p>
+    <div class="grid" style="grid-template-columns: repeat(auto-fit,minmax(240px,1fr)); gap: 1rem;">
+      <article>
+        <h3>Essentials</h3>
+        <ul>
+          <li>Scriptures (with your name)</li>
+          <li>Water bottle (labeled)</li>
+          <li>Daypack / small backpack</li>
+          <li>Flashlight or headlamp</li>
+        </ul>
+      </article>
+      <article>
+        <h3>Clothing</h3>
+        <ul>
+          <li>4 days of modest, weather-appropriate clothing</li>
+          <li>Sturdy shoes + extra socks</li>
+          <li>Warm layer & rain jacket</li>
+          <li>Hat & sunscreen</li>
+        </ul>
+      </article>
+      <article>
+        <h3>Sleeping & Hygiene</h3>
+        <ul>
+          <li>Sleeping bag & pad</li>
+          <li>Toiletries & towel</li>
+          <li>Medications (turn in to nurse as directed)</li>
+        </ul>
+      </article>
+    </div>
+
+    <details style="margin-top:1rem;">
+      <summary><strong>What NOT to bring</strong></summary>
+      <ul>
+        <li>Electronics (phones, speakers, gaming devices)</li>
+        <li>Valuables or open-blade knives</li>
+        <li>Food that may trigger allergies unless approved</li>
+      </ul>
+    </details>
+
+    <p style="margin-top:1rem;">
+      <% if (packingPdfUrl) { %>
+        <a class="cta" href="<%= packingPdfUrl %>" download>Download Full Packing List (PDF)</a>
+      <% } %>
+    </p>
+  </section>
+
+  <!-- STANDARDS -->
+  <section id="standards" class="card" aria-labelledby="standards-h">
+    <h2 id="standards-h">Standards & Conduct</h2>
+    <p>We follow the standards of The Church of Jesus Christ of Latter-day Saints. Be where you should be, with your assigned family, and help create a safe, uplifting experience for everyone.</p>
+
+    <div class="grid" style="grid-template-columns: repeat(auto-fit,minmax(260px,1fr)); gap: 1rem;">
+      <article>
+        <h3>Dress & Appearance</h3>
+        <ul>
+          <li>Modest clothing suitable for active outdoor days</li>
+          <li>Closed-toe shoes for activities</li>
+          <li>Layers for warmth and rain protection</li>
+        </ul>
+      </article>
+      <article>
+        <h3>Devices</h3>
+        <ul>
+          <li>Phones and electronics stay home unless directed by leaders</li>
+          <li>Focus on the experience and your family group</li>
+        </ul>
+      </article>
+      <article>
+        <h3>Conduct</h3>
+        <ul>
+          <li>Be respectful and inclusive</li>
+          <li>Follow safety instructions</li>
+          <li>Quiet hours observed</li>
+        </ul>
+      </article>
+    </div>
+  </section>
+
+  <!-- FORMS -->
+  <section id="forms" class="card" aria-labelledby="forms-h">
+    <h2 id="forms-h">Forms</h2>
+    <p>Please complete and turn in forms before arrival. Contact leaders with any questions.</p>
+    <ul>
+      <% if (medicalFormUrl) { %>
+        <li><a href="<%= medicalFormUrl %>" download>Medical Release</a></li>
+      <% } %>
+      <% if (consentFormUrl) { %>
+        <li><a href="<%= consentFormUrl %>" download>Consent & Photo Release</a></li>
+      <% } %>
+      <% if (packingPdfUrl) { %>
+        <li><a href="<%= packingPdfUrl %>" download>Packing List</a></li>
+      <% } %>
+    </ul>
+    <% if (formsPacketUrl) { %>
+      <p><a class="cta" href="<%= formsPacketUrl %>" download>Download All Forms (PDF)</a></p>
+    <% } %>
+  </section>
+
+  <!-- LOGISTICS -->
+  <section id="logistics" class="card" aria-labelledby="logistics-h">
+    <h2 id="logistics-h">Logistics</h2>
+    <div class="grid" style="grid-template-columns: repeat(auto-fit,minmax(260px,1fr)); gap: 1rem;">
+      <article>
+        <h3>Departure</h3>
+        <p><strong>When:</strong> <%= departTime || '8:00 AM' %></p>
+        <p><strong>Where:</strong> <%= departPlace || 'Stake Center (Gym)' %></p>
+        <p><strong>Bring:</strong> Forms, labeled medications for nurse, daypack</p>
+      </article>
+      <article>
+        <h3>Return</h3>
+        <p><strong>When:</strong> <%= returnTime || '5:00 PM (Day 4)' %></p>
+        <p><strong>Where:</strong> <%= returnPlace || 'Stake Center' %></p>
+        <p>We’ll post updates if times change.</p>
+      </article>
+      <article>
+        <h3>Transportation</h3>
+        <p>Buses provided. Pack luggage as instructed; keep scriptures and water in your daypack.</p>
+      </article>
+    </div>
+    <% if (mapImageUrl) { %>
+      <figure style="margin-top:1rem;">
+        <img src="<%= mapImageUrl %>" alt="Camp layout map" loading="lazy" style="max-width:100%;height:auto;border-radius:12px;border:1px solid rgba(255,255,255,.08)">
+        <figcaption style="opacity:.85;margin-top:.4rem;">Camp layout (subject to change)</figcaption>
+      </figure>
+    <% } %>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq" class="card" aria-labelledby="faq-h">
+    <h2 id="faq-h">FAQ</h2>
+    <details>
+      <summary>Where do we sleep?</summary>
+      <p>Assignments are made by leaders. Bring a sleeping bag and pad. Follow posted quiet hours.</p>
+    </details>
+    <details>
+      <summary>Can I bring snacks?</summary>
+      <p>Yes—sealed, non-perishable snacks. Please avoid allergens as directed by leaders.</p>
+    </details>
+    <details>
+      <summary>What if I have allergies or medications?</summary>
+      <p>List these on your forms and turn medications in to the nurse at check-in.</p>
+    </details>
+  </section>
+
+  <!-- SPIRITUAL -->
+  <section id="spiritual" class="card" aria-labelledby="spiritual-h">
+    <h2 id="spiritual-h">Spiritual Preparation</h2>
+    <p>Come ready to learn, serve, and feel the Spirit. Consider reading selected chapters beforehand and praying for those in your family group.</p>
+    <ul>
+      <li>Suggested readings: Alma 32; Helaman 5; 3 Nephi 11</li>
+      <li>Daily personal prayer and simple journal notes</li>
+      <li>Think of someone you can lift during the Quest</li>
+    </ul>
+  </section>
+</main>
+
+<%- include('partials/foot') %>
