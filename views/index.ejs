@@ -17,24 +17,59 @@
   </header>
 </main>
 
-<section id="about" class="about">
+
+
+
+<section class="about" id="about">
   <div class="wrap">
     <h2>About Moroni's Quest</h2>
     <p>Moroni’s Quest is an immersive youth camp engaging participants in the stories of the Book of Mormon through theatrical experiences, teamwork, and discipleship.</p>
-    <div class="grid">
-      <article>
-        <h3>Live the Story</h3>
-        <p>Walk where heroes once stood—relive the faith, courage, and miracles of scripture.</p>
-      </article>
-      <article>
-        <h3>Embrace Your Family</h3>
-        <p>Every quest starts with a family- serve, laugh, and overcome challenges together.</p>
-      </article>
-      <article>
-        <h3>Deepen Your Faith</h3>
-        <p>As you relive the stories, find the Savior’s hand in your own.</p>
-      </article>
+<section class="mq-about-banners">
+
+  <article class="mq-banner" style="--bg:url('/img/banner_live.png')">
+    <div class="mq-banner__content">
+      <h3><span class="accent-story">LIVE</span> THE STORY</h3>
+      <p>
+        Walk where heroes once stood—relive the faith, courage, and miracles of the scriptures.
+      </p>
     </div>
+  </article>
+
+  <div class="mq-banner-divider">
+    <span></span>
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M12 2l8 4v6c0 5-3.4 9.4-8 10-4.6-.6-8-5-8-10V6l8-4z"/>
+    </svg>
+    <span></span>
+  </div>
+
+  <article class="mq-banner" style="--bg:url('/img/banner_embrace.png')">
+    <div class="mq-banner__content">
+      <h3><span class="accent-story">EMBRACE</span> YOUR FAMILY</h3>
+      <p>
+        Every quest starts with a family—serve, laugh, and overcome challenges together.
+      </p>
+    </div>
+  </article>
+
+  <div class="mq-banner-divider">
+    <span></span>
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M12 2l8 4v6c0 5-3.4 9.4-8 10-4.6-.6-8-5-8-10V6l8-4z"/>
+    </svg>
+    <span></span>
+  </div>
+
+  <article class="mq-banner" style="--bg:url('/img/banner_deepen.png')">
+    <div class="mq-banner__content">
+      <h3><span class="accent-story">DEEPEN</span> YOUR FAITH</h3>
+      <p>
+        As you relive the stories, find the Savior’s hand in your own.
+      </p>
+    </div>
+  </article>
+
+</section>
   </div>
 </section>
 
@@ -80,7 +115,7 @@
             </style>
           </div>
         </div>
-        <p class="map-note">Use your ward’s travel plan to and from camp.</p>
+        <p class="map-note">When you arrive look for the designated drop-off area.</p>
       </article>
 
       <!-- When / Cost / Eligibility -->
@@ -88,6 +123,8 @@
         <h3>When &amp; Who</h3>
         <ul class="camp-list">
           <li><strong>Dates:</strong> July 7–10, 2026</li>
+         <li><strong>Leader Check-in:</strong> July 7 at 7:30 AM (previous-night check-in available)</li>
+          <li><strong>Youth Check-in:</strong> July 7 at 9:00 AM </li>
           <li><strong>Cost:</strong> No cost for youth of the stake.</li>
         </ul>
         <h4>Eligibility</h4>
@@ -107,15 +144,10 @@
         <ul class="camp-list">
           <li>Scripture-based reenactments and dramatizations</li>
           <li>Tribe activities, challenges, and games</li>
-          <li>Discussions with leaders and friends</li>
-          <li>Meals together and evening ward gatherings</li>
+          <li>Discussions and Devotionals</li>
         </ul>
-        <p>
-          During the day, youth are placed in tribes to experience stories,
-          battles, and lessons from the Book of Mormon. In the evenings, youth
-          camp in ward areas with separate male and female camps, plus a common
-          ward gathering area for firesides and activities.
-        </p>
+        <p>During the day, youth are placed in tribes to experience stories, battles, and lessons from the Book of Mormon. </p>
+        <p>In the evenings, tribes remain together for activities and camping. Male and female youth sleep in separate tents, with leaders sleeping in separate tents within the same camping area.</p>
         <p>
           Our goal is simple: build faith in Jesus Christ, deepen love for the
           Book of Mormon, and create memories you’ll never forget.
@@ -235,6 +267,5 @@
   </div>
 </section>
 
-<footer class="footer">© <span id="year"></span> <%= title %> · <%= stake %></footer>
-
+<%- include('partials/footer') %>
 <%- include('partials/foot') %>

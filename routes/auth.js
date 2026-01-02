@@ -14,8 +14,13 @@ router.get('/callback', passport.authenticate('google', { failureRedirect: '/aut
         req.login(req.user, (err) => {
             if (err) return res.status(500).json({ message: 'Login failed' });
             req.session.user = req.user;
+
+            // Redirect back to where they were going, otherwise fallback to CLIENT_URL
+            const redirectTo = req.session.loginRedirect || process.env.CLIENT_URL;
+            delete req.session.loginRedirect;
+
             req.session.save(() => {
-                res.redirect(process.env.CLIENT_URL);
+                res.redirect(redirectTo);
             });
         });
     }

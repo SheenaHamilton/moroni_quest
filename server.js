@@ -51,6 +51,10 @@ app.use(helmet({
 
 // EJS view engine + static assets
 app.set('view engine', 'ejs');
+app.locals.title = process.env.SITE_TITLE || "Moroni’s Quest";
+app.locals.stake = process.env.STAKE_NAME || "Sherwood Park Stake";
+app.locals.campStartISO = process.env.CAMP_START_ISO || "2026-07-07T00:00:00-06:00";
+
 app.set('views', path.join(__dirname, 'views'));
 //app.use(express.static(path.join(__dirname, 'public'), { maxAge: '1d' }));
 app.use(express.static(path.join(__dirname, 'public')));

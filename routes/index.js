@@ -11,6 +11,16 @@ router.get('/', (req, res) => {
     });
 });
 
+router.get('/403', (req, res) => {
+    //#swagger.tags=['Moroni']
+    res.render('403', {
+        title: process.env.SITE_TITLE || "Moroni's Quest",
+        stake: process.env.STAKE_NAME || 'Sherwood Park Stake',
+        campStartISO: process.env.CAMP_START_ISO || '2026-07-07T00:00:00-06:00',
+        slogan: ' A Journey Through the Scriptures. Live the Stories.',
+    });
+});
+
 router.get('/register', (req, res) => {
     res.render('register', {
         title: process.env.SITE_TITLE || "Moroni’s Quest",
@@ -32,6 +42,8 @@ router.get('/challenge', (req, res) => {
 
 router.use('/youth', require('./youth'));
 router.use('/leader', require('./leader'));
+
+router.use('/leaderresources', require('./leaderresources'));
 
 router.get('/prepare', (req, res) => {
     res.render('prepare', {

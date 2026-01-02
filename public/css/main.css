@@ -12,6 +12,7 @@
   --grey: #c8c1b2cc;
   --lightgold: #f7da7e;
   --highlight1: #FFEA00;
+  --mq-dark: #070707;
 
   /* Sizing (mobile-first) */
   --container-pad: clamp(12px, 4vw, 24px);
@@ -57,7 +58,15 @@ img, svg, video { max-width: 100%; height: auto; }
 }
 
 /* Tap targets */
-a, button { min-height: var(--tap-min); }
+a, button { 
+  min-height: var(--tap-min); 
+}
+
+a { 
+  text-decoration: none;
+  cursor: pointer;
+  color: var(--gold)
+}
 
 /* Safe-area padding (iOS notch) */
 @supports (padding: max(0px)) {
@@ -224,7 +233,7 @@ a, button { min-height: var(--tap-min); }
   content: "";
   position: absolute;
   inset: 0;
-  /* background: url("/img/captain_moroni_raises_the_title_of_liberty.jpeg") center/cover no-repeat; */
+  /*background: url("/img/Abinidi.png") center/cover no-repeat; */
   filter: brightness(0.4) blur(1px);
   z-index: 0;
 }
@@ -248,11 +257,12 @@ a, button { min-height: var(--tap-min); }
 
 .about h2 {
   font-family: Cinzel, serif;
-  font-size: clamp(1.8rem, 5vw, 2.8rem);
+  font-size: clamp(1.8rem, 4vw, 2.8rem);
   color: var(--gold);
   margin: 0 0 1rem;
   letter-spacing: 0.05em;
   text-transform: uppercase;
+  text-shadow: 0 0 10px #000;
 
 }
 .about .grid h3,
@@ -265,103 +275,122 @@ a, button { min-height: var(--tap-min); }
   font-size: clamp(1rem, 2.5vw, 1.125rem);
   line-height: 1.7;
   opacity: 0.9;
-  margin: 0 auto 2rem;
+  margin: 0 auto 0.5rem;
   max-width: 65ch;
 }
 
-.about .grid {
-  display: grid;
-  gap: 1rem;
-  grid-template-columns: 1fr;  /* mobile first */
+/* Section wrapper */
+.mq-about-banners {
+  background: linear-gradient(to bottom, #090909, #050505);
 }
 
-@media (min-width: 700px) {
-  .about .grid { 
-    grid-template-columns: repeat(3, 1fr);
-    gap: 2rem;
-  }
-}
-
-.about .grid article {
+/* Full-width banner rows */
+.mq-banner {
   position: relative;
-  overflow: hidden;
-
-
-  min-height: 230px;
+  /*min-height: clamp(300px, 38vw, 420px);*/
+  width: 100%;
+  display: flex;
+  align-items: center;
+  background-image: var(--bg);
   background-size: cover;
   background-position: center;
-  background-repeat: no-repeat;
-
-  border-radius: 16px;
-  padding: 1.25rem 1.5rem;
-  box-shadow: 0 10px 24px rgba(0,0,0,0.45);
-  transition: transform 0.35s ease, box-shadow 0.35s ease;
-
-  color: #fff;
-
-  opacity: 0;
-  animation: fadeUp 0.8s ease forwards;
+  box-shadow:  0 0 30px rgba(0,0,0,.9), inset 0 0 180px rgba(0,0,0,.8);
 }
-.about .grid article:nth-child(1) { animation-delay: .1s; }
-.about .grid article:nth-child(2) { animation-delay: .25s; }
-.about .grid article:nth-child(3) { animation-delay: .4s; }
 
-
-
-.about .grid article::before {
+/* Cinematic overlays */
+.mq-banner::before {
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(to top, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.2));
-  z-index: 0;
 }
 
-
-.about .grid h3,
-.about .grid p {
+/* Text block */
+.mq-banner__content {
   position: relative;
+  max-width: 520px;
+  padding: clamp(1rem, 3vw, 2rem);
   z-index: 1;
 }
 
-/* hover effect */
-.about .grid article:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 16px 32px rgba(0,0,0,0.6);
+.mq-banner__content h3 {
+  font-family: "Cinzel", serif;
+  font-size: clamp(1.2rem, 1vw, 1.5rem);
+  letter-spacing: .05em;
+  color: var(--lightgold);
+  margin: 0 0 1rem;
+  text-transform: uppercase;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.9);
 }
 
-.about .grid article:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 10px 24px rgba(0,0,0,0.45);
+.mq-banner__content p {
+  font-family: "Inter", system-ui, sans-serif;
+  font-size: clamp(1rem, 1.4vw, 1.15rem);
+  line-height: 1.7;
+  color: rgba(255,255,255,.92);
+  max-width: 42ch;
+  text-shadow: 0 0 8px rgba(0,0,0,0.9);
 }
 
-.about .grid h3 {
-  font-family: Cinzel, serif;
-  font-size: clamp(1.25rem, 3.5vw, 1.8rem);
-  color: var(--highlight1);
-  margin-bottom: 0.75rem;
-  letter-spacing: 0.04em;
+.accent-story {
+  font-family: "Playfair Display", serif;
+  font-style: italic;
+  letter-spacing: 0em;
+  text-transform: none;
+  color: var(--gold);
+  font-size: clamp(1.5rem, 1.4vw, 1.8rem);
 }
 
-.about .grid p {
-  font-size: clamp(0.95rem, 2.4vw, 1.1rem);
-  line-height: 1.6;
-  opacity: 0.95;
+/* Gold divider with shield */
+.mq-banner-divider {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 1.2rem;
+  padding: 1rem 3rem;
+  background: var(--mq-dark);
 }
 
-/* 1 – Live the Story  */
-.about .grid article:nth-child(1) {
-  background-image: url("/img/Abinidi.png");
+.mq-banner-divider span {
+  height: 2px;
+  background: linear-gradient(
+    to right,
+    rgba(212,175,55,0),
+    rgba(212,175,55,.55),
+    rgba(212,175,55,0)
+  );
 }
 
-/* 2 – Embrace Your Family  */
-.about .grid article:nth-child(2) {
-  background-image: url("/img/tribe-gathering.png");
+.mq-banner-divider svg {
+  width: 22px;
+  height: 22px;
+  fill: var(--gold);
+  opacity: 1;
 }
 
-/* 3 – Deepen Your Faith  */
-.about .grid article:nth-child(3) {
-  background-image: url("/img/stripling-warriers.png");
+/* Responsive */
+@media (max-width: 500px) {
+  .mq-banner {
+    background-position: right;
+    background-size: auto 100%;
+    /*box-shadow:  0 0 180px rgba(0,0,0,.8), inset 0 0 180px rgba(0,0,0,.5);
+    box-shadow: inset 0 -120px 160px rgba(0,0,0,.75);*/
+    min-height: clamp(150px, 38vw, 160px);
+    align-items: end;
+  }
+
+  .mq-banner__content h3 {
+    text-align: left;
+    margin: 0;
+  }
+
+  .mq-banner__content p {
+    text-align: left;
+    margin-block-start: 0;
+    margin-block-end: 0;
+  }
+
 }
+
 
 /* ===== Light camp details section ===== */
 .camp-details {
@@ -548,9 +577,11 @@ a, button { min-height: var(--tap-min); }
 .menu {
   display: none; /* mobile hidden by default */
   position: absolute; right: 1rem; top: calc(100% + 8px);
-  padding: .6rem; background: rgba(0,0,0,.90); backdrop-filter: blur(8px);
+  padding: .6rem; background: rgba(0,0,0,.90); 
   border: 1px solid rgba(255,255,255,.08); border-radius: 12px;
   min-width: 240px;
+
+  align-items: center;
 }
 .menu.is-open { display: grid; gap: 6px; }
 
@@ -919,7 +950,30 @@ body.nav-open { overflow: hidden; }
   line-height: 1.5;
 }
 
+.dropoff-map {
+  margin-top: 1.25rem;
+  text-align: center;
+}
+
+.dropoff-map img {
+  width: 100%;
+  max-width: 920px;
+  height: auto;
+  border-radius: 14px;
+  border: 1px solid rgba(255,255,255,0.12);
+  box-shadow: 0 10px 22px rgba(0,0,0,0.35);
+}
+
+.dropoff-map figcaption {
+  margin-top: 0.5rem;
+  font-size: 0.92rem;
+  opacity: 0.85;
+  color: black;
+}
+
+
 /* Details / FAQ styling */
+
 .prepare-details,
 .prepare-faq details {
   margin-top: 0.9rem;
@@ -1149,7 +1203,9 @@ body.nav-open { overflow: hidden; }
   opacity: 0.85;
   margin-bottom: 0.2rem;
 }
-
+#dropoff .section-tag {
+  color: black;
+}
 #prepare #standards .block-intro {
   margin-bottom: 1.2rem;
   line-height: 1.6;
@@ -1192,6 +1248,10 @@ body.nav-open { overflow: hidden; }
 .bom {
   padding: 2rem 0 0 0;
   background: #f8f5ef;
+}
+
+.hero--bom {
+  background-image: url("/img/brass_plates.jpeg");
 }
 
 .bom__title {
@@ -1487,4 +1547,394 @@ body.nav-open { overflow: hidden; }
   margin-top: .35rem;
   font-size: .9rem;
   color: rgba(0,0,0,.65);
+}
+
+/* ===== Leader Resources ===== */
+.leader-resources {
+  padding: 1rem 1rem;
+  background: #f8f5ef; /* parchment */
+}
+
+.leader-resources .wrap {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.leader-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.leader-header h1 {
+  font-family: Cinzel, serif;
+  color: var(--gold);
+  margin-bottom: 0.5rem;
+}
+
+.leader-subtitle {
+  font-weight: 600;
+  color: var(--bg1);
+}
+
+.resource-section {
+  margin-bottom: 4rem;
+}
+
+.resource-section h2 {
+  font-family: Cinzel, serif;
+  color: var(--gold);
+  margin-bottom: 1.5rem;
+}
+
+/* Documents */
+.doc-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.25rem;
+}
+
+.doc-card {
+  background: white;
+  border: 1px solid rgba(0,0,0,.08);
+  border-radius: 10px;
+  padding: 1.25rem;
+  text-decoration: none;
+  color: inherit;
+  transition: transform .15s ease, box-shadow .15s ease;
+}
+
+.doc-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(0,0,0,.12);
+}
+
+.doc-card h3 {
+  margin-top: 0;
+  color: var(--bg1);
+}
+
+.doc-card p {
+  font-size: 0.95rem;
+  opacity: 0.9;
+}
+
+.doc-link {
+  display: inline-block;
+  margin-top: 0.75rem;
+  color: var(--gold);
+  font-weight: 600;
+}
+
+/* Images */
+.image-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.25rem;
+}
+
+.image-card {
+  background: white;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid rgba(0,0,0,.08);
+}
+
+.image-card img {
+  width: 100%;
+  display: block;
+}
+
+.image-card figcaption {
+  padding: 0.75rem;
+  text-align: center;
+  font-weight: 600;
+  background: #faf7f1;
+}
+
+/* Empty state */
+.empty-state {
+  font-style: italic;
+  opacity: 0.7;
+}
+
+/*Leader Resources Page*/
+.hero--leaders {
+  background-image: url("/img/nephite_scribes.jpg");
+  background-size: cover;
+  background-position: center;
+}
+/* ===== Document list (single-line rows) ===== */
+.doc-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid rgba(0,0,0,.1);
+}
+
+.doc-row {
+  border-bottom: 1px solid rgba(0,0,0,.1);
+}
+
+.doc-link-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem 0.5rem;
+  text-decoration: none;
+  color: inherit;
+  transition: background .15s ease;
+}
+
+.doc-link-row:hover {
+  background: rgba(212,175,55,.08); /* gold tint */
+}
+
+.doc-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.doc-title {
+  color: var(--bg1);
+  font-weight: 600;
+}
+
+.doc-description {
+  font-size: 0.9rem;
+  opacity: 0.8;
+  color: black;
+}
+
+.doc-action {
+  color: var(--gold);
+  font-weight: 600;
+  white-space: nowrap;
+}
+.embed-frame {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9; /* looks like a photo */
+  background: #eee;
+}
+
+.embed-frame iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+/* Make the card behave predictably */
+.image-card {
+  background: white;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid rgba(0,0,0,.08);
+}
+
+/* This defines the "photo area" height */
+.image-card .media {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;   /* change to 4/3 if you prefer */
+  background: #eee;
+}
+
+/* Images fill the media area */
+.image-card .media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Iframe fills the media area */
+.image-card .media iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  display: block;
+}
+
+/* caption stays consistent */
+.image-card figcaption {
+  padding: 0.75rem;
+  text-align: center;
+  font-weight: 600;
+  background: white;
+  color: black
+}
+
+/* Clickable image media */
+.media-btn {
+  position: relative;
+  border: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  cursor: pointer;
+  display: block;
+}
+
+.media-zoom {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  background: rgba(0,0,0,.55);
+  color: #fff;
+  padding: 0.35rem 0.6rem;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 0.85rem;
+}
+
+/* Map "open" link overlay */
+.media-open {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  background: rgba(0,0,0,.55);
+  color: #fff;
+  padding: 0.35rem 0.6rem;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 0.85rem;
+  text-decoration: none;
+  z-index: 2;
+}
+/* Lightbox */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  display: none;
+  z-index: 9999;
+}
+
+.lightbox.is-open { display: block; }
+
+.lightbox__backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,.75);
+}
+
+/* Panel */
+.lightbox__panel {
+  position: absolute;
+  inset: 5%;
+  background: #111;
+  border-radius: 12px;
+  overflow: hidden;           /* OK for rounded corners */
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 30px 80px rgba(0,0,0,.45);
+}
+
+.lightbox__close {
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  z-index: 2;
+  border: 0;
+  background: rgba(255,255,255,.12);
+  color: #fff;
+  width: 40px;
+  height: 40px;
+  border-radius: 999px;
+  cursor: pointer;
+  font-size: 18px;
+}
+
+/* Content area = remaining height after caption */
+.lightbox__content {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #000;
+  overflow: hidden;           /* prevents scrolling */
+  padding: 0;                 /* remove padding so it can truly fit */
+}
+
+/* THIS is the key: fit image fully, no crop, no scroll */
+.lightbox__content img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;        /* shows whole image */
+  display: block;
+}
+
+/* Caption stays at bottom */
+.lightbox__caption {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.9rem 1rem;
+  color: #fff;
+  background: rgba(0,0,0,.55);
+}
+
+.lightbox__caption a {
+  color: #fff;
+  font-weight: 600;
+  text-decoration: none;
+  opacity: 0.9;
+}
+.lightbox__caption a:hover { opacity: 1; }
+
+@media (max-width: 700px) {
+  .lightbox__panel { inset: 3%; }
+}
+
+/*403 Page*/
+/* ===== 403 Forbidden Page ===== */
+.forbidden {
+  padding: 5rem 1rem;
+  background: #f8f5ef;
+  text-align: center;
+}
+
+.forbidden h1 {
+  font-family: Cinzel, serif;
+  color: var(--gold);
+  margin-bottom: 1rem;
+}
+
+.forbidden-message {
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--bg1);
+  margin-bottom: 0.75rem;
+}
+
+.forbidden-subtext {
+  opacity: 0.85;
+  max-width: 520px;
+  margin: 0 auto 2rem;
+}
+
+.forbidden-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.forbidden .btn {
+  padding: 0.7rem 1.4rem;
+  border-radius: 999px;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.forbidden .btn-secondary {
+  background: transparent;
+  border: 2px solid var(--gold);
+  color: var(--gold);
 }
