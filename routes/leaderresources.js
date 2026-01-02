@@ -19,6 +19,11 @@ router.get("/", requireLeader, (req, res) => {
                 title: "Program Guide",
                 description: "Schedules, Activities, Sets",
                 url: "https://docs.google.com/spreadsheets/d/1lwBc5oUHqbNCxd97FQZbjxjVsCMX4-FO8csQ2YN9X8I/edit?usp=sharing"
+            },
+            {
+                title: "Logistics",
+                description: "For support, expectations and requests",
+                url: "https://docs.google.com/spreadsheets/d/1u3bvdSgWn9Na3qznM8KwBW7y_J27OTpv_xpxyREMEzs/edit?usp=sharing"
             }
         ],
         images: [
@@ -31,6 +36,11 @@ router.get("/", requireLeader, (req, res) => {
                 type: "image",
                 title: "Quest Map",
                 src: "img/questMap.png"
+            },
+            {
+                type: "image",
+                title: "Drop-off Map",
+                src: "img/Dropoff.png"
             }
         ]
     };
