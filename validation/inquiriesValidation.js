@@ -34,7 +34,7 @@ validate.validateInquiry = () => {
             .withMessage('Email is required.')
             .isEmail()
             .withMessage('Must be a valid email address.')
-            .normalizeEmail(),
+            .normalizeEmail({ gmail_remove_dots: false }),
 
         body('phone')
             .optional({ checkFalsy: true })
@@ -75,13 +75,8 @@ validate.checkInquiryValidation = async (req, res, next) => {
     let errors = [];
     errors = validationResult(req);
     if (!errors.isEmpty()) {
-        console.error('Error checkInquiryValidation:', errors);
-        res.status(400).json({
-            message:
-                'We encountered an error validating inquiry data: ' +
-                errors.array()[0].msg,
-        });
-        return;
+        req.validationErrors = errors.array();
+        return next();
     }
     next();
 };

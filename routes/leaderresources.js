@@ -1,8 +1,8 @@
 const router = require('express').Router();
 const { requireLeader } = require("../middleware/pageAuth");
+const inquiriesService = require('../services/inquiriesService');
 
-
-router.get("/", requireLeader, (req, res) => {
+router.get("/", requireLeader, async (req, res) => {
     const resources = {
         documents: [
             {
@@ -45,12 +45,11 @@ router.get("/", requireLeader, (req, res) => {
         ]
     };
 
+    const newInquiryCount = await inquiriesService.countByStatus('new');
+
     res.render("leaders/resources", {
-        user: req.session.user,
-        title: process.env.SITE_TITLE || "Moroni’s Quest",
-        stake: process.env.STAKE_NAME || 'Sherwood Park Stake',
-        campStartISO: process.env.CAMP_START_ISO || '2026-07-07T00:00:00-06:00',
-        resources
+        resources,
+        newInquiryCount
     });
 });
 
