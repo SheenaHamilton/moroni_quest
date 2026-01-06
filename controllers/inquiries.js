@@ -1,6 +1,15 @@
 const mongodb = require('../data/database');
 const ObjectId = require('mongodb').ObjectId;
 
+const renderInquiryForm = (req, res) => {
+    res.render('inquiries', {
+        success: req.query.success === '1',
+        error: req.query.error || null,
+        errors: null,
+        form: null
+    });
+};
+
 // Get all inquiries
 const getAllInquiries = async (req, res) => {
     //#swagger.tags=['Inquiries']
@@ -56,17 +65,46 @@ const getInquiriesByStatus = async (req, res) => {
     }
 };
 
-// Create new inquiry
+// Get inquiries count by status
+const getInquiriesCountByStatus = async (req, res) => {
+    //#swagger.tags=['Inquiries']
+    try {
+        const status = req.params.status;
+        const count = await mongodb
+            .getDatabase()
+            .db()
+            .collection('inquiries')
+            .countDocuments({ status });
+
+        res.setHeader('Content-Type', 'application/json');
+        res.status(200).json({ status, count });
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+};
+
+
+// Create new inquiry (used by public form)
 const createInquiry = async (req, res) => {
     //#swagger.tags=['Inquiries']
     try {
+        // If validation middleware attached errors for render
+        if (req.validationErrors?.length) {
+            return res.status(400).render('inquiries', {
+                success: false,
+                error: null,
+                errors: req.validationErrors,
+                form: req.body
+            });
+        }
+
         const inquiry = {
             name: req.body.name,
             email: req.body.email,
             phone: req.body.phone,
             subject: req.body.subject,
             message: req.body.message,
-            status: req.body.status || 'pending',
+            status: 'new',
             createdAt: new Date(),
         };
         const result = await mongodb
@@ -75,15 +113,24 @@ const createInquiry = async (req, res) => {
             .collection('inquiries')
             .insertOne(inquiry);
         if (result.acknowledged) {
-            res.status(201).json({
-                message: 'Inquiry created successfully',
-                id: result.insertedId,
-            });
-        } else {
-            res.status(500).json({ message: 'Error creating inquiry' });
+            //  redirect back to the same page with a success banner
+            return res.redirect('/inquiries?success=1');
         }
+
+        return res.status(500).render('inquiries', {
+            success: false,
+            error: 'Error creating inquiry. Please try again.',
+            errors: null,
+            form: req.body
+        });
     } catch (err) {
-        res.status(500).json({ message: err.message });
+        console.error(err);
+        return res.status(500).render('inquiries', {
+            success: false,
+            error: 'Something went wrong. Please try again.',
+            errors: null,
+            form: req.body
+        });
     }
 };
 
@@ -137,9 +184,11 @@ const deleteInquiry = async (req, res) => {
 };
 
 module.exports = {
+    renderInquiryForm,
     getAllInquiries,
     getInquiryById,
     getInquiriesByStatus,
+    getInquiriesCountByStatus,
     createInquiry,
     updateInquiry,
     deleteInquiry,

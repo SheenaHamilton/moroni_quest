@@ -12,8 +12,44 @@
     </section>
 
 
+    
     <section class="leader-resources">
     <div class="wrap">
+
+      <section class="leader-directory">
+        <div class="container">
+          <div class="leader-directory__grid">
+
+            <!-- Inquiries -->
+          <a href="/leaders/inquiries" class="leader-card">
+            <div class="leader-card__icon">📥</div>
+            <div class="leader-card__content">
+              <h3 class="leader-card__title">
+                Inquiries
+              </h3>
+              <p>View and respond to questions submitted by parents and youth.</p>
+
+            </div>
+            <div>   
+                <% if ((newInquiryCount || 0) > 0) { %>
+                  <span class="badge-count"><%= newInquiryCount %></span>
+                <% } %>
+            </div>
+          </a>
+
+
+            <!-- Existing / future items -->
+            <a href="/leaderresources/registrations" class="leader-card">
+              <div class="leader-card__icon">📄</div>
+              <div class="leader-card__content">
+                <h3 class="leader-card__title">Registrations</h3>
+                <p>Youth and Leader registrations</p>
+              </div>
+            </a>
+
+          </div>
+        </div>
+      </section>
 
         <!-- DOCUMENTS -->
         <section class="resource-section">
