@@ -10,15 +10,7 @@
     </header>
   </section>
 
-  <% if (errors && errors.length) { %>
-  <div class="alert alert--error">
-    <ul>
-      <% errors.forEach(e => { %>
-        <li><%= e.msg %></li>
-      <% }) %>
-    </ul>
-  </div>
-<% } %>
+
 
   <section id="inquiries">
 
@@ -33,7 +25,15 @@
       <%= error %>
     </div>
   <% } %>
-
+  <% if (errors && errors.length) { %>
+  <div class="alert alert--error">
+    <ul>
+      <% errors.forEach(e => { %>
+        <li><%= e.msg %></li>
+      <% }) %>
+    </ul>
+  </div>
+<% } %>
     <div class="container">
       <div class="inquiries-grid">
         <div class="inquiries-card">
@@ -152,3 +152,4 @@
 </script>
 
 <%- include('partials/footer') %>
+<%- include('partials/foot') %>

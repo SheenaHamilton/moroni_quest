@@ -1,0 +1,140 @@
+   <section id="bom-challenge-carousel">
+      <div class="bom__nav">
+        <button class="bom__arrow" id="prevWeek" aria-label="Previous week">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M15 18L9 12L15 6"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="5"
+              stroke-linecap="square"
+              stroke-linejoin="miter" />
+          </svg>
+        </button>
+        <div class="bom__meta">
+          <div class="bom__metaLabel">Featured Weekly Challenge</div>
+          <div class="bom__metaWeek" id="weekLabel">Week 1</div>
+        </div>
+        <button class="bom__arrow" id="nextWeek" aria-label="Next week">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M9 6L15 12L9 18"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="5"
+              stroke-linecap="square"
+              stroke-linejoin="miter" />
+          </svg>
+        </button>
+      </div>
+
+      <div class="bom__viewport" aria-live="polite" tabindex="0">
+        <!-- WEEK 1 -->
+        <article class="bomCard is-active" data-week="1" data-bg="/img/bom-challenge/nephi_laman_lemuel_sam.jpeg">
+          <div class="bomCard__media" style="--card-img: url('/img/bom-challenge/nephi_laman_lemuel_sam.jpeg');"></div>
+
+          <div class="bomCard__content">
+            <div class="bomCard__top">
+              <span class="bomCard__headline">
+                <img src="/img/MQ_logo_gold_small.png" alt="Moroni’s Quest" class="bomCard__icon" />
+                Into the Desert
+              </span>
+            </div>
+
+            <div class="bomCard__row">
+              <div class="bomCard__label">Scripture</div>
+              <div class="bomCard__value">1 Nephi 1:4-7, 18-20, 2:1-7</div>
+            </div>
+
+            <div class="bomCard__row">
+              <div class="bomCard__label">This Week’s Challenge</div>
+              <div class="bomCard__value">
+                Start and account like Nephi and Lehi did by writing down your testimony in your journal!
+              </div>
+            </div>
+
+            <div class="bomCard__callout">
+              <div class="bomCard__calloutTitle">Quick Start</div>
+              <ul>
+                <li>Pray and think about what you believe</li>
+                <li>Write why you believe in Jesus Christ</li>
+                <li>Record one experience that strengthened your faith</li>
+              </ul>
+            </div>
+          </div>
+        </article>
+
+        <!-- WEEK 2 -->
+        <article class="bomCard" data-week="2" data-bg="/img/bom-challenge/zoram_treasury.jpeg">
+          <div class="bomCard__media" style="--card-img: url('/img/bom-challenge/zoram_treasury.jpeg');"></div>
+
+          <div class="bomCard__content">
+            <div class="bomCard__top">
+              <span class="bomCard__headline">
+                <img src="/img/MQ_logo_gold_small.png" alt="Moroni’s Quest" class="bomCard__icon" />
+                The Plates of Brass
+              </span>
+            </div>
+
+            <div class="bomCard__row">
+              <div class="bomCard__label">Scripture</div>
+              <div class="bomCard__value">1 Nephi 3 & 4</div>
+            </div>
+
+            <div class="bomCard__row">
+              <div class="bomCard__label">This Week’s Challenge</div>
+              <div class="bomCard__value">Learn about one of your ancestors and write an account of them in your journal (Like the Brass Plates)!</div>
+            </div>
+
+            <div class="bomCard__callout">
+              <div class="bomCard__calloutTitle">Quick Start</div>
+              <ul>
+                <li>Ask a family member or search your tree to learn about an ancestor</li>
+                <li>Write a short account (a few sentences is enough)</li>
+                <li>Include one thing you admire or want to remember</li>
+              </ul>
+            </div>
+          </div>
+        </article>
+
+        <!-- WEEK 3 -->
+        <article class="bomCard" data-week="3" data-bg="/img/bom-challenge/lehi_liahonanephi.jpeg">
+          <div class="bomCard__media" style="--card-img: url('/img/bom-challenge/lehi_liahonanephi.jpeg');"></div>
+
+          <div class="bomCard__content">
+            <div class="bomCard__top">
+              <span class="bomCard__headline">
+                <img src="/img/MQ_logo_gold_small.png" alt="Moroni’s Quest" class="bomCard__icon" />
+                The Liahona & Nephi’s Bow
+              </span>
+            </div>
+
+            <div class="bomCard__row">
+              <div class="bomCard__label">Scripture</div>
+              <div class="bomCard__value">1 Nephi 16:9-10, 16-32</div>
+            </div>
+
+            <div class="bomCard__row">
+              <div class="bomCard__label">This Week’s Challenge</div>
+              <div class="bomCard__value">Start a fast (on fast Sunday, or any other day of your choosing) after having prayed to know who or what to fast for!</div>
+            </div>
+
+            <div class="bomCard__callout">
+              <div class="bomCard__calloutTitle">Quick Start</div>
+              <ul>
+                <li>Pray and ask Heavenly Father what to fast for</li>
+                <li>Keep your fast sincere</li>
+                <li>End with a prayer of gratitude</li>
+                <li>Make a journal note of your experience</li>
+              </ul>
+            </div>
+          </div>
+        </article>
+
+      </div>
+
+      <div class="bom__dots" role="tablist" aria-label="Select week">
+        <button class="bom__dot is-active" data-jump="1" aria-label="Week 1"></button>
+        <button class="bom__dot" data-jump="2" aria-label="Week 2"></button>
+        <button class="bom__dot" data-jump="3" aria-label="Week 3"></button>
+        <!-- add more weeks as needed -->
+      </div>
+    </section>
