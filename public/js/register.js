@@ -1,3 +1,16 @@
+// public/js/registration-form.js
+// Handles:
+// - Registration type toggle (youth vs leader)
+// - Conditional panels (diet, allergies, meds, self-administer, conditions, surgery, lodging)
+// Requires:
+// - Youth section has class .reg-card--youth
+// - Leader section has class .reg-card--leader
+// - Conditional panels have IDs: diet-details, allergies-details, medications-details, administer-details,
+//   health-conditions-details, surgery-details, lodging-details
+// - Conditional radios use: data-toggle + data-toggle-value ("yes"/"no")
+// - Lodging select uses: data-toggle="lodging"
+// - Fields that should become required when a panel is visible have: data-req-when-visible
+
 (() => {
     const form = document.getElementById("registration-form");
     if (!form) return;
@@ -32,10 +45,10 @@
         });
     }
 
+    // Disable hidden sections so required fields don't block submit and values aren't submitted
     function disableControlsInside(el, disabled) {
         if (!el) return;
         qsa("input, select, textarea, button", el).forEach((c) => {
-            // Don't disable submit buttons that might be inside (unlikely, but safe)
             if (c.type === "submit") return;
             c.disabled = !!disabled;
         });
@@ -62,7 +75,7 @@
         disableControlsInside(youthSection, !isYouth);
         disableControlsInside(leaderSection, !isLeader);
 
-        // Optional: clear hidden section values to avoid stale data
+        // Clear hidden section values to avoid stale data submission
         if (isYouth && leaderSection) resetValuesInside(leaderSection);
         if (isLeader && youthSection) resetValuesInside(youthSection);
     }
@@ -86,6 +99,7 @@
         const val = target.getAttribute("data-toggle-value");
         if (!key || !val) return;
 
+        // Our pattern uses yes/no radios
         showPanel(key, val === "yes");
     }
 
@@ -99,29 +113,41 @@
     form.addEventListener("change", (e) => {
         const t = e.target;
 
+        // Registration type
         if (t.matches('input[name="registration_type"]')) {
             applyRegistrationType(t.value);
             return;
         }
 
+        // Yes/No radios with data-toggle attributes
         if (t.matches("input[type='radio'][data-toggle][data-toggle-value]")) {
             handleToggleInput(t);
             return;
         }
 
+        // Lodging dropdown
         handleLodgingSelect(t);
     });
 
     // --- Initialize state (in case browser restores values) ---
     const initialType = qs('input[name="registration_type"]:checked', form)?.value;
-    if (initialType) applyRegistrationType(initialType);
-    else {
-        // default: keep both hidden/disabled until user chooses
-        if (youthSection) { setHidden(youthSection, true); disableControlsInside(youthSection, true); }
-        if (leaderSection) { setHidden(leaderSection, true); disableControlsInside(leaderSection, true); }
+    if (initialType) {
+        applyRegistrationType(initialType);
+    } else {
+        // Default: keep both hidden/disabled until user chooses
+        if (youthSection) {
+            setHidden(youthSection, true);
+            disableControlsInside(youthSection, true);
+        }
+        if (leaderSection) {
+            setHidden(leaderSection, true);
+            disableControlsInside(leaderSection, true);
+        }
     }
 
+    // Initialize conditional panels based on any pre-checked radios/selects
     qsa("input[type='radio'][data-toggle][data-toggle-value]:checked", form).forEach(handleToggleInput);
+
     const lodgingSelect = qs('select[data-toggle="lodging"]', form);
     if (lodgingSelect) handleLodgingSelect(lodgingSelect);
 })();

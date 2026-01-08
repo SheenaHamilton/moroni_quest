@@ -918,6 +918,463 @@ body.nav-open { overflow: hidden; }
   text-align: right;
 }
 
+/* =========================================================
+   Moroni’s Quest – Registration Form CSS (Mobile-first)
+   - Mobile friendly spacing + type
+   - Big tap targets
+   - Larger radios/checkboxes
+   - Cards + dividers + callouts
+========================================================= */
+
+/* ---------- Utility ---------- */
+.is-hidden { display: none !important; }
+
+.required {
+  color: #D2AA31;
+  margin-left: 0.2em;
+  font-weight: 700;
+}
+
+.help-text {
+  font-size: 0.95rem;
+  color: #666;
+  margin-top: 0.45rem;
+  line-height: 1.35;
+}
+
+/* ---------- Form wrapper ---------- */
+.registration-form {
+  margin-top: 1.75rem;
+}
+
+/* ---------- Cards ---------- */
+.reg-card {
+  background: #fff;
+  border-radius: 16px;
+  padding: 1.25rem;
+  margin: 0 0 1.25rem;
+  box-shadow: 0 10px 26px rgba(0,0,0,0.08);
+}
+
+@media (min-width: 720px) {
+  .reg-card {
+    padding: 2rem;
+    margin-bottom: 1.75rem;
+    border-radius: 18px;
+  }
+}
+
+.reg-card__header {
+  margin-bottom: 1rem;
+}
+
+.reg-card__header h3 {
+  margin: 0 0 0.3rem;
+  font-size: 1.25rem;
+  line-height: 1.15;
+}
+
+.reg-card__header p {
+  margin: 0;
+  color: #555;
+  font-size: 1rem;
+  line-height: 1.35;
+}
+
+/* Optional left accent for youth/leader/final */
+.reg-card--youth { border-left: 6px solid #3a6f56; }
+.reg-card--leader { border-left: 6px solid #2f4b6e; }
+.reg-card--final { border-left: 6px solid #D2AA31; }
+
+/* ---------- Layout ---------- */
+.reg-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+@media (min-width: 720px) {
+  .reg-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.25rem;
+  }
+}
+
+.form-stack > * + * { margin-top: 1rem; }
+
+.form-row {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+@media (min-width: 520px) {
+  .form-row {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 1rem 1.5rem;
+  }
+}
+
+/* ---------- Inputs ---------- */
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group label {
+  font-weight: 700;
+  margin-bottom: 0.45rem;
+  font-size: 1rem;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  width: 100%;
+  padding: 0.95rem 1rem;          /* bigger tap target */
+  font-size: 1.05rem;             /* mobile-friendly */
+  border-radius: 12px;
+  border: 1px solid #cfcfcf;
+  background: #fff;
+  font-family: inherit;
+  line-height: 1.2;
+  color: black;
+}
+
+/* Prevent iOS zoom-on-focus by keeping >= 16px */
+@media (max-width: 719px) {
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    font-size: 16px;
+  }
+}
+
+.form-group textarea {
+  min-height: 110px;
+  resize: vertical;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: #D2AA31;
+  box-shadow: 0 0 0 4px rgba(210,170,49,0.20);
+}
+
+/* ---------- Fieldsets ---------- */
+.form-fieldset {
+  border: 0;
+  padding: 0;
+  margin: 0;
+}
+
+.form-fieldset legend {
+  font-weight: 800;
+  font-size: 1rem;
+  margin-bottom: 0.75rem;
+  color: black;
+}
+
+
+/* ---------- Big radios + checkboxes ---------- */
+/* Use accent-color for modern browsers, plus larger hit area via label padding */
+.choice {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-weight: 650;
+  cursor: pointer;
+  padding: 0.75rem 0.85rem;        /* big tap target */
+  border-radius: 14px;
+  background: #f7f7f7;
+  border: 1px solid #e6e6e6;
+  user-select: none;
+}
+
+.choice:hover {
+  border-color: #d7c58a;
+}
+
+.choice input {
+  width: 22px;
+  height: 22px;                   /* bigger */
+  accent-color: #D2AA31;
+  flex: 0 0 auto;
+}
+
+@media (min-width: 720px) {
+  .choice input {
+    width: 20px;
+    height: 20px;
+  }
+}
+
+/* Checkbox labels align nicely when text wraps */
+.choice--checkbox {
+  align-items: flex-start;
+}
+
+.choice--checkbox input {
+  margin-top: 0.25rem;
+}
+
+/* Make the radio/checkbox rows feel like options */
+.form-row .choice {
+  flex: 1 1 auto;
+  min-width: 160px;
+}
+
+/* Selected state (pure CSS) */
+.choice:has(input:checked) {
+  background: #fff;
+  border-color: #D2AA31;
+  box-shadow: 0 0 0 3px rgba(210,170,49,0.12);
+}
+
+/* Fallback if :has isn't supported — still looks fine, just no selected highlight */
+
+/* ---------- Subcard (nested) ---------- */
+.form-subcard {
+  margin-top: 1rem;
+  padding: 1rem;
+  border-radius: 14px;
+  background: #f4f4f4;
+  border: 1px solid #e6e6e6;
+}
+
+.subcard-title {
+  font-weight: 800;
+  margin: 0 0 0.6rem;
+}
+
+/* ---------- Dividers / Callouts ---------- */
+.reg-divider {
+  border: 0;
+  height: 1px;
+  background: linear-gradient(to right, transparent, #D2AA31, transparent);
+  margin: 1.5rem 0;
+}
+
+@media (min-width: 720px) {
+  .reg-divider { margin: 2rem 0; }
+}
+
+.callout {
+  padding: 1rem 1.1rem;
+  border-radius: 14px;
+  background: #f5f1e6;
+  border: 1px solid rgba(210,170,49,0.25);
+}
+
+.callout__title {
+  font-weight: 900;
+  margin: 0 0 0.25rem;
+  color:var(--gold);
+}
+
+.callout__text {
+  margin: 0;
+  line-height: 1.4;
+  color: black;
+  
+}
+
+/* ---------- Review note ---------- */
+.review-note {
+  background: #f9f9f9;
+  border-left: 5px solid #D2AA31;
+  padding: 1rem 1.1rem;
+  border-radius: 14px;
+  font-size: 1rem;
+  line-height: 1.4;
+  color: black;
+  font-weight: bold;
+}
+
+/* ---------- Buttons ---------- */
+.form-actions {
+  margin-top: 1.5rem;
+  text-align: center;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.95rem 1.5rem;
+  font-size: 1.05rem;
+  border-radius: 12px;
+  border: none;
+  cursor: pointer;
+  font-weight: 800;
+  font-family: inherit;
+  min-height: 48px;               /* mobile tap target */
+}
+
+.btn--primary {
+  background: linear-gradient(135deg, #D2AA31, #B89627);
+  color: #161616;
+}
+
+.btn--primary:hover { filter: brightness(1.04); }
+.btn--primary:active { transform: translateY(1px); }
+
+.btn--large {
+  width: 100%;
+}
+
+@media (min-width: 520px) {
+  .btn--large {
+    width: auto;
+    padding-left: 2.25rem;
+    padding-right: 2.25rem;
+  }
+}
+
+/* ---------- Disabled states ---------- */
+input:disabled,
+select:disabled,
+textarea:disabled,
+button:disabled {
+  background: #efefef;
+  color: #777;
+  cursor: not-allowed;
+}
+
+/* Optional: slightly dim disabled choice tiles */
+.choice:has(input:disabled) {
+  opacity: 0.65;
+}
+
+/* =========================================
+   MQ ABOUT-STYLE SECTION HEADERS
+========================================= */
+
+.reg-card__header {
+  position: relative;
+  margin: -1.25rem -1.25rem 1.25rem;
+  padding: 1.25rem 1.25rem;
+  border-radius: 16px 16px 0 0;
+  overflow: hidden;
+
+  /* Base dark */
+  background: black;
+  color: var(--lightgold);
+}
+
+@media (min-width: 720px) {
+  .reg-card__header {
+    margin: -2rem -2rem 1.75rem;
+    padding: 1.5rem 2rem;
+    border-radius: 18px 18px 0 0;
+  }
+}
+
+/* Dark overlay layer (matches .about::after vibe) */
+.reg-card__header::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    circle at left top,
+    rgba(123, 116, 59, 0.9) 0%,
+    rgba(0, 0, 0, 0.85) 100%
+  );
+  z-index: 0;
+}
+
+/* Header content above overlays */
+.reg-card__header > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* Gold heading */
+.reg-card__header h3 {
+  margin: 0 0 0.25rem;
+  font-size: 1.3rem;
+  letter-spacing: 0.02em;
+  font-family: Cinzel, serif;
+  text-shadow: 0 0 8px rgba(0, 0, 0, 0.9);
+}
+
+/* Supporting text */
+.reg-card__header p {
+  margin: 0;
+  font-size: 0.95rem;
+  color: rgba(255,255,255,0.85);
+  line-height: 1.4;
+}
+
+/* =========================================
+   SUBTLE VARIANTS (OPTIONAL, MQ-CONSISTENT)
+========================================= */
+
+/* Youth */
+.reg-card--youth .reg-card__header::after {
+  background: radial-gradient(
+    circle at center top,
+    rgba(90, 160, 120, 0.18) 0%,
+    rgba(0, 0, 0, 0.85) 100%
+  );
+}
+
+/* Leader */
+.reg-card--leader .reg-card__header::after {
+  background: radial-gradient(
+    circle at center top,
+    rgba(90, 120, 180, 0.18) 0%,
+    rgba(0, 0, 0, 0.85) 100%
+  );
+}
+
+/* Final confirmation */
+.reg-card--final .reg-card__header::after {
+  background: radial-gradient(
+    circle at center top,
+    rgba(212, 175, 55, 0.22) 0%,
+    rgba(0, 0, 0, 0.85) 100%
+  );
+}
+
+.reg-card--final .reg-card__header h3 {
+  color: #F0D67A;
+}
+
+/* Light, non-blocky intro strip */
+.reg-intro-strip {
+  margin: 1rem auto 1.75rem;
+  max-width: 980px;
+  padding: 0.9rem 1rem;
+  color: #2b2b2b;
+}
+
+.reg-intro-strip__lead {
+  margin: 0;
+  font-size: 1rem;
+  line-height: 1.5;
+  margin-bottom: 1rem;
+}
+
+.reg-intro-strip__bullets {
+  margin: 0.6rem 0 0;
+  padding-left: 1.1rem;
+  color: #444;
+}
+
+.reg-intro-strip__bullets li {
+  margin: 0.25rem 0;
+}
+
+@media (min-width: 720px) {
+  .reg-intro-strip {
+    padding: 1.1rem 1.25rem;
+    margin-bottom: 2rem;
+  }
+}
 
 .prepare {
   padding: 1rem 0rem 5rem;
@@ -2773,4 +3230,73 @@ textarea { resize: vertical; min-height: 160px; }
   padding-top: 1em;
   color: var(--gold);
   font-weight: bold;
+}
+
+/* Success page */
+.reg-success { 
+  padding: 2.5rem 1rem 4rem;
+
+ }
+
+ /* Registration section */
+.registration-success {
+  padding: 1rem 0rem 5rem;
+  background:#f8f5ef;
+  color:black;
+}
+
+.registration-success h2 {
+  color:var(--gold);
+}
+
+.registration-success header {
+  text-align: center;
+
+}
+
+.reg-card--success {
+  max-width: 820px;
+  margin: 0 auto;
+}
+
+.reg-success__id {
+  margin-top: 1rem;
+  padding: 1rem 1.1rem;
+  border-radius: 14px;
+  background: radial-gradient(80% 120% at 50% 0%, rgba(212, 175, 55, .14), rgba(0,0,0,.02));
+  border: 1px solid rgba(210,170,49,0.25);
+}
+
+.reg-success__label {
+  margin: 0;
+  font-weight: 700;
+}
+
+.reg-success__value {
+  margin: .35rem 0 0;
+  font-size: 1.05rem;
+}
+
+.reg-success__value code {
+  padding: .25rem .5rem;
+  border-radius: 10px;
+  background: rgba(0,0,0,.08);
+}
+
+.reg-success__next { margin-top: 1.25rem; }
+.reg-success__note { margin-top: 1rem; color: rgba(255,255,255,.85); }
+
+.reg-success__actions {
+  display: flex;
+  gap: .75rem;
+  flex-wrap: wrap;
+  margin-top: 1.4rem;
+  justify-content: center;
+}
+
+@media (max-width: 520px) {
+  .reg-success__actions .btn {
+    width: 100%;
+    justify-content: center;
+  }
 }

@@ -7,7 +7,7 @@
     <div class="overlay"></div>
     <header class="center">
       <h1>Registration</h1>
-      <p class="tagline">Opening January 2026</p>
+      <p class="tagline">Now Open • Due March 1, 2026</p>
     </header>
   </section>
 
@@ -16,10 +16,11 @@
   <section id="registration" class="registration">
     <div class="wrap">
 
+      
       <div class="registration-steps">
         <h2 class="registration-steps__title">Starting your Journey</h2>
 
-        <p class="intro"> What to expect when registration opens.</p>
+        <p class="intro">Everything you need to get started.</p>
                 <div class="reg-shield-divider">
           <span class="shield-icon">
             <svg viewBox="0 0 24 24" width="22" height="22" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -28,7 +29,6 @@
             </svg>
           </span>
         </div>
-
 
         <ol class="stepper">
           <li class="stepper__item">
@@ -77,39 +77,47 @@
 
       </div>
 
-      <div class="grid">
-        <article>
-          <h3>Who Can Register?</h3>
-          <p>
-            Youth turning <strong>14</strong> in 2026 up to those
-            graduating Grade 12 in 2026 who live in the <%= stake %>.
-          </p>
-          <p>
-            Adult leaders will also register through the registration process
-          </p>
-        </article>
-
-        <article>
-          <h3>What You’ll Need For Registration</h3>
-          <ul class="checklist">
-            <li>Basic personal information</li>
-            <li>Parent/guardian contact details</li>
-            <li>Emergency contact information</li>
-            <li>Medical info & dietary needs</li>
-            <li>Waivers and permission forms</li>
-            <li>Ward/leader information</li>
-          </ul>
-        </article>
-
-      </div>
-
       <section id="reg-form" class="reg-form">
-        <div class="wrap">
+
           <header class="reg-form__header">
-            <h2>Registration Form</h2>
-            <p>Please complete all sections below. Fields marked * are required.</p>
+            <h2>Registration</h2>
           </header>
 
+          <% if (errorSummary && errorSummary.length) { %>
+  <div class="form-alert" role="alert" aria-live="assertive">
+    <h3 class="form-alert__title">Please fix the following:</h3>
+    <ul class="form-alert__list">
+      <% errorSummary.forEach((msg) => { %>
+        <li><%= msg %></li>
+      <% }) %>
+    </ul>
+  </div>
+<% } %>
+          <div class="reg-shield-divider">
+            <span class="shield-icon">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 2L4 5V11C4 16.52 7.84 20.74 12 22C16.16 20.74 20 16.52 20 11V5L12 2Z"
+                      fill="#D2AA31" stroke="#D2AA31" stroke-width="1.5" />
+              </svg>
+            </span>
+          </div>
+
+          <div class="reg-intro-strip" role="note" aria-label="Registration info">
+            <p class="reg-intro-strip__lead">
+              This registration includes participant information, parental permission, and the required medical release for those attending the Sherwood Park Stake Moroni’s Quest, in accordance with guidelines from The Church of Jesus Christ of Latter-day Saints. A media release is also included for your review.
+            </p>
+            <p class="reg-intro-strip__lead">
+              <strong>Moroni’s Quest will take place at Tanner Camp in Wabamun, Alberta, beginning July 7 and concluding July 10.</strong>
+            </p>
+            <p class="reg-intro-strip__lead">
+              Digital registration allows leaders to securely access important information quickly during MQ events. Thank you for taking the time to complete this form and for helping us ensure we have the information and permissions needed to support a safe and meaningful experience for everyone involved.
+            </p>
+            <ul class="reg-intro-strip__bullets">
+              <li><strong>Who can register:</strong> Youth turning 14 in 2026 through Grade 12 (graduating 2026) in the <%= stake %>.</li>
+              <li><strong>Adult leaders:</strong> Register here too.</li>
+              <li><strong>Registration due:</strong> March 1, 2026.</li>
+            </ul>
+          </div>
           <form
             id="registration-form"
             class="registration-form"
@@ -131,6 +139,7 @@
                     name="registration_type"
                     value="youth"
                     required
+                    checked
                   />
                   Youth Participant
                 </label>
@@ -177,6 +186,44 @@
                 </div>
 
                 <div class="form-group">
+                  <label for="birthdate">Birthdate<span class="required">*</span></label>
+                  <input
+                    type="date"
+                    id="birthdate"
+                    name="birthdate"
+                    required
+                  />
+                </div>
+
+                <div class="form-group">
+                  <label for="gender">
+                    Gender<span class="required">*</span>
+                  </label>
+
+                  <div class="form-row">
+                    <label class="choice">
+                      <input
+                        type="radio"
+                        name="gender"
+                        value="male"
+                        required
+                      />
+                      Male
+                    </label>
+
+                    <label class="choice">
+                      <input
+                        type="radio"
+                        name="gender"
+                        value="female"
+                        required
+                      />
+                      Female
+                    </label>
+                  </div>
+                </div>      
+
+                <div class="form-group">
                   <label for="email">Email Address<span class="required">*</span></label>
                   <input
                     type="email"
@@ -187,29 +234,95 @@
                   />
                 </div>
 
+                                
                 <div class="form-group">
-                  <label for="ward">Ward<span class="required">*</span></label>
-                  <input
-                    type="text"
+                  <label for="ward">Ward / Branch<span class="required">*</span></label>
+                  <select
                     id="ward"
                     name="ward"
                     required
-                  />
-                  <small class="help-text">Please enter the ward the participant currently attends.</small>
+                  >
+                    <option value="" disabled selected>Choose</option>
+                    <option value="Clarkdale Ward">Clarkdale Ward</option>
+                    <option value="Cherry Grove Ward">Cherry Grove Ward</option>
+                    <option value="Fort Saskatchewan Ward">Fort Saskatchewan Ward</option>
+                    <option value="Glen Allan Ward">Glen Allan Ward</option>
+                    <option value="Nottingham Ward">Nottingham Ward</option>
+                    <option value="Wood Buffalo Ward">Wood Buffalo Ward</option>
+                    <option value="Lloydminster Branch">Lloydminster Branch</option>
+                    <option value="St. Paul Branch">St. Paul Branch</option>
+                    <option value="Tofield Branch">Tofield Branch</option>
+                    <option value="Vermillion Branch">Vermillion Branch</option>
+                  </select>
                 </div>
 
-                <div class="form-group">
-                  <label for="birthdate">Birthdate<span class="required">*</span></label>
-                  <input
-                    type="date"
-                    id="birthdate"
-                    name="birthdate"
-                    required
-                  />
-                </div>
+
+                <!-- Address -->
+                  <div class="form-group">
+                    <label for="address_street">
+                      Street Address<span class="required">*</span>
+                    </label>
+                    <input
+                      type="text"
+                      id="address_street"
+                      name="address_street"
+                      required
+                      autocomplete="street-address"
+                      placeholder="Street address"
+                    />
+                  </div>
+
+                  <div class="form-group">
+                    <label for="address_city">
+                      City / Town<span class="required">*</span>
+                    </label>
+                    <input
+                      type="text"
+                      id="address_city"
+                      name="address_city"
+                      required
+                      autocomplete="address-level2"
+                      placeholder="City or town"
+                    />
+                  </div>
+
+                  <div class="form-group">
+                    <label for="address_province">
+                      Province<span class="required">*</span>
+                    </label>
+                    <input
+                      type="text"
+                      id="address_province"
+                      name="address_province"
+                      required
+                      autocomplete="address-level1"
+                      placeholder="Province"
+                      value="Alberta"
+                    />
+                  </div>
+
+                  <div class="form-group">
+                    <label for="address_postal">
+                      Postal Code<span class="required">*</span>
+                    </label>
+                    <input
+                      type="text"
+                      id="address_postal"
+                      name="address_postal"
+                      required
+                      autocomplete="postal-code"
+                      placeholder="e.g. T8A 1A1"
+                    />
+                  </div>
+
+
+
+
+                
               </div>
             </section>
 
+            
             <!-- Emergency Contact Information -->
             <section class="reg-card" data-section="emergency-contact">
               <header class="reg-card__header">
@@ -278,7 +391,7 @@
                     required
                     inputmode="numeric"
                     autocomplete="off"
-                    placeholder="e.g. 1234-567-890"
+                    placeholder="e.g. 12345-345"
                   />
                   <small class="help-text">Please enter the participant’s provincial health number.</small>
                 </div>
@@ -288,7 +401,7 @@
 
               <!-- Dietary Restrictions -->
               <fieldset class="form-fieldset">
-                <legend>Dietary Restrictions<span class="required">*</span></legend>
+                <legend>Dietary Needs / Restrictions<span class="required">*</span></legend>
 
                 <div class="form-row">
                   <label class="choice">
@@ -384,7 +497,7 @@
 
               <!-- Medications -->
               <fieldset class="form-fieldset">
-                <legend>Medications<span class="required">*</span></legend>
+                <legend>Does the participant take any medications or over-the-counter medicines?<span class="required">*</span></legend>
 
                 <div class="form-row">
                   <label class="choice">
@@ -468,7 +581,7 @@
 
               <!-- Health Conditions -->
               <fieldset class="form-fieldset">
-                <legend>Health Conditions<span class="required">*</span></legend>
+                <legend>Health Conditions That May Impact or Limit Activity<span class="required">*</span></legend>
 
                 <div class="form-row">
                   <label class="choice">
@@ -608,8 +721,7 @@
 
               <!-- Permission -->
               <fieldset class="form-fieldset">
-                <legend>Permission & Acknowledgement<span class="required">*</span></legend>
-
+                <legend>Permission & Acknowledgement <small class="help-text">A parent/guardian must check this box.</small> <span class="required">*</span></legend>
                 <div class="form-group">
                   <label class="choice choice--checkbox" for="permission_granted">
                     <input
@@ -619,9 +731,13 @@
                       value="true"
                       required
                     />
-                    I give permission for my youth to participate in Moroni’s Quest and for leaders/medical staff to provide appropriate care in an emergency.
+                    I give permission for my youth to participate in the Sherwood Park Moroni's Quest and its associated activities. I understand this event takes place in an outdoor setting and that participants and leaders will be camping with food, restroom facilities, and safe drinking water provided.
+                    <br><br>
+                    I authorize the supervising adult leaders to provide emergency care and to approve necessary medical treatment for my youth in the event of illness or injury.
+                    <br><br>
+                    I understand that participants are expected to follow Church standards, event safety rules, and leader direction, and to conduct themselves in a Christlike manner. Participation is a privilege and may be revoked if a participant’s behavior is unsafe or inappropriate.
                   </label>
-                  <small class="help-text">A parent/guardian must check this box.</small>
+                  
                 </div>
 
                 <div class="form-group">
@@ -634,6 +750,41 @@
                   />
                 </div>
               </fieldset>
+
+              <hr class="reg-divider" />
+
+              <!-- Youth Participant Acknowledgement -->
+              <fieldset class="form-fieldset">
+                <legend>Youth Participant Acknowledgement<span class="required">*</span></legend>
+
+                <p class="help-text">
+                  We ask that all youth attending read the terms outlined in the Permissions and Release section
+                  of this form and acknowledge their understanding below.
+                </p>
+
+                <div class="form-row">
+                  <label class="choice">
+                    <input
+                      type="radio"
+                      name="youth_acknowledgement"
+                      value="yes"
+                      required
+                    />
+                    Yes, I understand the terms of participating in this event.
+                  </label>
+
+                  <label class="choice">
+                    <input
+                      type="radio"
+                      name="youth_acknowledgement"
+                      value="no"
+                      required
+                    />
+                    No, I need more information or support from my Branch, Ward, or Stake.
+                  </label>
+                </div>
+              </fieldset>
+
             </section>
 
             <!-- Leader-Only: Role & Lodging -->
@@ -681,11 +832,11 @@
 
               <!-- Lodging -->
               <fieldset class="form-fieldset">
-                <legend>Lodging<span class="required">*</span></legend>
+                <legend>Lodging options for cabin assignments, tent sites and RV sites are available. RV sites are limited.</legend>
 
                 <div class="reg-grid">
                   <div class="form-group">
-                    <label for="lodging_type">Lodging Type<span class="required">*</span></label>
+                    <label for="lodging_type">Lodging Preference<span class="required">*</span></label>
                     <select
                       id="lodging_type"
                       name="lodging_type"
@@ -695,11 +846,11 @@
                       <option value="" selected disabled>Select lodging</option>
                       <option value="tent">Tent (on-site)</option>
                       <option value="trailer">Trailer / RV</option>
-                      <option value="cabin">Cabin / Building (if assigned)</option>
+                      <option value="cabin">Shared Cabin Assignment</option>
                       <option value="offsite">Off-site (commuting)</option>
                       <option value="unknown">Not sure yet</option>
                     </select>
-                    <small class="help-text">If you’re unsure, select “Not sure yet.”</small>
+
                   </div>
                 </div>
 
@@ -709,7 +860,7 @@
                     id="lodging_description"
                     name="lodging_description"
                     rows="3"
-                    placeholder="Optional: trailer length, who you're sharing with, special notes, etc."
+                    placeholder="Optional: trailer length, special notes, etc."
                   ></textarea>
                 </div>
               </fieldset>
@@ -723,29 +874,14 @@
               </header>
 
               <div class="form-stack">
-                <!-- Terms Understood -->
-                <div class="form-group">
-                  <label class="choice choice--checkbox" for="terms_understood">
-                    <input
-                      type="checkbox"
-                      id="terms_understood"
-                      name="terms_understood"
-                      value="true"
-                      required
-                    />
-                    I understand and agree to follow Moroni’s Quest rules and expectations, including safety guidelines and leader direction.
-                    <span class="required">*</span>
-                  </label>
-                </div>
-
-                <hr class="reg-divider" />
 
                 <!-- Media Explanation -->
                 <div class="callout">
-                  <p class="callout__title">Media Notice</p>
+                  <p class="callout__title">Media Release - Part 1 - Photo / Video / Audio / Works</p>
                   <p class="callout__text">
-                    Photos and videos may be taken during Moroni’s Quest for communication and memory-keeping purposes.
-                    Please choose your consent options below.
+                    Outside of the release forms already provided, the Sherwood Park Stake of the Church of Jesus Christ of Latter-Day Saints requires consent to record, copy, film or photograph your child's name, image, work, or performance (hereinafter collectively referred to as "Works") and to distribute these Works for the purpose of publishing, posting on Moroni's Quest website, social media, newspapers or for broadcasting on television and radio as determined by the Stake members responsible for Media around Sherwood Park Stake's Moroni's Quest.
+
+                    I hereby waive any right to approve the use of these Works now or in the future, whether the use is known or unknown. I understand the Works may appear in electronic form on the Internet or in other publications outside of the Sherwood Park Stakes control .  I agree that I will not hold Stake or Church responsible for such unauthorized productions. 
                   </p>
                 </div>
 
@@ -758,9 +894,17 @@
                       name="media_consent_internal"
                       value="true"
                     />
-                    I consent to photos/videos being used internally (e.g., stake communication, leader planning, private posts for participants).
+                    I consent to the participant’s Works being shared with and published/posted/viewed by Sherwood Park Stake members assigned to media responsibilities. 
                   </label>
-                  <small class="help-text">Optional. You may leave unchecked if you do not consent.</small>
+                </div>
+
+
+                <!-- Media Explanation -->
+                <div class="callout">
+                  <p class="callout__title">Media Release - Part 2 - Media Outlets</p>
+                  <p class="callout__text">
+                    I also understand that external media organizations may attend the Sherwood Park Stake, Moroni's Quest event. I give permission for my child's name, image, work and performance to be recorded (audio/video), copied, filmed or photographed for the purpose of being published and/or broadcast on-line, on television or radio. 
+                  </p>
                 </div>
 
                 <!-- External Consent -->
@@ -772,9 +916,8 @@
                       name="media_consent_external"
                       value="true"
                     />
-                    I consent to photos/videos being used externally (e.g., public-facing posts, promotional materials, community sharing).
+                    I consent to the participant’s Works being published or broadcast by organizations external to the Sherwood Park Stake.
                   </label>
-                  <small class="help-text">Optional. You may leave unchecked if you do not consent.</small>
                 </div>
 
                 <!-- Media Release Understood -->
@@ -787,7 +930,7 @@
                       value="true"
                       required
                     />
-                    I understand that selecting media consent options allows Moroni’s Quest to use images/videos as described above, and I have selected my preferences.
+                    I have read this Media Release information and I fully understand the contents and meaning of this release.
                     <span class="required">*</span>
                   </label>
                 </div>
@@ -819,6 +962,21 @@
                   </small>
                 </div>
 
+                                <!-- Terms Understood -->
+                <div class="form-group">
+                  <label class="choice choice--checkbox" for="terms_understood">
+                    <input
+                      type="checkbox"
+                      id="terms_understood"
+                      name="terms_understood"
+                      value="true"
+                      required
+                    />
+                    I understand and agree to follow Moroni’s Quest rules and expectations, including safety guidelines and leader direction. I declare that the above statements are complete and correct.
+                    <span class="required">*</span>
+                  </label>
+                </div>
+
                 <div class="review-note">
                   <p>
                     By submitting this form, you confirm that the information provided is accurate and complete to the best of your knowledge.
@@ -838,8 +996,6 @@
 
           </form>
 
-
-        </div>
       </section>
 
 
@@ -851,6 +1007,6 @@
 
 </main>
 
-<script src="/js/inquiriesAdmin.js" defer></script>
+<script src="/js/register.js" defer></script>
 <%- include('partials/footer') %>
 <%- include('partials/foot') %>
