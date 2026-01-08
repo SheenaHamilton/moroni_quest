@@ -115,4 +115,10 @@ if (require.main === module) {
     });
 }
 
+//sheets debug
+//const { debugSheetsAccess } = require("./services/googleSheets");
+//debugSheetsAccess().catch(err => {
+//    console.error("Sheets debug failed:", err?.message || err);
+//});
+
 module.exports = app;

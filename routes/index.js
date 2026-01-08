@@ -14,9 +14,7 @@ router.get('/403', (req, res) => {
     });
 });
 
-router.get('/register', (req, res) => {
-    res.render('register');
-});
+router.use("/register", require("./register"));
 
 router.use('/photos', require('./photos'));
 
