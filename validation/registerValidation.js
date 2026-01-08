@@ -322,29 +322,45 @@ registerValidation.validateRegistration = () => {
 };
 
 registerValidation.checkRegistrationValidation = (req, res, next) => {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-        const errorsArray = result.array({ onlyFirstError: true });
+    const result = validationResult(req);
 
-        // Map errors by field so you can show messages beside inputs
-        const errors = {};
-        errorsArray.forEach((e) => {
-            if (!errors[e.path]) errors[e.path] = e.msg;
-        });
+    if (!result.isEmpty()) {
+        const firstError = result.array({ onlyFirstError: true })[0];
 
-        // Keep their form values so they don't have to retype
-        const values = { ...req.body };
-
-        // For website forms, 400 is better than 500
         return res.status(400).render("register", {
-            title: "Registration",
-            stake: res.locals.stake || req.app.locals.stake || "", // adjust if needed
-            errors,
-            errorSummary: errorsArray.map((e) => e.msg),
-            values,
+            errorSummary: [firstError.msg], // ONE message only
+            values: { ...req.body }         // keep values for later
         });
     }
+
     next();
 };
+
+
+// registerValidation.checkRegistrationValidation = (req, res, next) => {
+//     const errors = validationResult(req);
+//     if (!errors.isEmpty()) {
+//         const errorsArray = errors.array({ onlyFirstError: true });
+
+//         // Map errors by field so you can show messages beside inputs
+//         const errorsMapped = {};
+//         errorsArray.forEach((e) => {
+//             if (!errorsMapped[e.path]) errorsMapped[e.path] = e.msg;
+//         });
+
+//         // Keep their form values so they don't have to retype
+//         const values = { ...req.body };
+
+//         // For website forms, 400 is better than 500
+//         return res.status(400).render("register", {
+//             title: "Registration",
+//             stake: res.locals.stake || req.app.locals.stake || "", // adjust if needed
+//             errors,
+//             errorSummary: errorsArray.map((e) => e.msg),
+//             values,
+//         });
+//     }
+//     next();
+// };
 
 module.exports = registerValidation;

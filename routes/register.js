@@ -12,7 +12,11 @@ router.get("/success", (req, res) => {
 });
 
 router.get('/', (req, res) => {
-    res.render('register');
+    res.render('register', {
+        errorSummary: [],
+        errors: {},
+        values: {}
+    });
 });
 
 router.post(

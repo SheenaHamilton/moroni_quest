@@ -83,16 +83,6 @@
             <h2>Registration</h2>
           </header>
 
-          <% if (errorSummary && errorSummary.length) { %>
-  <div class="form-alert" role="alert" aria-live="assertive">
-    <h3 class="form-alert__title">Please fix the following:</h3>
-    <ul class="form-alert__list">
-      <% errorSummary.forEach((msg) => { %>
-        <li><%= msg %></li>
-      <% }) %>
-    </ul>
-  </div>
-<% } %>
           <div class="reg-shield-divider">
             <span class="shield-icon">
               <svg viewBox="0 0 24 24" width="22" height="22" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -102,7 +92,7 @@
             </span>
           </div>
 
-          <div class="reg-intro-strip" role="note" aria-label="Registration info">
+          <div id="reg-information" class="reg-intro-strip" role="note" aria-label="Registration info">
             <p class="reg-intro-strip__lead">
               This registration includes participant information, parental permission, and the required medical release for those attending the Sherwood Park Stake Moroni’s Quest, in accordance with guidelines from The Church of Jesus Christ of Latter-day Saints. A media release is also included for your review.
             </p>
@@ -118,6 +108,20 @@
               <li><strong>Registration due:</strong> March 1, 2026.</li>
             </ul>
           </div>
+
+<% if (errorSummary && errorSummary.length) { %>
+  <div
+    id="reg-error-block"
+    class="alert alert--error"
+    role="alert"
+    aria-live="assertive"
+    tabindex="-1"
+    data-scroll-on-load="true"
+  >
+    <p><%= errorSummary[0] %></p>
+  </div>
+<% } %>
+
           <form
             id="registration-form"
             class="registration-form"

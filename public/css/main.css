@@ -2593,10 +2593,11 @@ textarea { resize: vertical; min-height: 160px; }
 .fineprint { margin: 0; font-size: .9rem; opacity: .85; }
 
 .alert {
-  padding: .85rem 1rem;
+  padding: .3rem 1rem;
   border-radius: 12px;
   margin: 0 0 1rem;
   border: 1px solid rgba(255,255,255,0.18);
+  color: black;
 }
 .alert--success { 
   background: rgba(244, 215, 0, 0.12);

@@ -12,6 +12,33 @@
 // - Fields that should become required when a panel is visible have: data-req-when-visible
 
 (() => {
+
+    const errorBlock = document.getElementById("reg-error-block");
+    if (!errorBlock) return;
+
+    const offset = 140; // pixels ABOVE the element (adjust to taste)
+
+    const y =
+        errorBlock.getBoundingClientRect().top +
+        window.pageYOffset -
+        offset;
+
+    window.scrollTo({
+        top: y,
+        behavior: "smooth"
+    });
+
+    document.addEventListener("DOMContentLoaded", () => {
+        const errorBlock = document.getElementById("reg-error-block");
+        if (errorBlock) {
+            errorBlock.scrollIntoView({
+                behavior: "smooth",
+                block: "start"
+            });
+        }
+    });
+
+
     const form = document.getElementById("registration-form");
     if (!form) return;
 

@@ -133,6 +133,10 @@ exports.submitRegistration = async (req, res) => {
         return res.redirect(`/register/success?id=${insertedId}`);
     } catch (err) {
         console.error("submitRegistration error:", err);
-        return res.status(500).json({ message: "We encountered an error while submitting registration." });
+        return res.status(500).render("registration", {
+            errors: {},
+            errorSummary: ["Something went wrong while submitting your registration. Please try again."],
+            values: req.body || {},
+        });
     }
 };
