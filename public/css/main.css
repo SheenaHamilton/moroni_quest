@@ -1289,11 +1289,7 @@ button:disabled {
   content: "";
   position: absolute;
   inset: 0;
-  background: radial-gradient(
-    circle at left top,
-    rgba(123, 116, 59, 0.9) 0%,
-    rgba(0, 0, 0, 0.85) 100%
-  );
+  background: radial-gradient(circle at left top, rgb(93 28 24) 0%, rgba(0, 0, 0, 0.85) 100%);
   z-index: 0;
 }
 
