@@ -785,7 +785,7 @@ body.nav-open { overflow: hidden; }
 
 .registration-steps {
   margin-top: 1rem;
-  margin-bottom: 3rem;
+  margin-bottom: 1rem;
 }
 
 
@@ -1136,6 +1136,17 @@ body.nav-open { overflow: hidden; }
 
 /* Fallback if :has isn't supported — still looks fine, just no selected highlight */
 
+#lodging-details, 
+#diet-details, 
+#allergies-details,
+#medications-details, 
+#administer-details, 
+#health-conditions-details,
+#surgery-details,
+#registration-form > section.reg-card.reg-card--youth > fieldset:nth-child(12) > div:nth-child(3) > label
+{
+  margin-top: 1rem;
+}
 /* ---------- Subcard (nested) ---------- */
 .form-subcard {
   margin-top: 1rem;
@@ -3285,7 +3296,7 @@ textarea { resize: vertical; min-height: 160px; }
 }
 
 .reg-success__next { margin-top: 1.25rem; }
-.reg-success__note { margin-top: 1rem; color: rgba(255,255,255,.85); }
+.reg-success__note { margin-top: 1rem;  }
 
 .reg-success__actions {
   display: flex;

@@ -32,14 +32,12 @@ registerValidation.validateRegistration = () => {
         body("first_name")
             .trim()
             .notEmpty().withMessage("First name is required.")
-            .isAlpha("en-US", { ignore: " -'" }).withMessage("First name must contain only letters.")
-            .escape(),
+            .isAlpha("en-US", { ignore: " -'" }).withMessage("First name must contain only letters."),
 
         body("last_name")
             .trim()
             .notEmpty().withMessage("Last name is required.")
-            .isAlpha("en-US", { ignore: " -'" }).withMessage("Last name must contain only letters.")
-            .escape(),
+            .isAlpha("en-US", { ignore: " -'" }).withMessage("Last name must contain only letters."),
 
         body("birthdate")
             .notEmpty().withMessage("Birthdate is required.")
@@ -55,23 +53,20 @@ registerValidation.validateRegistration = () => {
             .trim()
             .notEmpty().withMessage("Email is required.")
             .isEmail().withMessage("Must be a valid email address.")
-            .normalizeEmail(),
+            .normalizeEmail({ gmail_remove_dots: false }),
 
         body("ward")
             .trim()
-            .notEmpty().withMessage("Ward or branch is required.")
-            .escape(),
+            .notEmpty().withMessage("Ward or branch is required."),
 
         // --- Address (note: province mismatch fix below) ---
         body("address_street")
             .trim()
-            .notEmpty().withMessage("Street address is required.")
-            .escape(),
+            .notEmpty().withMessage("Street address is required."),
 
         body("address_city")
             .trim()
-            .notEmpty().withMessage("City is required.")
-            .escape(),
+            .notEmpty().withMessage("City is required."),
 
         // OPTION A: enforce AB only (recommended)
         // body("address_province")
@@ -98,31 +93,26 @@ registerValidation.validateRegistration = () => {
             .trim()
             .notEmpty().withMessage("Postal code is required.")
             .matches(/^[A-Za-z]\d[A-Za-z][ -]?\d[A-Za-z]\d$/)
-            .withMessage("Postal code must be a valid Canadian postal code.")
-            .escape(),
+            .withMessage("Postal code must be a valid Canadian postal code."),
 
         // --- Emergency Contact ---
         body("emergency_contact_name")
             .trim()
-            .notEmpty().withMessage("Emergency contact name is required.")
-            .escape(),
+            .notEmpty().withMessage("Emergency contact name is required."),
 
         body("emergency_contact_primary")
             .trim()
             .notEmpty().withMessage("Primary emergency contact phone is required.")
-            .matches(/^[0-9\-+()\s]{7,20}$/).withMessage("Enter a valid phone number.")
-            .escape(),
+            .matches(/^[0-9\-+()\s]{7,20}$/).withMessage("Enter a valid phone number."),
 
         body("emergency_contact_secondary")
             .optional({ checkFalsy: true })
-            .matches(/^[0-9\-+()\s]{7,20}$/).withMessage("Enter a valid secondary phone number.")
-            .escape(),
+            .matches(/^[0-9\-+()\s]{7,20}$/).withMessage("Enter a valid secondary phone number."),
 
         // --- Health & dietary (shared) ---
         body("health_number")
             .trim()
-            .notEmpty().withMessage("Health number is required.")
-            .escape(),
+            .notEmpty().withMessage("Health number is required."),
 
         body("diet_specific")
             .customSanitizer(yesNoToBool)
@@ -131,8 +121,7 @@ registerValidation.validateRegistration = () => {
 
         body("diet_description")
             .optional({ checkFalsy: true })
-            .trim()
-            .escape(),
+            .trim(),
 
         body("allergies")
             .customSanitizer(yesNoToBool)
@@ -141,8 +130,7 @@ registerValidation.validateRegistration = () => {
 
         body("allergies_description")
             .optional({ checkFalsy: true })
-            .trim()
-            .escape(),
+            .trim(),
 
         // Require diet_description if diet_specific === true
         body("diet_description").custom((value, { req }) => {
@@ -173,13 +161,11 @@ registerValidation.validateRegistration = () => {
 
         body("medications_description")
             .optional({ checkFalsy: true })
-            .trim()
-            .escape(),
+            .trim(),
 
         body("medications_administer_description")
             .optional({ checkFalsy: true })
-            .trim()
-            .escape(),
+            .trim(),
 
         body("health_conditions")
             .customSanitizer(yesNoToBool)
@@ -188,8 +174,7 @@ registerValidation.validateRegistration = () => {
 
         body("health_conditions_description")
             .optional({ checkFalsy: true })
-            .trim()
-            .escape(),
+            .trim(),
 
         body("surgery_recent")
             .customSanitizer(yesNoToBool)
@@ -198,28 +183,23 @@ registerValidation.validateRegistration = () => {
 
         body("surgery_description")
             .optional({ checkFalsy: true })
-            .trim()
-            .escape(),
+            .trim(),
 
         body("physical_limitations")
             .optional({ checkFalsy: true })
-            .trim()
-            .escape(),
+            .trim(),
 
         body("other_needs")
             .optional({ checkFalsy: true })
-            .trim()
-            .escape(),
+            .trim(),
 
         body("parent_guardian_name")
             .optional({ checkFalsy: true })
-            .trim()
-            .escape(),
+            .trim(),
 
         body("parent_guardian_relationship")
             .optional({ checkFalsy: true })
-            .trim()
-            .escape(),
+            .trim(),
 
         body("permission_granted")
             .customSanitizer(checkboxToBool)
@@ -238,8 +218,7 @@ registerValidation.validateRegistration = () => {
         // --- Leader-only fields ---
         body("role")
             .optional({ checkFalsy: true })
-            .trim()
-            .escape(),
+            .trim(),
 
         body("arrival_date")
             .optional({ checkFalsy: true })
@@ -253,13 +232,11 @@ registerValidation.validateRegistration = () => {
 
         body("lodging_type")
             .optional({ checkFalsy: true })
-            .trim()
-            .escape(),
+            .trim(),
 
         body("lodging_description")
             .optional({ checkFalsy: true })
-            .trim()
-            .escape(),
+            .trim(),
 
         // --- Terms & Media (checkboxes) ---
         body("media_consent_internal").customSanitizer(checkboxToBool).toBoolean(),
@@ -270,8 +247,7 @@ registerValidation.validateRegistration = () => {
         // --- Completed by ---
         body("form_completed_by")
             .trim()
-            .notEmpty().withMessage("Form completed by name is required.")
-            .escape(),
+            .notEmpty().withMessage("Form completed by name is required."),
 
         // --- Cross-field conditional requirements by registration_type ---
         body().custom((_, { req }) => {

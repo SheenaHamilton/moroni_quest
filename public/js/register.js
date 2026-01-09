@@ -9,6 +9,10 @@
         const form = document.getElementById("registration-form");
         if (!form) return;
 
+        if (form.dataset.jsInitialized === "true") return;
+
+        form.dataset.jsInitialized = "true";
+
         const qs = (sel, root = document) => root.querySelector(sel);
         const qsa = (sel, root = document) => Array.from(root.querySelectorAll(sel));
 
@@ -29,6 +33,16 @@
             if (!el) return;
             el.classList.toggle("is-hidden", hidden);
             el.setAttribute("aria-hidden", String(hidden));
+        }
+
+        function initConditionalPanelsForVisibleSections() {
+            // only look at enabled radios (active section)
+            qsa("input[type='radio'][data-toggle][data-toggle-value]", form)
+                .filter((r) => !r.disabled && r.checked)
+                .forEach(handleToggleInput);
+
+            const lodgingSelect = qs('select[data-toggle="lodging"]', form);
+            if (lodgingSelect && !lodgingSelect.disabled) handleLodgingSelect(lodgingSelect);
         }
 
         // Only toggle required on fields explicitly marked for conditional requirement
@@ -58,7 +72,7 @@
         }
 
         // --- Youth vs Leader toggle ---
-        function applyRegistrationType(type) {
+        function applyRegistrationType(type, { resetOther = false } = {}) {
             const isYouth = type === "youth";
             const isLeader = type === "leader";
 
@@ -68,9 +82,11 @@
             disableControlsInside(youthSection, !isYouth);
             disableControlsInside(leaderSection, !isLeader);
 
-            // Optional: clear hidden section values to avoid stale data
-            if (isYouth && leaderSection) resetValuesInside(leaderSection);
-            if (isLeader && youthSection) resetValuesInside(youthSection);
+            // Only clear the other side if user is switching types
+            if (resetOther) {
+                if (isYouth && leaderSection) resetValuesInside(leaderSection);
+                if (isLeader && youthSection) resetValuesInside(youthSection);
+            }
         }
 
         // --- Conditional panels ---
@@ -103,7 +119,8 @@
             const t = e.target;
 
             if (t.matches('input[name="registration_type"]')) {
-                applyRegistrationType(t.value);
+                applyRegistrationType(t.value, { resetOther: true });
+                initConditionalPanelsForVisibleSections();
                 return;
             }
 
@@ -120,29 +137,6 @@
 
         // Use multiple event types for mobile browser reliability
         form.addEventListener("change", handleAnyEvent);
-        form.addEventListener("input", handleAnyEvent);
-
-        // Extra safety: label taps that visually check, but sometimes delay change firing
-        form.addEventListener("click", (e) => {
-            const label = e.target.closest("label.choice");
-            if (!label) return;
-
-            const input = label.querySelector("input");
-            if (!input) return;
-
-            // Defer a tick so the browser can update checked state first
-            setTimeout(() => {
-                if (input.matches('input[name="registration_type"]')) {
-                    applyRegistrationType(input.value);
-                    return;
-                }
-
-                if (input.matches("input[type='radio'][data-toggle][data-toggle-value]")) {
-                    handleToggleInput(input);
-                    return;
-                }
-            }, 0);
-        });
 
         // --- Initialize state on first load / restore ---
         // Ensure there's a default selection (you set Youth checked in HTML, but browsers can be weird)
@@ -154,18 +148,14 @@
         const initialType = qs('input[name="registration_type"]:checked', form)?.value;
 
         if (initialType) {
-            applyRegistrationType(initialType);
+            applyRegistrationType(initialType, { resetOther: false });
         } else {
-            // If somehow nothing selected, keep both hidden until chosen
             if (youthSection) { setHidden(youthSection, true); disableControlsInside(youthSection, true); }
             if (leaderSection) { setHidden(leaderSection, true); disableControlsInside(leaderSection, true); }
         }
 
-        // Initialize conditional panels based on any pre-checked radios/selects
-        qsa("input[type='radio'][data-toggle][data-toggle-value]:checked", form).forEach(handleToggleInput);
-
-        const lodgingSelect = qs('select[data-toggle="lodging"]', form);
-        if (lodgingSelect) handleLodgingSelect(lodgingSelect);
+        // NOW initialize panels based on currently-enabled inputs
+        initConditionalPanelsForVisibleSections();
 
         // --- Scroll to error block ONLY when it exists and is flagged ---
         const errorBlock = document.getElementById("reg-error-block");
@@ -175,10 +165,6 @@
 
             window.scrollTo({ top: y, behavior: "smooth" });
 
-            // Optional: focus for accessibility
-            try {
-                errorBlock.focus({ preventScroll: true });
-            } catch (_) { }
         }
     }
 
@@ -187,4 +173,67 @@
 
     // Safari/iOS: run again when page is restored from bfcache
     window.addEventListener("pageshow", init);
+
+    document.addEventListener("DOMContentLoaded", () => {
+        const permissionCheckbox = document.getElementById("permission_granted");
+        const dateInput = document.getElementById("permission_date");
+
+        if (!permissionCheckbox || !dateInput) return;
+
+        permissionCheckbox.addEventListener("change", () => {
+            // Only set if checked AND date is empty
+            if (!permissionCheckbox.checked || dateInput.value) return;
+
+            const d = new Date();
+            d.setMinutes(d.getMinutes() - d.getTimezoneOffset()); // Safari-safe
+            dateInput.value = d.toISOString().split("T")[0];
+        });
+    });
+
+})();
+
+(() => {
+    function scrollToErrorIfNeeded() {
+        const errorBlock = document.getElementById("reg-error-block");
+        if (!errorBlock) return;
+        if (errorBlock.dataset.scrollOnLoad !== "true") return;
+
+        const offset = 140;
+
+        // Wait until layout is stable (Safari/Firefox friendly)
+        requestAnimationFrame(() => {
+            requestAnimationFrame(() => {
+                const y =
+                    errorBlock.getBoundingClientRect().top +
+                    window.pageYOffset -
+                    offset;
+
+                window.scrollTo({ top: y, behavior: "smooth" });
+            });
+        });
+    }
+
+    function initOnce() {
+        const form = document.getElementById("registration-form");
+        if (!form) return;
+
+        if (form.dataset.jsInitialized === "true") return;
+        form.dataset.jsInitialized = "true";
+
+        // ... ALL your existing init logic EXCEPT the scroll block ...
+        // (listeners, applyRegistrationType, initConditionalPanelsForVisibleSections, etc.)
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+        initOnce();
+        scrollToErrorIfNeeded();
+    });
+
+    window.addEventListener("pageshow", (e) => {
+        // On bfcache restore, DOM is already there; initOnce will likely no-op (good),
+        // but we still WANT to scroll if flagged.
+        scrollToErrorIfNeeded();
+    });
+
+    // (keep your permission_date DOMContentLoaded handler as-is)
 })();

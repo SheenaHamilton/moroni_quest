@@ -1,6 +1,57 @@
 <%- include('partials/head') %>
 <%- include('partials/header') %>
 
+<%
+  const yesNoChecked = (name, yesOrNo) => {
+    const x = v[name];
+
+    if (typeof x === "boolean") {
+      return yesOrNo === "yes" ? x === true : x === false;
+    }
+
+    const s = String(x ?? "").toLowerCase();
+    if (yesOrNo === "yes") return ["yes","true","on","1"].includes(s);
+    return ["no","false","0"].includes(s);
+  };
+
+  // Always have a values object, even on first GET render
+  const v = values || {};
+
+  const isChecked = (name, val) => String(v[name] ?? "") === String(val);
+
+  const isTruthy = (name) => {
+    const x = v[name];
+    if (x === undefined || x === null) return false;
+
+    // If some middleware or multi-select ever sends an array
+    if (Array.isArray(x)) {
+      return x.map(String).some(s => ["true","on","1","yes"].includes(s.toLowerCase()));
+    }
+
+    return ["true","on","1","yes"].includes(String(x).toLowerCase());
+  };
+
+  const sel = (name, val) => (String(v[name] ?? "") === String(val) ? "selected" : "");
+
+  // Optional: date normalizer you already used
+  const toDateValue = (x) => {
+    if (!x) return "";
+    if (typeof x === "string" && /^\d{4}-\d{2}-\d{2}$/.test(x)) return x;
+    if (typeof x === "string" && x.includes("T")) return x.slice(0, 10);
+    const d = new Date(x);
+    if (Number.isNaN(d.getTime())) return "";
+    const yyyy = d.getFullYear();
+    const mm = String(d.getMonth() + 1).padStart(2, "0");
+    const dd = String(d.getDate()).padStart(2, "0");
+    return `${yyyy}-${mm}-${dd}`;
+  };
+
+%>
+
+<!-- DEBUG Line
+ <pre style="white-space:pre-wrap"><%= JSON.stringify(values, null, 2) %></pre>
+ -->
+
 <main id="main" class="page">
   <!-- Inner hero / page header -->
   <section class="hero hero--inner">
@@ -109,6 +160,7 @@
             </ul>
           </div>
 
+
 <% if (errorSummary && errorSummary.length) { %>
   <div
     id="reg-error-block"
@@ -143,7 +195,7 @@
                     name="registration_type"
                     value="youth"
                     required
-                    checked
+                    <%= !v.registration_type || isChecked('registration_type','youth') ? 'checked' : '' %>
                   />
                   Youth Participant
                 </label>
@@ -154,11 +206,13 @@
                     name="registration_type"
                     value="leader"
                     required
+                    <%= isChecked('registration_type','leader') ? 'checked' : '' %>
                   />
                   Adult Leader
                 </label>
               </div>
             </section>
+
             <!-- Participant Information -->
             <section class="reg-card" data-section="participant">
               <header class="reg-card__header">
@@ -175,6 +229,7 @@
                     name="first_name"
                     required
                     autocomplete="given-name"
+                    value="<%= v.first_name || '' %>"
                   />
                 </div>
 
@@ -186,6 +241,7 @@
                     name="last_name"
                     required
                     autocomplete="family-name"
+                    value="<%= v.last_name || '' %>"
                   />
                 </div>
 
@@ -196,6 +252,7 @@
                     id="birthdate"
                     name="birthdate"
                     required
+                    value="<%= toDateValue(v.birthdate) %>"
                   />
                 </div>
 
@@ -211,6 +268,7 @@
                         name="gender"
                         value="male"
                         required
+                        <%= isChecked('gender','male') ? 'checked' : '' %>
                       />
                       Male
                     </label>
@@ -221,6 +279,7 @@
                         name="gender"
                         value="female"
                         required
+                        <%= isChecked('gender','female') ? 'checked' : '' %>
                       />
                       Female
                     </label>
@@ -235,10 +294,10 @@
                     name="email"
                     required
                     autocomplete="email"
+                    value="<%= v.email || '' %>"
                   />
                 </div>
 
-                                
                 <div class="form-group">
                   <label for="ward">Ward / Branch<span class="required">*</span></label>
                   <select
@@ -246,87 +305,83 @@
                     name="ward"
                     required
                   >
-                    <option value="" disabled selected>Choose</option>
-                    <option value="Clarkdale Ward">Clarkdale Ward</option>
-                    <option value="Cherry Grove Ward">Cherry Grove Ward</option>
-                    <option value="Fort Saskatchewan Ward">Fort Saskatchewan Ward</option>
-                    <option value="Glen Allan Ward">Glen Allan Ward</option>
-                    <option value="Nottingham Ward">Nottingham Ward</option>
-                    <option value="Wood Buffalo Ward">Wood Buffalo Ward</option>
-                    <option value="Lloydminster Branch">Lloydminster Branch</option>
-                    <option value="St. Paul Branch">St. Paul Branch</option>
-                    <option value="Tofield Branch">Tofield Branch</option>
-                    <option value="Vermillion Branch">Vermillion Branch</option>
+                    <option value="" disabled <%= !v.ward ? 'selected' : '' %>>Choose</option>
+                    <option value="Clarkdale Ward" <%= sel('ward','Clarkdale Ward') %>>Clarkdale Ward</option>
+                    <option value="Cherry Grove Ward" <%= sel('ward','Cherry Grove Ward') %>>Cherry Grove Ward</option>
+                    <option value="Fort Saskatchewan Ward" <%= sel('ward','Fort Saskatchewan Ward') %>>Fort Saskatchewan Ward</option>
+                    <option value="Glen Allan Ward" <%= sel('ward','Glen Allan Ward') %>>Glen Allan Ward</option>
+                    <option value="Nottingham Ward" <%= sel('ward','Nottingham Ward') %>>Nottingham Ward</option>
+                    <option value="Wood Buffalo Ward" <%= sel('ward','Wood Buffalo Ward') %>>Wood Buffalo Ward</option>
+                    <option value="Lloydminster Branch" <%= sel('ward','Lloydminster Branch') %>>Lloydminster Branch</option>
+                    <option value="St. Paul Branch" <%= sel('ward','St. Paul Branch') %>>St. Paul Branch</option>
+                    <option value="Tofield Branch" <%= sel('ward','Tofield Branch') %>>Tofield Branch</option>
+                    <option value="Vermillion Branch" <%= sel('ward','Vermillion Branch') %>>Vermillion Branch</option>
                   </select>
                 </div>
 
-
                 <!-- Address -->
-                  <div class="form-group">
-                    <label for="address_street">
-                      Street Address<span class="required">*</span>
-                    </label>
-                    <input
-                      type="text"
-                      id="address_street"
-                      name="address_street"
-                      required
-                      autocomplete="street-address"
-                      placeholder="Street address"
-                    />
-                  </div>
+                <div class="form-group">
+                  <label for="address_street">
+                    Street Address<span class="required">*</span>
+                  </label>
+                  <input
+                    type="text"
+                    id="address_street"
+                    name="address_street"
+                    required
+                    autocomplete="street-address"
+                    placeholder="Street address"
+                    value="<%= v.address_street || '' %>"
+                  />
+                </div>
 
-                  <div class="form-group">
-                    <label for="address_city">
-                      City / Town<span class="required">*</span>
-                    </label>
-                    <input
-                      type="text"
-                      id="address_city"
-                      name="address_city"
-                      required
-                      autocomplete="address-level2"
-                      placeholder="City or town"
-                    />
-                  </div>
+                <div class="form-group">
+                  <label for="address_city">
+                    City / Town<span class="required">*</span>
+                  </label>
+                  <input
+                    type="text"
+                    id="address_city"
+                    name="address_city"
+                    required
+                    autocomplete="address-level2"
+                    placeholder="City or town"
+                    value="<%= v.address_city || '' %>"
+                  />
+                </div>
 
-                  <div class="form-group">
-                    <label for="address_province">
-                      Province<span class="required">*</span>
-                    </label>
-                    <input
-                      type="text"
-                      id="address_province"
-                      name="address_province"
-                      required
-                      autocomplete="address-level1"
-                      placeholder="Province"
-                      value="Alberta"
-                    />
-                  </div>
+                <div class="form-group">
+                  <label for="address_province">
+                    Province<span class="required">*</span>
+                  </label>
+                  <input
+                    type="text"
+                    id="address_province"
+                    name="address_province"
+                    required
+                    autocomplete="address-level1"
+                    placeholder="Province"
+                    value="<%= v.address_province || 'Alberta' %>"
+                  />
+                </div>
 
-                  <div class="form-group">
-                    <label for="address_postal">
-                      Postal Code<span class="required">*</span>
-                    </label>
-                    <input
-                      type="text"
-                      id="address_postal"
-                      name="address_postal"
-                      required
-                      autocomplete="postal-code"
-                      placeholder="e.g. T8A 1A1"
-                    />
-                  </div>
-
-
-
-
-                
+                <div class="form-group">
+                  <label for="address_postal">
+                    Postal Code<span class="required">*</span>
+                  </label>
+                  <input
+                    type="text"
+                    id="address_postal"
+                    name="address_postal"
+                    required
+                    autocomplete="postal-code"
+                    placeholder="e.g. T8A 1A1"
+                    value="<%= v.address_postal || '' %>"
+                  />
+                </div>
               </div>
             </section>
 
-            
             <!-- Emergency Contact Information -->
             <section class="reg-card" data-section="emergency-contact">
               <header class="reg-card__header">
@@ -345,6 +400,7 @@
                     name="emergency_contact_name"
                     required
                     autocomplete="name"
+                    value="<%= v.emergency_contact_name || '' %>"
                   />
                 </div>
 
@@ -359,6 +415,7 @@
                     required
                     autocomplete="tel"
                     placeholder="e.g. 403-555-1234"
+                    value="<%= v.emergency_contact_primary || '' %>"
                   />
                 </div>
 
@@ -372,6 +429,7 @@
                     name="emergency_contact_secondary"
                     autocomplete="tel"
                     placeholder="Optional"
+                    value="<%= v.emergency_contact_secondary || '' %>"
                   />
                   <small class="help-text">If available, please provide an alternate number.</small>
                 </div>
@@ -396,6 +454,7 @@
                     inputmode="numeric"
                     autocomplete="off"
                     placeholder="e.g. 12345-345"
+                    value="<%= v.health_number || '' %>"
                   />
                   <small class="help-text">Please enter the participant’s provincial health number.</small>
                 </div>
@@ -416,6 +475,7 @@
                       required
                       data-toggle="diet"
                       data-toggle-value="yes"
+                      <%= yesNoChecked('diet_specific','yes') ? 'checked' : '' %>
                     />
                     Yes
                   </label>
@@ -428,6 +488,7 @@
                       required
                       data-toggle="diet"
                       data-toggle-value="no"
+                      <%= yesNoChecked('diet_specific','no') ? 'checked' : '' %>
                     />
                     No
                   </label>
@@ -441,7 +502,7 @@
                     rows="3"
                     placeholder="e.g., gluten-free, dairy-free, vegetarian, texture restrictions, etc."
                     data-req-when-visible
-                  ></textarea>
+                  ><%= v.diet_description || '' %></textarea>
                   <small class="help-text">Include anything we should know to provide safe meals and snacks.</small>
                 </div>
               </fieldset>
@@ -461,6 +522,7 @@
                       required
                       data-toggle="allergies"
                       data-toggle-value="yes"
+                      <%= yesNoChecked('allergies','yes') ? 'checked' : '' %>
                     />
                     Yes
                   </label>
@@ -473,6 +535,7 @@
                       required
                       data-toggle="allergies"
                       data-toggle-value="no"
+                      <%= yesNoChecked('allergies','no') ? 'checked' : '' %>
                     />
                     No
                   </label>
@@ -486,7 +549,7 @@
                     rows="3"
                     placeholder="e.g., peanuts, eggs, bee stings, medications, latex, etc."
                     data-req-when-visible
-                  ></textarea>
+                  ><%= v.allergies_description || '' %></textarea>
                   <small class="help-text">If severe, include what to do in an emergency (EpiPen, inhaler, etc.).</small>
                 </div>
               </fieldset>
@@ -512,6 +575,7 @@
                       required
                       data-toggle="medications"
                       data-toggle-value="yes"
+                      <%= yesNoChecked('medications','yes') ? 'checked' : '' %>
                     />
                     Yes
                   </label>
@@ -524,6 +588,7 @@
                       required
                       data-toggle="medications"
                       data-toggle-value="no"
+                      <%= yesNoChecked('medications','no') ? 'checked' : '' %>
                     />
                     No
                   </label>
@@ -537,7 +602,7 @@
                     rows="3"
                     placeholder="Include medication name, dose, timing, and any important instructions."
                     data-req-when-visible
-                  ></textarea>
+                  ><%= v.medications_description || '' %></textarea>
 
                   <div class="form-subcard">
                     <p class="subcard-title">Self-Administration</p>
@@ -548,7 +613,8 @@
                           name="medications_self_administer"
                           value="yes"
                           data-toggle="self-administer"
-                          data-toggle-value="yes"
+                          data-toggle-value="no"
+                          <%= yesNoChecked('medications_self_administer','yes') ? 'checked' : '' %>
                         />
                         Youth can self-administer
                       </label>
@@ -559,7 +625,8 @@
                           name="medications_self_administer"
                           value="no"
                           data-toggle="self-administer"
-                          data-toggle-value="no"
+                          data-toggle-value="yes"
+                          <%= yesNoChecked('medications_self_administer','no') ? 'checked' : '' %>
                         />
                         Needs assistance
                       </label>
@@ -575,7 +642,7 @@
                         rows="2"
                         placeholder="e.g., must be administered by nurse/leader; specific timing; stored in med bin, etc."
                         data-req-when-visible
-                      ></textarea>
+                      ><%= v.medications_administer_description || '' %></textarea>
                     </div>
                   </div>
                 </div>
@@ -596,6 +663,7 @@
                       required
                       data-toggle="health-conditions"
                       data-toggle-value="yes"
+                      <%= yesNoChecked('health_conditions','yes') ? 'checked' : '' %>
                     />
                     Yes
                   </label>
@@ -608,6 +676,7 @@
                       required
                       data-toggle="health-conditions"
                       data-toggle-value="no"
+                      <%= yesNoChecked('health_conditions','no') ? 'checked' : '' %>
                     />
                     No
                   </label>
@@ -621,7 +690,7 @@
                     rows="3"
                     placeholder="Include any diagnoses, triggers, warning signs, and what to do to help."
                     data-req-when-visible
-                  ></textarea>
+                  ><%= v.health_conditions_description || '' %></textarea>
                 </div>
               </fieldset>
 
@@ -640,6 +709,7 @@
                       required
                       data-toggle="surgery"
                       data-toggle-value="yes"
+                      <%= yesNoChecked('surgery_recent','yes') ? 'checked' : '' %>
                     />
                     Yes
                   </label>
@@ -652,6 +722,7 @@
                       required
                       data-toggle="surgery"
                       data-toggle-value="no"
+                      <%= yesNoChecked('surgery_recent','no') ? 'checked' : '' %>
                     />
                     No
                   </label>
@@ -665,7 +736,7 @@
                     rows="3"
                     placeholder="Include date (approx.), restrictions, and anything leaders should know."
                     data-req-when-visible
-                  ></textarea>
+                  ><%= v.surgery_description || '' %></textarea>
                 </div>
               </fieldset>
 
@@ -680,7 +751,7 @@
                     name="physical_limitations"
                     rows="3"
                     placeholder="e.g., injuries, mobility limitations, activity restrictions, etc."
-                  ></textarea>
+                  ><%= v.physical_limitations || '' %></textarea>
                 </div>
 
                 <div class="form-group">
@@ -690,7 +761,7 @@
                     name="other_needs"
                     rows="3"
                     placeholder="Anything else we should know to help your youth have a safe, great experience."
-                  ></textarea>
+                  ><%= v.other_needs || '' %></textarea>
                 </div>
               </div>
 
@@ -706,6 +777,7 @@
                     name="parent_guardian_name"
                     required
                     autocomplete="name"
+                    value="<%= v.parent_guardian_name || '' %>"
                   />
                 </div>
 
@@ -717,6 +789,7 @@
                     name="parent_guardian_relationship"
                     required
                     placeholder="e.g., Mother, Father, Guardian"
+                    value="<%= v.parent_guardian_relationship || '' %>"
                   />
                 </div>
               </div>
@@ -734,6 +807,7 @@
                       name="permission_granted"
                       value="true"
                       required
+                      <%= isTruthy('permission_granted') ? 'checked' : '' %>
                     />
                     I give permission for my youth to participate in the Sherwood Park Moroni's Quest and its associated activities. I understand this event takes place in an outdoor setting and that participants and leaders will be camping with food, restroom facilities, and safe drinking water provided.
                     <br><br>
@@ -751,6 +825,7 @@
                     id="permission_date"
                     name="permission_date"
                     required
+                    value="<%= toDateValue(v.permission_date) %>"
                   />
                 </div>
               </fieldset>
@@ -773,6 +848,7 @@
                       name="youth_acknowledgement"
                       value="yes"
                       required
+                      <%= yesNoChecked('youth_acknowledgement','yes') ? 'checked' : '' %>
                     />
                     Yes, I understand the terms of participating in this event.
                   </label>
@@ -783,6 +859,7 @@
                       name="youth_acknowledgement"
                       value="no"
                       required
+                      <%= yesNoChecked('youth_acknowledgement','no') ? 'checked' : '' %>
                     />
                     No, I need more information or support from my Branch, Ward, or Stake.
                   </label>
@@ -803,14 +880,17 @@
                 <div class="form-group">
                   <label for="role">Leader Role<span class="required">*</span></label>
                   <select id="role" name="role" required>
-                    <option value="" selected disabled>Select a role</option>
-                    <option value="leader">Leader</option>
-                    <option value="youth-leader">Youth Leader</option>
-                    <option value="medical">Medical</option>
-                    <option value="kitchen">Kitchen / Food Service</option>
-                    <option value="security">Security</option>
-                    <option value="support">Support / Logistics</option>
-                    <option value="other">Other</option>
+                    <option value="" disabled <%= !v.role ? 'selected' : '' %>>Select a role</option>
+                    <option value="leader" <%= sel('role','leader') %>>Leader</option>
+                    <option value="imma_abba" <%= sel('role','youth-leader') %>>Imma / Abba</option>
+                    <option value="medical" <%= sel('role','medical') %>>Medical</option>
+                    <option value="kitchen" <%= sel('role','kitchen') %>>Kitchen / Food Service</option>
+                    <option value="security" <%= sel('role','security') %>>Security</option>
+                    <option value="logistics" <%= sel('role','support') %>>Support / Logistics</option>
+                    <option value="photography" <%= sel('role','photography') %>>Photography</option>
+                    <option value="registration" <%= sel('role','registration') %>>Registration</option>
+                    <option value="production" <%= sel('role','production') %>>Production / Actors</option>
+                    <option value="other" <%= sel('role','other') %>>Other</option>
                   </select>
                   <small class="help-text">Choose the role you’ve been asked to serve in.</small>
                 </div>
@@ -822,13 +902,13 @@
               <div class="reg-grid">
                 <div class="form-group">
                   <label for="arrival_date">Arrival Date<span class="required">*</span></label>
-                  <input type="date" id="arrival_date" name="arrival_date" required />
+                  <input type="date" id="arrival_date" name="arrival_date" required value="<%= toDateValue(v.arrival_date) %>" />
                   <small class="help-text">Leaders may arrive earlier depending on assignment.</small>
                 </div>
 
                 <div class="form-group">
                   <label for="departure_date">Departure Date<span class="required">*</span></label>
-                  <input type="date" id="departure_date" name="departure_date" required />
+                  <input type="date" id="departure_date" name="departure_date" required value="<%= toDateValue(v.departure_date) %>" />
                 </div>
               </div>
 
@@ -847,12 +927,12 @@
                       required
                       data-toggle="lodging"
                     >
-                      <option value="" selected disabled>Select lodging</option>
-                      <option value="tent">Tent (on-site)</option>
-                      <option value="trailer">Trailer / RV</option>
-                      <option value="cabin">Shared Cabin Assignment</option>
-                      <option value="offsite">Off-site (commuting)</option>
-                      <option value="unknown">Not sure yet</option>
+                      <option value="" disabled <%= !v.lodging_type ? 'selected' : '' %>>Select lodging</option>
+                      <option value="tent" <%= sel('lodging_type','tent') %>>Tent (on-site)</option>
+                      <option value="trailer" <%= sel('lodging_type','trailer') %>>Trailer / RV</option>
+                      <option value="cabin" <%= sel('lodging_type','cabin') %>>Shared Cabin Assignment</option>
+                      <option value="offsite" <%= sel('lodging_type','offsite') %>>Off-site (commuting)</option>
+                      <option value="unknown" <%= sel('lodging_type','unknown') %>>Not sure yet</option>
                     </select>
 
                   </div>
@@ -865,7 +945,7 @@
                     name="lodging_description"
                     rows="3"
                     placeholder="Optional: trailer length, special notes, etc."
-                  ></textarea>
+                  ><%= v.lodging_description || '' %></textarea>
                 </div>
               </fieldset>
             </section>
@@ -897,6 +977,7 @@
                       id="media_consent_internal"
                       name="media_consent_internal"
                       value="true"
+                      <%= isTruthy('media_consent_internal') ? 'checked' : '' %>
                     />
                     I consent to the participant’s Works being shared with and published/posted/viewed by Sherwood Park Stake members assigned to media responsibilities. 
                   </label>
@@ -919,6 +1000,7 @@
                       id="media_consent_external"
                       name="media_consent_external"
                       value="true"
+                      <%= isTruthy('media_consent_external') ? 'checked' : '' %>
                     />
                     I consent to the participant’s Works being published or broadcast by organizations external to the Sherwood Park Stake.
                   </label>
@@ -933,6 +1015,7 @@
                       name="media_release_understood"
                       value="true"
                       required
+                      <%= isTruthy('media_release_understood') ? 'checked' : '' %>
                     />
                     I have read this Media Release information and I fully understand the contents and meaning of this release.
                     <span class="required">*</span>
@@ -960,13 +1043,14 @@
                     required
                     placeholder="e.g., Parent, Guardian, or Participant"
                     autocomplete="name"
+                    value="<%= v.form_completed_by || '' %>"
                   />
                   <small class="help-text">
                     This helps us know who to contact if we have questions about this registration.
                   </small>
                 </div>
 
-                                <!-- Terms Understood -->
+                <!-- Terms Understood -->
                 <div class="form-group">
                   <label class="choice choice--checkbox" for="terms_understood">
                     <input
@@ -975,6 +1059,7 @@
                       name="terms_understood"
                       value="true"
                       required
+                      <%= isTruthy('terms_understood') ? 'checked' : '' %>
                     />
                     I understand and agree to follow Moroni’s Quest rules and expectations, including safety guidelines and leader direction. I declare that the above statements are complete and correct.
                     <span class="required">*</span>
