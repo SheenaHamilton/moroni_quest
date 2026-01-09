@@ -2,15 +2,22 @@
 // Handles:
 // - Registration type toggle (youth vs leader)
 // - Conditional panels (diet, allergies, meds, self-administer, conditions, surgery, lodging)
-// - Optional: scroll to top error block when present
+// - Scroll to error block when present (supports bfcache on Safari)
 
 (() => {
-    function init() {
+    function scrollToErrorIfNeeded() {
+        const errorBlock = document.getElementById("reg-error-block");
+        if (!errorBlock) return;
+        if (errorBlock.dataset.scrollOnLoad !== "true") return;
+        const errorBlockBefore = document.getElementById("reg-information");
+        errorBlockBefore.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+
+    function initOnce() {
         const form = document.getElementById("registration-form");
         if (!form) return;
 
         if (form.dataset.jsInitialized === "true") return;
-
         form.dataset.jsInitialized = "true";
 
         const qs = (sel, root = document) => root.querySelector(sel);
@@ -35,17 +42,6 @@
             el.setAttribute("aria-hidden", String(hidden));
         }
 
-        function initConditionalPanelsForVisibleSections() {
-            // only look at enabled radios (active section)
-            qsa("input[type='radio'][data-toggle][data-toggle-value]", form)
-                .filter((r) => !r.disabled && r.checked)
-                .forEach(handleToggleInput);
-
-            const lodgingSelect = qs('select[data-toggle="lodging"]', form);
-            if (lodgingSelect && !lodgingSelect.disabled) handleLodgingSelect(lodgingSelect);
-        }
-
-        // Only toggle required on fields explicitly marked for conditional requirement
         function setConditionalRequiredInside(el, required) {
             if (!el) return;
             qsa("[data-req-when-visible]", el).forEach((c) => {
@@ -53,7 +49,6 @@
             });
         }
 
-        // Disable hidden sections so required fields don't block submit and values aren't submitted
         function disableControlsInside(el, disabled) {
             if (!el) return;
             qsa("input, select, textarea, button", el).forEach((c) => {
@@ -71,25 +66,6 @@
             });
         }
 
-        // --- Youth vs Leader toggle ---
-        function applyRegistrationType(type, { resetOther = false } = {}) {
-            const isYouth = type === "youth";
-            const isLeader = type === "leader";
-
-            setHidden(youthSection, !isYouth);
-            setHidden(leaderSection, !isLeader);
-
-            disableControlsInside(youthSection, !isYouth);
-            disableControlsInside(leaderSection, !isLeader);
-
-            // Only clear the other side if user is switching types
-            if (resetOther) {
-                if (isYouth && leaderSection) resetValuesInside(leaderSection);
-                if (isLeader && youthSection) resetValuesInside(youthSection);
-            }
-        }
-
-        // --- Conditional panels ---
         function showPanel(key, show) {
             const panel = panels[key];
             if (!panel) return;
@@ -104,7 +80,6 @@
             const key = target.getAttribute("data-toggle");
             const val = target.getAttribute("data-toggle-value");
             if (!key || !val) return;
-
             showPanel(key, val === "yes");
         }
 
@@ -114,7 +89,31 @@
             showPanel("lodging", !!v && v !== "tent");
         }
 
-        // --- Event listeners (Safari-safe) ---
+        function initConditionalPanelsForVisibleSections() {
+            qsa("input[type='radio'][data-toggle][data-toggle-value]", form)
+                .filter((r) => !r.disabled && r.checked)
+                .forEach(handleToggleInput);
+
+            const lodgingSelect = qs('select[data-toggle="lodging"]', form);
+            if (lodgingSelect && !lodgingSelect.disabled) handleLodgingSelect(lodgingSelect);
+        }
+
+        function applyRegistrationType(type, { resetOther = false } = {}) {
+            const isYouth = type === "youth";
+            const isLeader = type === "leader";
+
+            setHidden(youthSection, !isYouth);
+            setHidden(leaderSection, !isLeader);
+
+            disableControlsInside(youthSection, !isYouth);
+            disableControlsInside(leaderSection, !isLeader);
+
+            if (resetOther) {
+                if (isYouth && leaderSection) resetValuesInside(leaderSection);
+                if (isLeader && youthSection) resetValuesInside(youthSection);
+            }
+        }
+
         function handleAnyEvent(e) {
             const t = e.target;
 
@@ -135,14 +134,11 @@
             }
         }
 
-        // Use multiple event types for mobile browser reliability
         form.addEventListener("change", handleAnyEvent);
 
-        // --- Initialize state on first load / restore ---
-        // Ensure there's a default selection (you set Youth checked in HTML, but browsers can be weird)
+        // Initial state
         const youthDefault = qs('input[name="registration_type"][value="youth"]', form);
         const checkedType = qs('input[name="registration_type"]:checked', form);
-
         if (!checkedType && youthDefault) youthDefault.checked = true;
 
         const initialType = qs('input[name="registration_type"]:checked', form)?.value;
@@ -154,41 +150,32 @@
             if (leaderSection) { setHidden(leaderSection, true); disableControlsInside(leaderSection, true); }
         }
 
-        // NOW initialize panels based on currently-enabled inputs
         initConditionalPanelsForVisibleSections();
-
-        // --- Scroll to error block ONLY when it exists and is flagged ---
-        const errorBlock = document.getElementById("reg-error-block");
-        if (errorBlock && errorBlock.dataset.scrollOnLoad === "true") {
-            const offset = 140; // pixels above the element
-            const y = errorBlock.getBoundingClientRect().top + window.pageYOffset - offset;
-
-            window.scrollTo({ top: y, behavior: "smooth" });
-
-        }
     }
 
-    // Run on first load
-    document.addEventListener("DOMContentLoaded", init);
+    // Main boot
+    function boot() {
+        initOnce();
+        scrollToErrorIfNeeded();
+    }
 
-    // Safari/iOS: run again when page is restored from bfcache
-    window.addEventListener("pageshow", init);
+    document.addEventListener("DOMContentLoaded", boot);
 
+    // bfcache restore (Safari/iOS)
+    window.addEventListener("pageshow", boot);
+
+    // Permission date helper (kept separate)
     document.addEventListener("DOMContentLoaded", () => {
         const permissionCheckbox = document.getElementById("permission_granted");
         const dateInput = document.getElementById("permission_date");
-
         if (!permissionCheckbox || !dateInput) return;
 
         permissionCheckbox.addEventListener("change", () => {
-            // Only set if checked AND date is empty
             if (!permissionCheckbox.checked || dateInput.value) return;
 
             const d = new Date();
-            d.setMinutes(d.getMinutes() - d.getTimezoneOffset()); // Safari-safe
+            d.setMinutes(d.getMinutes() - d.getTimezoneOffset());
             dateInput.value = d.toISOString().split("T")[0];
         });
     });
-
 })();
-

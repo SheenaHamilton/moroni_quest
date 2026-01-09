@@ -161,18 +161,18 @@
           </div>
 
 
-<% if (errorSummary && errorSummary.length) { %>
-  <div
-    id="reg-error-block"
-    class="alert alert--error"
-    role="alert"
-    aria-live="assertive"
-    tabindex="-1"
-    data-scroll-on-load="true"
-  >
-    <p><%= errorSummary[0] %></p>
-  </div>
-<% } %>
+          <% if (errorSummary && errorSummary.length) { %>
+            <div
+              id="reg-error-block"
+              class="alert alert--error"
+              role="alert"
+              aria-live="assertive"
+              tabindex="-1"
+              data-scroll-on-load="true"
+            >
+              <p><%= errorSummary[0] %></p>
+            </div>
+          <% } %>
 
           <form
             id="registration-form"

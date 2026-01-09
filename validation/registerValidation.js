@@ -31,42 +31,42 @@ registerValidation.validateRegistration = () => {
         // --- Shared participant info ---
         body("first_name")
             .trim()
-            .notEmpty().withMessage("First name is required.")
-            .isAlpha("en-US", { ignore: " -'" }).withMessage("First name must contain only letters."),
+            .notEmpty().withMessage("Participant Information: First name is required.")
+            .isAlpha("en-US", { ignore: " -'" }).withMessage("Participant Information: First name must contain only letters."),
 
         body("last_name")
             .trim()
-            .notEmpty().withMessage("Last name is required.")
-            .isAlpha("en-US", { ignore: " -'" }).withMessage("Last name must contain only letters."),
+            .notEmpty().withMessage("Participant Information: Last name is required.")
+            .isAlpha("en-US", { ignore: " -'" }).withMessage("Participant Information: Last name must contain only letters."),
 
         body("birthdate")
-            .notEmpty().withMessage("Birthdate is required.")
-            .isISO8601().withMessage("Birthdate must be a valid date.")
+            .notEmpty().withMessage("Participant Information: Birthdate is required.")
+            .isISO8601().withMessage("Participant Information: Birthdate must be a valid date.")
             .toDate(),
 
         body("gender")
             .trim()
-            .notEmpty().withMessage("Gender is required.")
-            .isIn(["male", "female"]).withMessage("Gender must be male or female."),
+            .notEmpty().withMessage("Participant Information: Gender is required.")
+            .isIn(["male", "female"]).withMessage("Participant Information: Gender must be male or female."),
 
         body("email")
             .trim()
-            .notEmpty().withMessage("Email is required.")
-            .isEmail().withMessage("Must be a valid email address.")
+            .notEmpty().withMessage("Participant Information: Email is required.")
+            .isEmail().withMessage("Participant Information: Must be a valid email address.")
             .normalizeEmail({ gmail_remove_dots: false }),
 
         body("ward")
             .trim()
-            .notEmpty().withMessage("Ward or branch is required."),
+            .notEmpty().withMessage("Participant Information: Ward / branch is required."),
 
         // --- Address (note: province mismatch fix below) ---
         body("address_street")
             .trim()
-            .notEmpty().withMessage("Street address is required."),
+            .notEmpty().withMessage("Participant Information: Street Address is required."),
 
         body("address_city")
             .trim()
-            .notEmpty().withMessage("City is required."),
+            .notEmpty().withMessage("Participant Information: City is required."),
 
         // OPTION A: enforce AB only (recommended)
         // body("address_province")
@@ -78,7 +78,7 @@ registerValidation.validateRegistration = () => {
         // OPTION B: accept "Alberta" or "AB" (works with your current form value)
         body("address_province")
             .trim()
-            .notEmpty().withMessage("Province is required.")
+            .notEmpty().withMessage("Participant Information: Province is required.")
             .customSanitizer((v) => {
                 const s = String(v).trim().toLowerCase();
                 if (s === "alberta") return "AB";
@@ -87,36 +87,36 @@ registerValidation.validateRegistration = () => {
                 if (s === "sk") return "SK";
                 return v;
             })
-            .isIn(["AB", "SK"]).withMessage("Province must be AB or SK."),
+            .isIn(["AB", "SK"]).withMessage("Participant Information: Province must be AB or SK."),
 
         body("address_postal")
             .trim()
-            .notEmpty().withMessage("Postal code is required.")
+            .notEmpty().withMessage("Participant Information: Postal code is required.")
             .matches(/^[A-Za-z]\d[A-Za-z][ -]?\d[A-Za-z]\d$/)
-            .withMessage("Postal code must be a valid Canadian postal code."),
+            .withMessage("Participant Information: Postal code must be a valid Canadian postal code."),
 
         // --- Emergency Contact ---
         body("emergency_contact_name")
             .trim()
-            .notEmpty().withMessage("Emergency contact name is required."),
+            .notEmpty().withMessage("Emergency Contact: Emergency contact name is required."),
 
         body("emergency_contact_primary")
             .trim()
-            .notEmpty().withMessage("Primary emergency contact phone is required.")
-            .matches(/^[0-9\-+()\s]{7,20}$/).withMessage("Enter a valid phone number."),
+            .notEmpty().withMessage("Emergency Contact: Primary emergency contact phone is required.")
+            .matches(/^[0-9\-+()\s]{7,20}$/).withMessage("Emergency Contact: Enter a valid phone number."),
 
         body("emergency_contact_secondary")
             .optional({ checkFalsy: true })
-            .matches(/^[0-9\-+()\s]{7,20}$/).withMessage("Enter a valid secondary phone number."),
+            .matches(/^[0-9\-+()\s]{7,20}$/).withMessage("Emergency Contact: Enter a valid secondary phone number."),
 
         // --- Health & dietary (shared) ---
         body("health_number")
             .trim()
-            .notEmpty().withMessage("Health number is required."),
+            .notEmpty().withMessage("Health & Dietary: Health number is required."),
 
         body("diet_specific")
             .customSanitizer(yesNoToBool)
-            .isBoolean().withMessage("Dietary needs selection is required.")
+            .isBoolean().withMessage("Health & Dietary: Dietary needs selection is required.")
             .toBoolean(),
 
         body("diet_description")
@@ -125,7 +125,7 @@ registerValidation.validateRegistration = () => {
 
         body("allergies")
             .customSanitizer(yesNoToBool)
-            .isBoolean().withMessage("Allergies selection is required.")
+            .isBoolean().withMessage("Health & Dietary: Allergies selection is required.")
             .toBoolean(),
 
         body("allergies_description")
@@ -135,7 +135,7 @@ registerValidation.validateRegistration = () => {
         // Require diet_description if diet_specific === true
         body("diet_description").custom((value, { req }) => {
             if (req.body.diet_specific === true && (!value || !String(value).trim())) {
-                throw new Error("Please describe dietary needs.");
+                throw new Error("Health & Dietary: Please describe dietary needs.");
             }
             return true;
         }),
@@ -143,7 +143,7 @@ registerValidation.validateRegistration = () => {
         // Require allergies_description if allergies === true
         body("allergies_description").custom((value, { req }) => {
             if (req.body.allergies === true && (!value || !String(value).trim())) {
-                throw new Error("Please list allergies.");
+                throw new Error("Health & Dietary: Please list allergies.");
             }
             return true;
         }),
@@ -208,12 +208,12 @@ registerValidation.validateRegistration = () => {
 
         body("permission_date")
             .optional({ checkFalsy: true })
-            .isISO8601().withMessage("Permission date must be valid.")
+            .isISO8601().withMessage("Youth Medical & Permission: Permission date must be valid.")
             .toDate(),
 
         body("youth_acknowledgement")
             .optional({ checkFalsy: true })
-            .isIn(["yes", "no"]).withMessage("Youth acknowledgement must be yes or no."),
+            .isIn(["yes", "no"]).withMessage("Youth Medical & Permission: Youth acknowledgement must be yes or no."),
 
         // --- Leader-only fields ---
         body("role")
@@ -222,12 +222,12 @@ registerValidation.validateRegistration = () => {
 
         body("arrival_date")
             .optional({ checkFalsy: true })
-            .isISO8601().withMessage("Arrival date must be valid.")
+            .isISO8601().withMessage("Leader Role & Lodging: Arrival date must be valid.")
             .toDate(),
 
         body("departure_date")
             .optional({ checkFalsy: true })
-            .isISO8601().withMessage("Departure date must be valid.")
+            .isISO8601().withMessage("Leader Role & Lodging: Departure date must be valid.")
             .toDate(),
 
         body("lodging_type")
@@ -244,56 +244,57 @@ registerValidation.validateRegistration = () => {
         body("media_release_understood").customSanitizer(checkboxToBool).toBoolean(),
         body("terms_understood").customSanitizer(checkboxToBool).toBoolean(),
 
-        // --- Completed by ---
-        body("form_completed_by")
-            .trim()
-            .notEmpty().withMessage("Form completed by name is required."),
 
         // --- Cross-field conditional requirements by registration_type ---
         body().custom((_, { req }) => {
             const type = req.body.registration_type;
 
             if (type === "youth") {
-                // require parent + permission + youth medical toggles exist
-                if (!req.body.parent_guardian_name) throw new Error("Parent/guardian name is required for youth.");
-                if (!req.body.parent_guardian_relationship) throw new Error("Parent/guardian relationship is required for youth.");
-                if (req.body.permission_granted !== true) throw new Error("Parent/guardian permission is required for youth.");
-                if (!req.body.permission_date) throw new Error("Permission date is required for youth.");
-                if (!req.body.youth_acknowledgement) throw new Error("Youth participant acknowledgement is required.");
 
                 // Medication requirements if medications === true
                 if (req.body.medications === true && !req.body.medications_description) {
-                    throw new Error("Please list medications and instructions.");
+                    throw new Error("Youth Medical & Permission: Please list medications and instructions.");
                 }
                 // If needs assistance for meds, require administer description
                 if (req.body.medications === true && req.body.medications_self_administer === false && !req.body.medications_administer_description) {
-                    throw new Error("Please describe who should administer medications and how.");
+                    throw new Error("Youth Medical & Permission: Please describe who should administer medications and how.");
                 }
 
                 // Health condition requirements if yes
                 if (req.body.health_conditions === true && !req.body.health_conditions_description) {
-                    throw new Error("Please describe health conditions.");
+                    throw new Error("Youth Medical & Permission: Please describe health conditions.");
                 }
 
                 // Surgery requirements if yes
                 if (req.body.surgery_recent === true && !req.body.surgery_description) {
-                    throw new Error("Please describe the surgery/procedure.");
+                    throw new Error("Youth Medical & Permission: Please describe the surgery/procedure.");
                 }
+                // require parent + permission + youth medical toggles exist
+                if (!req.body.parent_guardian_name) throw new Error("Youth Medical & Permission: Parent/guardian name is required.");
+                if (!req.body.parent_guardian_relationship) throw new Error("Youth Medical & Permission: Parent/guardian relationship is required.");
+                if (req.body.permission_granted !== true) throw new Error("Youth Medical & Permission: Parent/guardian permission is required.");
+                if (!req.body.permission_date) throw new Error("Youth Medical & Permission: Permission date is required.");
+                if (!req.body.youth_acknowledgement) throw new Error("Youth Medical & Permission: Youth participant acknowledgement is required.");
             }
 
             if (type === "leader") {
-                if (!req.body.role) throw new Error("Leader role is required.");
-                if (!req.body.arrival_date) throw new Error("Arrival date is required.");
-                if (!req.body.departure_date) throw new Error("Departure date is required.");
-                if (!req.body.lodging_type) throw new Error("Lodging preference is required.");
+                if (!req.body.role) throw new Error("Leader Role & Lodging: Leader role is required.");
+                if (!req.body.arrival_date) throw new Error("Leader Role & Lodging: Arrival date is required.");
+                if (!req.body.departure_date) throw new Error("Leader Role & Lodging: Departure date is required.");
+                if (!req.body.lodging_type) throw new Error("Leader Role & Lodging: Lodging preference is required.");
             }
 
             // Terms/media minimums (shared)
-            if (req.body.media_release_understood !== true) throw new Error("Media release acknowledgement is required.");
-            if (req.body.terms_understood !== true) throw new Error("Terms acknowledgement is required.");
+            if (req.body.media_release_understood !== true) throw new Error("Terms & Media Consents: Media release acknowledgement is required.");
+            if (req.body.terms_understood !== true) throw new Error("Final Confirmation: Terms acknowledgement is required.");
 
             return true;
         }),
+        // --- Completed by ---
+        body("form_completed_by")
+            .trim()
+            .notEmpty().withMessage("Final Confirmation: Form completed by name is required."),
+
     ];
 };
 
