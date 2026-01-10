@@ -14,6 +14,13 @@
         setExpanded(!expanded);
     });
 
+    menu.addEventListener('click', (e) => {
+        const a = e.target.closest('a');
+        if (!a) return;
+        if (a.classList.contains('disabled')) return;
+        setExpanded(false);
+    });
+
     // Close on escape
     document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape') setExpanded(false);
