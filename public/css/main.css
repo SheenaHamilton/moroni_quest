@@ -86,7 +86,7 @@ a {
   width: 100%;
   min-height: 100vh;
   min-height: 100svh; 
-  background: url('/img/captain_moroni_raises_the_title_of_liberty.jpeg') center/cover no-repeat;
+  background: url('/img/captain_moroni_raises_the_title_of_liberty.webp') center/cover no-repeat;
   display: grid;
   place-items: center;
   text-align: center;
@@ -233,7 +233,7 @@ a {
   content: "";
   position: absolute;
   inset: 0;
-  /*background: url("/img/Abinidi.png") center/cover no-repeat; */
+  /*background: url("/img/Abinidi.jpg") center/cover no-repeat; */
   filter: brightness(0.4) blur(1px);
   z-index: 0;
 }
@@ -672,7 +672,7 @@ body.nav-open { overflow: hidden; }
   display: grid;
   place-items: center;
   text-align: center;
-  background: url('/img/captain_moroni_raises_the_title_of_liberty.jpeg') center/cover no-repeat;
+  background: url('/img/captain_moroni_raises_the_title_of_liberty.webp') center/cover no-repeat;
 }
 
 .hero--inner .overlay {
@@ -1733,7 +1733,7 @@ button:disabled {
   content: "";
   position: absolute;
   inset: 0;
-  background-image: url("/img/alma_the_younger_preaching.jpeg");
+  background-image: url("/img/alma_the_younger_preaching.jpg");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -1757,7 +1757,7 @@ button:disabled {
 }
 
 .hero--bom {
-  background-image: url("/img/brass_plates.jpeg");
+  background-image: url("/img/brass_plates.jpg");
 }
 
 .bom__title {

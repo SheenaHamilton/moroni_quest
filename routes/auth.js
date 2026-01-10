@@ -16,7 +16,7 @@ router.get('/callback', passport.authenticate('google', { failureRedirect: '/aut
             req.session.user = req.user;
 
             // Redirect back to where they were going, otherwise fallback to CLIENT_URL
-            const redirectTo = req.session.loginRedirect || process.env.CLIENT_URL;
+            const redirectTo = req.session.loginRedirect || "/leaders"
             delete req.session.loginRedirect;
 
             req.session.save(() => {

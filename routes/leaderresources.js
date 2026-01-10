@@ -35,12 +35,12 @@ router.get("/", requireLeader, async (req, res) => {
             {
                 type: "image",
                 title: "Quest Map",
-                src: "img/questMap.png"
+                src: "img/questMap.jpg"
             },
             {
                 type: "image",
                 title: "Drop-off Map",
-                src: "img/Dropoff.png"
+                src: "img/Dropoff.jpg"
             }
         ]
     };
