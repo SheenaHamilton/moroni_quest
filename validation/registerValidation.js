@@ -222,8 +222,9 @@ registerValidation.validateRegistration = () => {
             .toBoolean(),
 
         body("youth_acknowledgement")
-            .optional({ checkFalsy: true })
-            .isIn(["yes", "no"]).withMessage("Youth Medical & Permission: Youth acknowledgement must be yes or no."),
+            .customSanitizer(checkboxToBool)
+            .optional()
+            .toBoolean(),
 
         // --- Leader-only fields ---
         body("role")
@@ -295,7 +296,7 @@ registerValidation.validateRegistration = () => {
                 if (req.body.permission_granted_privilege !== true) throw new Error("Youth Medical & Permission: Parent/guardian acknowledgement of participant conduct is required.");
                 if (!req.body.permission_date) throw new Error("Youth Medical & Permission: Permission date is required.");
                 if (req.body.youth_acknowledgement_privilege !== true) throw new Error("Youth Medical & Permission: Youth participant acknowledgement of conduct is required.");
-                if (!req.body.youth_acknowledgement) throw new Error("Youth Medical & Permission: Youth participant understanding of terms is required.");
+                if (req.body.youth_acknowledgement !== true) throw new Error("Youth Medical & Permission: Youth participant understanding of terms is required.");
             }
 
             if (type === "leader") {

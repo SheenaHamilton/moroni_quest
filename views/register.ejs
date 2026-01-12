@@ -869,27 +869,17 @@
                   
                 </div>
 
-                <div class="form-row">
-                  <label class="choice">
+                <div class="form-group">
+                  <label class="choice choice--checkbox" for="youth_acknowledgement">
                     <input
-                      type="radio"
+                      type="checkbox"
+                      id="youth_acknowledgement"
                       name="youth_acknowledgement"
-                      value="yes"
+                      value="true"
                       required
-                      <%= yesNoChecked('youth_acknowledgement','yes') ? 'checked' : '' %>
+                      <%= isTruthy('youth_acknowledgement') ? 'checked' : '' %>
                     />
                     Yes, I understand the terms of participating in this event.
-                  </label>
-
-                  <label class="choice">
-                    <input
-                      type="radio"
-                      name="youth_acknowledgement"
-                      value="no"
-                      required
-                      <%= yesNoChecked('youth_acknowledgement','no') ? 'checked' : '' %>
-                    />
-                    No, I need more information or support from my Branch, Ward, or Stake.
                   </label>
                 </div>
               </fieldset>

@@ -94,7 +94,7 @@ exports.appendRegistrationToSheet = async (doc) => {
         boolCell(doc.youth_permission_granted_privilege),
         asISODate(doc.youth_permission_date),
         boolCell(doc.youth_acknowledgement_privilege),
-        doc.youth_acknowledgement || "",
+        boolCell(doc.youth_acknowledgement),
 
         // leader_*
         doc.leader_role || "",
