@@ -812,7 +812,20 @@
                     I give permission for my youth to participate in the Sherwood Park Moroni's Quest and its associated activities. I understand this event takes place in an outdoor setting and that participants and leaders will be camping with food, restroom facilities, and safe drinking water provided.
                     <br><br>
                     I authorize the supervising adult leaders to provide emergency care and to approve necessary medical treatment for my youth in the event of illness or injury.
-                    <br><br>
+                  </label>
+                  
+                </div>
+
+                <div class="form-group">
+                  <label class="choice choice--checkbox" for="permission_granted_privilege">
+                    <input
+                      type="checkbox"
+                      id="permission_granted_privilege"
+                      name="permission_granted_privilege"
+                      value="true"
+                      required
+                      <%= isTruthy('permission_granted_privilege') ? 'checked' : '' %>
+                    />
                     I understand that participants are expected to follow Church standards, event safety rules, and leader direction, and to conduct themselves in a Christlike manner. Participation is a privilege and may be revoked if a participant’s behavior is unsafe or inappropriate.
                   </label>
                   
@@ -837,9 +850,24 @@
                 <legend>Youth Participant Acknowledgement<span class="required">*</span></legend>
 
                 <p class="help-text">
-                  We ask that all youth attending read the terms outlined in the Permissions and Release section
+                  We ask that all youth attending read the terms outlined in the Permission & Acknowledgement
                   of this form and acknowledge their understanding below.
                 </p>
+
+                <div class="form-group">
+                  <label class="choice choice--checkbox" for="youth_acknowledgement_privilege">
+                    <input
+                      type="checkbox"
+                      id="youth_acknowledgement_privilege"
+                      name="youth_acknowledgement_privilege"
+                      value="true"
+                      required
+                      <%= isTruthy('youth_acknowledgement_privilege') ? 'checked' : '' %>
+                    />
+                    I understand that attending this event is a privilege. I agree to follow Church standards, event safety rules, and the directions of leaders, and to act in a Christlike way. I understand that if my behavior is unsafe or inappropriate, I may lose the privilege to participate.
+                  </label>
+                  
+                </div>
 
                 <div class="form-row">
                   <label class="choice">

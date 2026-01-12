@@ -206,10 +206,20 @@ registerValidation.validateRegistration = () => {
             .optional()
             .toBoolean(),
 
+        body("permission_granted_privilege")
+            .customSanitizer(checkboxToBool)
+            .optional()
+            .toBoolean(),
+
         body("permission_date")
             .optional({ checkFalsy: true })
             .isISO8601().withMessage("Youth Medical & Permission: Permission date must be valid.")
             .toDate(),
+
+        body("youth_acknowledgement_privilege")
+            .customSanitizer(checkboxToBool)
+            .optional()
+            .toBoolean(),
 
         body("youth_acknowledgement")
             .optional({ checkFalsy: true })
@@ -273,8 +283,10 @@ registerValidation.validateRegistration = () => {
                 if (!req.body.parent_guardian_name) throw new Error("Youth Medical & Permission: Parent/guardian name is required.");
                 if (!req.body.parent_guardian_relationship) throw new Error("Youth Medical & Permission: Parent/guardian relationship is required.");
                 if (req.body.permission_granted !== true) throw new Error("Youth Medical & Permission: Parent/guardian permission is required.");
+                if (req.body.permission_granted_privilege !== true) throw new Error("Youth Medical & Permission: Parent/guardian acknowledgement of participant conduct is required.");
                 if (!req.body.permission_date) throw new Error("Youth Medical & Permission: Permission date is required.");
-                if (!req.body.youth_acknowledgement) throw new Error("Youth Medical & Permission: Youth participant acknowledgement is required.");
+                if (req.body.youth_acknowledgement_privilege !== true) throw new Error("Youth Medical & Permission: Youth participant acknowledgement of conduct is required.");
+                if (!req.body.youth_acknowledgement) throw new Error("Youth Medical & Permission: Youth participant understanding of terms is required.");
             }
 
             if (type === "leader") {

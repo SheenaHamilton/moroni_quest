@@ -56,8 +56,10 @@ exports.submitRegistration = async (req, res) => {
             youth_parent_guardian_relationship: type === "youth" ? req.body.parent_guardian_relationship : "",
 
             youth_permission_granted: type === "youth" ? req.body.permission_granted : false,
+            youth_permission_granted_privilege: type === "youth" ? req.body.permission_granted_privilege : false,
             youth_permission_date: type === "youth" ? req.body.permission_date : null,
 
+            youth_acknowledgement_privilege: type === "youth" ? (req.body.youth_acknowledgement_privilege || "") : "",
             youth_acknowledgement: type === "youth" ? (req.body.youth_acknowledgement || "") : "",
 
             // leader_* fields (always present; blank for youth)

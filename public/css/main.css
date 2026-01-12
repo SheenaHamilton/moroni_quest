@@ -2055,6 +2055,134 @@ button:disabled {
   color: rgba(0,0,0,.65);
 }
 
+/* Online Journal Section */
+.bom-journal h3 {
+    font-family: Cinzel, serif;
+    color: var(--gold);
+    margin-top: 0;
+    margin-bottom: 0.75rem;
+}
+
+.bom-journal .section-tag {
+    color: black;
+}
+
+.bom-journal {
+  padding: 3rem 1rem;
+  background: #f8f5ef;
+}
+
+.bom-journal__grid {
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 2.5rem;
+}
+
+.bom-journal__content p {
+  line-height: 1.6;
+  margin-bottom: 1rem;
+}
+
+.bom-journal__lead {
+  font-weight: 700;
+  font-size: 1.05rem;
+}
+
+.bom-journal__list {
+  margin: .5rem 0 0 1.1rem;
+  padding: 0;
+}
+
+.bom-journal__list li {
+  margin-bottom: .35rem;
+}
+
+.bom-journal__downloads {
+  background: rgba(255,255,255,.85);
+  border: 1px solid rgba(212,175,55,.35);
+  border-radius: 16px;
+  padding: 1.5rem;
+}
+
+.bom-journal__subhead {
+  font-family: Cinzel, serif;
+  color: var(--gold);
+  margin-bottom: .5rem;
+}
+
+.bom-journal__small {
+  font-size: .95rem;
+  margin-bottom: 1rem;
+}
+
+.bom-journal__download {
+  display: block;
+  margin-bottom: .75rem;
+  color: var(--gold);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.bom-journal__download:hover {
+  text-decoration: underline;
+}
+
+.bom-journal__note {
+  margin-top: 1rem;
+  font-size: .9rem;
+  opacity: .75;
+}
+
+@media (max-width: 800px) {
+  .bom-journal__grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.setup-steps {
+  list-style: none;
+  padding: 0;
+  margin: 1.5rem 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.setup-steps li {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.step-num {
+  flex-shrink: 0;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 50%;
+  border: 2px solid var(--gold, #c9a24d);
+  color: var(--gold, #c9a24d);
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+}
+
+.step-content strong {
+  display: block;
+  font-size: 1rem;
+  margin-bottom: 0.15rem;
+}
+
+.step-content p {
+  margin: 0;
+  font-size: 0.95rem;
+  color: #555;
+  line-height: 1.4;
+}
+
+
 /* ===== Leader Resources ===== */
 .leader-resources {
   padding: 1rem 1rem;
