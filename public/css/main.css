@@ -1143,6 +1143,7 @@ body.nav-open { overflow: hidden; }
 #administer-details, 
 #health-conditions-details,
 #surgery-details,
+#medical-background-details,
 #registration-form > section.reg-card.reg-card--youth > fieldset:nth-child(12) > div:nth-child(3) > label
 {
   margin-top: 1rem;

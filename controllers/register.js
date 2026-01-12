@@ -70,6 +70,9 @@ exports.submitRegistration = async (req, res) => {
             leader_lodging_type: type === "leader" ? (req.body.lodging_type || "") : "",
             leader_lodging_description: type === "leader" ? (req.body.lodging_description || "") : "",
 
+            leader_medical_background: type === "leader" ? req.body.medical_background : false,
+            leader_medical_background_description: type === "leader" ? (req.body.medical_background_description || "") : "",
+
             // terms/media (shared)
             terms_understood: req.body.terms_understood,
             media_consent_internal: req.body.media_consent_internal,

@@ -240,6 +240,15 @@ registerValidation.validateRegistration = () => {
             .isISO8601().withMessage("Leader Role & Lodging: Departure date must be valid.")
             .toDate(),
 
+        body("medical_background")
+            .customSanitizer(yesNoToBool)
+            .optional()
+            .toBoolean(),
+
+        body("medical_background_description")
+            .optional({ checkFalsy: true })
+            .trim(),
+
         body("lodging_type")
             .optional({ checkFalsy: true })
             .trim(),
@@ -293,6 +302,13 @@ registerValidation.validateRegistration = () => {
                 if (!req.body.role) throw new Error("Leader Role & Lodging: Leader role is required.");
                 if (!req.body.arrival_date) throw new Error("Leader Role & Lodging: Arrival date is required.");
                 if (!req.body.departure_date) throw new Error("Leader Role & Lodging: Departure date is required.");
+                if (!req.body.medical_background) throw new Error("Leader Role & Lodging: Medical background is required.");
+
+                // medical_background_description requirements if yes
+                if (req.body.medical_background === true && !req.body.medical_background_description) {
+                    throw new Error("Leader Role & Lodging: Please describe your medical or first-aid background.");
+                }
+
                 if (!req.body.lodging_type) throw new Error("Leader Role & Lodging: Lodging preference is required.");
             }
 

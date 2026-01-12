@@ -100,6 +100,10 @@ exports.appendRegistrationToSheet = async (doc) => {
         doc.leader_role || "",
         asISODate(doc.leader_arrival_date),
         asISODate(doc.leader_departure_date),
+
+        boolCell(doc.leader_medical_background),
+        doc.leader_medical_background_description || "",
+
         doc.leader_lodging_type || "",
         doc.leader_lodging_description || "",
 

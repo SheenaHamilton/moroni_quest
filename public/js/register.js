@@ -33,6 +33,7 @@
             "self-administer": qs("#administer-details", form),
             "health-conditions": qs("#health-conditions-details", form),
             surgery: qs("#surgery-details", form),
+            "medical-background": qs("#medical-background-details", form),
             lodging: qs("#lodging-details", form),
         };
 
