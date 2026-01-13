@@ -303,7 +303,6 @@ registerValidation.validateRegistration = () => {
                 if (!req.body.role) throw new Error("Leader Role & Lodging: Leader role is required.");
                 if (!req.body.arrival_date) throw new Error("Leader Role & Lodging: Arrival date is required.");
                 if (!req.body.departure_date) throw new Error("Leader Role & Lodging: Departure date is required.");
-                if (!req.body.medical_background) throw new Error("Leader Role & Lodging: Medical background is required.");
 
                 // medical_background_description requirements if yes
                 if (req.body.medical_background === true && !req.body.medical_background_description) {
