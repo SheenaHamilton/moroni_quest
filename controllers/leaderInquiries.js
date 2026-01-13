@@ -12,7 +12,7 @@ const renderListPage = async (req, res) => {
     try {
         const selectedStatus = (req.query.status || 'all').toLowerCase();
         const inquiries = await inquiriesService.list({ status: selectedStatus });
-        console.log('STATUS QUERY:', req.query.status);
+        //console.log('STATUS QUERY:', req.query.status);
 
         inquiries.sort((a, b) => {
             const r = rankStatus(a.status) - rankStatus(b.status);
