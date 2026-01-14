@@ -12,7 +12,39 @@ document.addEventListener("DOMContentLoaded", () => {
         return;
     }
 
-    let index = 0;
+
+    const WEEK1_START = new Date(2026, 0, 19); // Jan=0
+
+    const startOfDay = (d) => new Date(d.getFullYear(), d.getMonth(), d.getDate());
+
+    function getCurrentWeekNumber() {
+        const today = startOfDay(new Date());
+        const start = startOfDay(WEEK1_START);
+        const diffDays = Math.floor((today - start) / (1000 * 60 * 60 * 24));
+        if (diffDays < 0) return 1;
+        return Math.floor(diffDays / 7) + 1;
+    }
+
+    function clamp(n, min, max) {
+        return Math.max(min, Math.min(max, n));
+    }
+
+    // Find the max week you actually have cards for (based on data-week)
+    const weekNums = cards
+        .map((c) => parseInt(c.dataset.week || "0", 10))
+        .filter(Boolean);
+
+    const maxWeek = weekNums.length ? Math.max(...weekNums) : cards.length;
+
+    // ✅ Default index based on today's computed week
+    const desiredWeek = clamp(getCurrentWeekNumber(), 1, maxWeek);
+
+    let index = cards.findIndex(
+        (c) => parseInt(c.dataset.week || "0", 10) === desiredWeek
+    );
+
+    // Fallback if no matching data-week exists
+    if (index < 0) index = 0;
 
     function render() {
         cards.forEach((c, i) => c.classList.toggle("is-active", i === index));
@@ -21,7 +53,6 @@ document.addEventListener("DOMContentLoaded", () => {
         const wk = cards[index].dataset.week || String(index + 1);
         label.textContent = `Week ${wk}`;
 
-        // Helpful for screen readers
         viewport.setAttribute(
             "aria-label",
             `Weekly challenges. Showing Week ${wk}. Use left/right arrow keys to navigate.`
@@ -31,12 +62,8 @@ document.addEventListener("DOMContentLoaded", () => {
         const bg = cards[index].dataset.bg;
 
         if (bg) {
-            carousel.style.setProperty(
-                "--carousel-bg",
-                `url("${bg}")`
-            );
+            carousel.style.setProperty("--carousel-bg", `url("${bg}")`);
         }
-
     }
 
     function go(delta) {
@@ -54,7 +81,6 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-    // ✅ Keyboard support (when viewport has focus)
     viewport.addEventListener("keydown", (e) => {
         if (e.key === "ArrowLeft") {
             e.preventDefault();
@@ -65,7 +91,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-    // ✅ Swipe support (touch)
     let startX = 0;
     let startY = 0;
     let tracking = false;
@@ -93,11 +118,9 @@ document.addEventListener("DOMContentLoaded", () => {
             const dx = t.clientX - startX;
             const dy = t.clientY - startY;
 
-            // prevent accidental swipe during vertical scroll
             if (Math.abs(dx) < 40) return;
             if (Math.abs(dx) < Math.abs(dy)) return;
 
-            // swipe left = next, swipe right = prev
             if (dx < 0) go(1);
             else go(-1);
         },
