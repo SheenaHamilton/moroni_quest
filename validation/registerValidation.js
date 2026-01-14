@@ -20,6 +20,9 @@ const checkboxToBool = (v) => {
     return s === "true" || s === "on" || s === "1";
 };
 
+const isYouth = (req) => req.body.registration_type === "youth";
+const isLeader = (req) => req.body.registration_type === "leader";
+
 registerValidation.validateRegistration = () => {
     return [
         // --- Registration type ---
@@ -41,7 +44,8 @@ registerValidation.validateRegistration = () => {
 
         body("birthdate")
             .notEmpty().withMessage("Participant Information: Birthdate is required.")
-            .isISO8601().withMessage("Participant Information: Birthdate must be a valid date.")
+            .isISO8601({ strict: true, strictSeparator: true })
+            .withMessage("Participant Information: Birthdate must be a valid date.")
             .toDate(),
 
         body("gender")
@@ -53,6 +57,7 @@ registerValidation.validateRegistration = () => {
             .trim()
             .notEmpty().withMessage("Participant Information: Email is required.")
             .isEmail().withMessage("Participant Information: Must be a valid email address.")
+            .bail()
             .normalizeEmail({ gmail_remove_dots: false }),
 
         body("ward")
@@ -116,212 +121,222 @@ registerValidation.validateRegistration = () => {
 
         body("diet_specific")
             .customSanitizer(yesNoToBool)
-            .isBoolean().withMessage("Health & Dietary: Dietary needs selection is required.")
+            .isBoolean().withMessage("Health & Dietary: Dietary selection is required.")
+            .bail()
             .toBoolean(),
 
         body("diet_description")
-            .optional({ checkFalsy: true })
-            .trim(),
+            .if((_, { req }) => req.body.diet_specific === true)
+            .trim()
+            .notEmpty().withMessage("Health & Dietary: Please describe dietary needs."),
+
 
         body("allergies")
             .customSanitizer(yesNoToBool)
             .isBoolean().withMessage("Health & Dietary: Allergies selection is required.")
+            .bail()
             .toBoolean(),
 
         body("allergies_description")
-            .optional({ checkFalsy: true })
-            .trim(),
-
-        // Require diet_description if diet_specific === true
-        body("diet_description").custom((value, { req }) => {
-            if (req.body.diet_specific === true && (!value || !String(value).trim())) {
-                throw new Error("Health & Dietary: Please describe dietary needs.");
-            }
-            return true;
-        }),
-
-        // Require allergies_description if allergies === true
-        body("allergies_description").custom((value, { req }) => {
-            if (req.body.allergies === true && (!value || !String(value).trim())) {
-                throw new Error("Health & Dietary: Please list allergies.");
-            }
-            return true;
-        }),
+            .if((_, { req }) => req.body.allergies === true)
+            .trim()
+            .notEmpty().withMessage("Health & Dietary: Please list allergies."),
 
         // --- Youth-only fields ---
         body("medications")
+            .if((_, { req }) => isYouth(req))
             .customSanitizer(yesNoToBool)
-            .optional()
-            .toBoolean(),
-
-        body("medications_self_administer")
-            .customSanitizer(yesNoToBool)
-            .optional()
+            .notEmpty().withMessage("Youth Medical & Permission: Medications selection is required.")
+            .bail()
+            .isBoolean().withMessage("Youth Medical & Permission: Medications selection is required.")
+            .bail()
             .toBoolean(),
 
         body("medications_description")
-            .optional({ checkFalsy: true })
-            .trim(),
+            .if((_, { req }) => isYouth(req) && req.body.medications === true)
+            .trim()
+            .notEmpty().withMessage("Youth Medical & Permission: Please list medications and instructions."),
+
+        body("medications_self_administer")
+            .if((_, { req }) => isYouth(req) && req.body.medications === true)
+            .customSanitizer(yesNoToBool)
+            .notEmpty().withMessage("Youth Medical & Permission: Self-administer selection is required.")
+            .bail()
+            .isBoolean().withMessage("Youth Medical & Permission: Self-administer selection is required.")
+            .bail()
+            .toBoolean(),
 
         body("medications_administer_description")
-            .optional({ checkFalsy: true })
-            .trim(),
+            .if((_, { req }) =>
+                isYouth(req) &&
+                req.body.medications === true &&
+                req.body.medications_self_administer === false
+            )
+            .trim()
+            .notEmpty().withMessage("Youth Medical & Permission: Please describe who should administer medications and how."),
 
         body("health_conditions")
+            .if((_, { req }) => isYouth(req))
             .customSanitizer(yesNoToBool)
-            .optional()
+            .notEmpty().withMessage("Youth Medical & Permission: Health Conditions selection is required.")
+            .bail()
+            .isBoolean().withMessage("Youth Medical & Permission: Health Conditions selection is required.")
+            .bail()
             .toBoolean(),
 
         body("health_conditions_description")
-            .optional({ checkFalsy: true })
-            .trim(),
+            .if((_, { req }) => isYouth(req) && req.body.health_conditions === true)
+            .trim()
+            .notEmpty().withMessage("Youth Medical & Permission: Please describe health conditions."),
+
 
         body("surgery_recent")
+            .if((_, { req }) => isYouth(req))
             .customSanitizer(yesNoToBool)
-            .optional()
+            .notEmpty().withMessage("Youth Medical & Permission: Recent Surgery selection is required.")
+            .bail()
+            .isBoolean().withMessage("Youth Medical & Permission: Recent Surgery selection is required.")
+            .bail()
             .toBoolean(),
 
         body("surgery_description")
-            .optional({ checkFalsy: true })
-            .trim(),
+            .if((_, { req }) => isYouth(req) && req.body.surgery_recent === true)
+            .trim()
+            .notEmpty().withMessage("Youth Medical & Permission: Please describe the surgery/procedure."),
 
         body("physical_limitations")
+            .if((_, { req }) => isYouth(req))
             .optional({ checkFalsy: true })
             .trim(),
 
         body("other_needs")
+            .if((_, { req }) => isYouth(req))
             .optional({ checkFalsy: true })
             .trim(),
 
         body("parent_guardian_name")
-            .optional({ checkFalsy: true })
-            .trim(),
+            .if((_, { req }) => isYouth(req))
+            .trim()
+            .notEmpty().withMessage("Youth Medical & Permission: Parent/guardian name is required."),
 
         body("parent_guardian_relationship")
-            .optional({ checkFalsy: true })
-            .trim(),
+            .if((_, { req }) => isYouth(req))
+            .trim()
+            .notEmpty().withMessage("Youth Medical & Permission: Parent/guardian relationship is required."),
 
         body("permission_granted")
+            .if((_, { req }) => isYouth(req))
+            .exists({ checkFalsy: true })
+            .withMessage("Youth Medical & Permission: Parent / guardian permission is required.")
+            .bail()
             .customSanitizer(checkboxToBool)
-            .optional()
-            .toBoolean(),
+            .custom((v) => v === true)
+            .withMessage("Youth Medical & Permission: Parent / guardian permission is required."),
 
         body("permission_granted_privilege")
+            .if((_, { req }) => isYouth(req))
+            .exists({ checkFalsy: true })
+            .withMessage("Youth Medical & Permission: Parent/guardian acknowledgement of participant conduct is required.")
+            .bail()
             .customSanitizer(checkboxToBool)
-            .optional()
-            .toBoolean(),
+            .custom((v) => v === true)
+            .withMessage("Youth Medical & Permission: Parent/guardian acknowledgement of participant conduct is required."),
 
         body("permission_date")
-            .optional({ checkFalsy: true })
+            .if((_, { req }) => isYouth(req))
+            .notEmpty().withMessage("Youth Medical & Permission: Permission date is required.")
             .isISO8601().withMessage("Youth Medical & Permission: Permission date must be valid.")
             .toDate(),
 
         body("youth_acknowledgement_privilege")
+            .if((_, { req }) => isYouth(req))
+            .exists({ checkFalsy: true })
+            .withMessage("Youth Medical & Permission: Youth participant acknowledgement of conduct is required.")
+            .bail()
             .customSanitizer(checkboxToBool)
-            .optional()
-            .toBoolean(),
+            .custom((v) => v === true)
+            .withMessage("Youth Medical & Permission: Youth participant acknowledgement of conduct is required."),
 
         body("youth_acknowledgement")
+            .if((_, { req }) => isYouth(req))
+            .exists({ checkFalsy: true })
+            .withMessage("Youth Medical & Permission: Youth participant understanding of terms is required.")
+            .bail()
             .customSanitizer(checkboxToBool)
-            .optional()
-            .toBoolean(),
+            .custom((v) => v === true)
+            .withMessage("Youth Medical & Permission: Youth participant understanding of terms is required."),
 
         // --- Leader-only fields ---
         body("role")
-            .optional({ checkFalsy: true })
-            .trim(),
+            .if((_, { req }) => isLeader(req))
+            .trim()
+            .notEmpty().withMessage("Leader Role & Lodging: Leader role is required."),
 
         body("arrival_date")
-            .optional({ checkFalsy: true })
+            .if((_, { req }) => isLeader(req))
+            .notEmpty().withMessage("Leader Role & Lodging: Arrival date is required.")
             .isISO8601().withMessage("Leader Role & Lodging: Arrival date must be valid.")
             .toDate(),
 
         body("departure_date")
-            .optional({ checkFalsy: true })
+            .if((_, { req }) => isLeader(req))
+            .notEmpty().withMessage("Leader Role & Lodging: Departure date is required.")
             .isISO8601().withMessage("Leader Role & Lodging: Departure date must be valid.")
             .toDate(),
 
         body("medical_background")
+            .if((_, { req }) => isLeader(req))
             .customSanitizer(yesNoToBool)
-            .optional()
+            .notEmpty().withMessage("Leader Role & Lodging: Medical Background selection is required.")
+            .bail()
+            .isBoolean().withMessage("Leader Role & Lodging: Medical Background selection is required.")
+            .bail()
             .toBoolean(),
 
         body("medical_background_description")
-            .optional({ checkFalsy: true })
-            .trim(),
+            .if((_, { req }) => isLeader(req) && req.body.medical_background === true)
+            .trim()
+            .notEmpty().withMessage("Leader Role & Lodging: Please describe your medical or first-aid background."),
 
         body("lodging_type")
-            .optional({ checkFalsy: true })
-            .trim(),
+            .if((_, { req }) => isLeader(req))
+            .trim()
+            .notEmpty().withMessage("Leader Role & Lodging: Lodging preference is required."),
 
         body("lodging_description")
+            .if((_, { req }) => isLeader(req))
             .optional({ checkFalsy: true })
             .trim(),
 
+
         // --- Terms & Media (checkboxes) ---
-        body("media_consent_internal").customSanitizer(checkboxToBool).toBoolean(),
-        body("media_consent_external").customSanitizer(checkboxToBool).toBoolean(),
-        body("media_release_understood").customSanitizer(checkboxToBool).toBoolean(),
-        body("terms_understood").customSanitizer(checkboxToBool).toBoolean(),
+        body("media_consent_internal")
+            .customSanitizer(checkboxToBool)
+            .toBoolean(),
 
+        body("media_consent_external")
+            .customSanitizer(checkboxToBool)
+            .toBoolean(),
 
-        // --- Cross-field conditional requirements by registration_type ---
-        body().custom((_, { req }) => {
-            const type = req.body.registration_type;
+        body("media_release_understood")
+            .exists({ checkFalsy: true })
+            .withMessage("Terms & Media Consents: Media release acknowledgement is required.")
+            .bail()
+            .customSanitizer(checkboxToBool)
+            .custom((v) => v === true)
+            .withMessage("Terms & Media Consents: Media release acknowledgement is required."),
 
-            if (type === "youth") {
-
-                // Medication requirements if medications === true
-                if (req.body.medications === true && !req.body.medications_description) {
-                    throw new Error("Youth Medical & Permission: Please list medications and instructions.");
-                }
-                // If needs assistance for meds, require administer description
-                if (req.body.medications === true && req.body.medications_self_administer === false && !req.body.medications_administer_description) {
-                    throw new Error("Youth Medical & Permission: Please describe who should administer medications and how.");
-                }
-
-                // Health condition requirements if yes
-                if (req.body.health_conditions === true && !req.body.health_conditions_description) {
-                    throw new Error("Youth Medical & Permission: Please describe health conditions.");
-                }
-
-                // Surgery requirements if yes
-                if (req.body.surgery_recent === true && !req.body.surgery_description) {
-                    throw new Error("Youth Medical & Permission: Please describe the surgery/procedure.");
-                }
-                // require parent + permission + youth medical toggles exist
-                if (!req.body.parent_guardian_name) throw new Error("Youth Medical & Permission: Parent/guardian name is required.");
-                if (!req.body.parent_guardian_relationship) throw new Error("Youth Medical & Permission: Parent/guardian relationship is required.");
-                if (req.body.permission_granted !== true) throw new Error("Youth Medical & Permission: Parent/guardian permission is required.");
-                if (req.body.permission_granted_privilege !== true) throw new Error("Youth Medical & Permission: Parent/guardian acknowledgement of participant conduct is required.");
-                if (!req.body.permission_date) throw new Error("Youth Medical & Permission: Permission date is required.");
-                if (req.body.youth_acknowledgement_privilege !== true) throw new Error("Youth Medical & Permission: Youth participant acknowledgement of conduct is required.");
-                if (req.body.youth_acknowledgement !== true) throw new Error("Youth Medical & Permission: Youth participant understanding of terms is required.");
-            }
-
-            if (type === "leader") {
-                if (!req.body.role) throw new Error("Leader Role & Lodging: Leader role is required.");
-                if (!req.body.arrival_date) throw new Error("Leader Role & Lodging: Arrival date is required.");
-                if (!req.body.departure_date) throw new Error("Leader Role & Lodging: Departure date is required.");
-
-                // medical_background_description requirements if yes
-                if (req.body.medical_background === true && !req.body.medical_background_description) {
-                    throw new Error("Leader Role & Lodging: Please describe your medical or first-aid background.");
-                }
-
-                if (!req.body.lodging_type) throw new Error("Leader Role & Lodging: Lodging preference is required.");
-            }
-
-            // Terms/media minimums (shared)
-            if (req.body.media_release_understood !== true) throw new Error("Terms & Media Consents: Media release acknowledgement is required.");
-            if (req.body.terms_understood !== true) throw new Error("Final Confirmation: Terms acknowledgement is required.");
-
-            return true;
-        }),
-        // --- Completed by ---
         body("form_completed_by")
             .trim()
             .notEmpty().withMessage("Final Confirmation: Form completed by name is required."),
+
+        body("terms_understood")
+            .exists({ checkFalsy: true })
+            .withMessage("Final Confirmation: Terms acknowledgement is required.")
+            .bail()
+            .customSanitizer(checkboxToBool)
+            .custom((v) => v === true)
+            .withMessage("Final Confirmation: Terms acknowledgement is required."),
 
     ];
 };
