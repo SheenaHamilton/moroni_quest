@@ -444,8 +444,8 @@
               </header>
 
               <div class="reg-grid">
-                <div class="form-group">
-                  <label for="health_number">Health Number<span class="required">*</span></label>
+                <div class="form-group is-hidden" aria-hidden="true">
+                  <label for="health_number">Health Number</label>
                   <input
                     type="text"
                     id="health_number"
@@ -907,6 +907,7 @@
                     <option value="logistics" <%= sel('role','support') %>>Support / Logistics</option>
                     <option value="photography" <%= sel('role','photography') %>>Photography</option>
                     <option value="registration" <%= sel('role','registration') %>>Registration</option>
+                    <option value="programming" <%= sel('role','programming') %>>Programming</option>
                     <option value="production" <%= sel('role','production') %>>Production / Actors</option>
                     <option value="other" <%= sel('role','other') %>>Other</option>
                   </select>
@@ -992,7 +993,8 @@
                       data-toggle="lodging"
                     >
                       <option value="" disabled <%= !v.lodging_type ? 'selected' : '' %>>Select lodging</option>
-                      <option value="tent" <%= sel('lodging_type','tent') %>>Tent (on-site)</option>
+                      <option value="tent" <%= sel('lodging_type','tent-own') %>>Tent (Bringing my Own)</option>
+                      <option value="tent" <%= sel('lodging_type','tent-need') %>>Tent (Need one Provided)</option>
                       <option value="trailer" <%= sel('lodging_type','trailer') %>>Trailer / RV</option>
                       <option value="cabin" <%= sel('lodging_type','cabin') %>>Shared Cabin Assignment</option>
                       <option value="offsite" <%= sel('lodging_type','offsite') %>>Off-site (commuting)</option>

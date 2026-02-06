@@ -29,7 +29,7 @@ exports.submitRegistration = async (req, res) => {
             emergency_contact_primary: req.body.emergency_contact_primary,
             emergency_contact_secondary: req.body.emergency_contact_secondary || "",
 
-            health_number: req.body.health_number,
+            health_number: req.body.health_number || "",
 
             diet_specific: req.body.diet_specific,
             diet_description: req.body.diet_description || "",

@@ -116,8 +116,7 @@ registerValidation.validateRegistration = () => {
 
         // --- Health & dietary (shared) ---
         body("health_number")
-            .trim()
-            .notEmpty().withMessage("Health & Dietary: Health number is required."),
+            .trim(),
 
         body("diet_specific")
             .customSanitizer(yesNoToBool)
