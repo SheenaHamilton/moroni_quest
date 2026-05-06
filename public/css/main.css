@@ -2773,55 +2773,57 @@ button:disabled {
   color: var(--gold);
 }
 
-/* INQUIRIES */
+/* =========================
+   PUBLIC INQUIRIES PAGE
+   ========================= */
 
-  #inquiries { 
-    padding: 3rem 1rem; 
-    background: #f8f5ef;
-    color: black;
-  }
-  #inquiries .container { max-width: 1100px; margin: 0 auto; }
+#inquiries { 
+  padding: 3rem 1rem; 
+  background: #f8f5ef;
+  color: black;
+}
 
-  .hero--inquiries {
-    background-image: url("/img/lehi_liahonalarge.jpg");
-    background-size: cover;
-    background-position: center;
-  }
+#inquiries .container {
+  max-width: 1100px;
+  margin: 0 auto;
+}
 
-  .inquiries-grid {
-    display: grid;
-    grid-template-columns: 1.2fr .8fr;
-    gap: 1.25rem;
-    align-items: start;
-  }
+.hero--inquiries {
+  background-image: url("/img/lehi_liahonalarge.jpg");
+  background-size: cover;
+  background-position: center;
+}
 
-  .inquiries-card {
-    background: white;
-    border: 1px solid rgba(212,175,55,0.25);
-    border-radius: 16px;
-    padding: 1.25rem;
-    box-shadow: 0 14px 40px rgba(0,0,0,0.35);
-    backdrop-filter: blur(6px);
-  }
+.inquiries-grid {
+  display: grid;
+  grid-template-columns: 1.2fr .8fr;
+  gap: 1.25rem;
+  align-items: start;
+}
 
-  .aside-card {
-    padding: 1rem;
-  }
+.inquiries-card {
+  background: white;
+  border: 1px solid rgba(212,175,55,0.25);
+  border-radius: 16px;
+  padding: 1.25rem;
+  box-shadow: 0 14px 40px rgba(0,0,0,0.2);
+}
 
-  .aside-card h3{
-    color: var(--gold);
-    margin-block-start: 0;
-    margin-block-end: 1em;
-  }
+.aside-card {
+  padding: 1rem;
+}
 
-  .card-title { 
-    margin: 0 0 .35rem; 
-    color: var(--gold);
-  }
-  .card-sub { 
-    color: black;
-    margin: 0 0 1rem; opacity: .9; 
-  }
+.aside-card h3,
+.card-title { 
+  color: var(--gold);
+  margin-top: 0;
+}
+
+.card-sub {
+  color: black;
+  margin: 0 0 1rem;
+  opacity: .9;
+}
 
 .inquiry-form .row {
   display: grid;
@@ -2829,26 +2831,38 @@ button:disabled {
   gap: .9rem;
 }
 
-.field { margin-bottom: .9rem; }
-  label { 
-    display: block; 
-    font-weight: 600; 
-    margin-bottom: .35rem; 
-    color: black;
-  }
+.inquiry-form .field {
+  margin-bottom: .9rem;
+}
 
-input, textarea {
+.inquiry-form label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: .35rem;
+  color: black;
+}
+
+.inquiry-form input,
+.inquiry-form textarea {
   width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
   padding: .75rem .85rem;
   border-radius: 6px;
   border: 2px solid rgba(0, 0, 0, 0.1);
-
   color: inherit;
 }
 
-textarea { resize: vertical; min-height: 160px; }
+.inquiry-form textarea {
+  resize: vertical;
+  min-height: 160px;
+}
 
-.hint { font-size: .9rem; opacity: .85; margin-top: .35rem; }
+.hint {
+  font-size: .9rem;
+  opacity: .85;
+  margin-top: .35rem;
+}
 
 .actions {
   display: grid;
@@ -2856,25 +2870,24 @@ textarea { resize: vertical; min-height: 160px; }
   margin-top: .5rem;
 }
 
-.fineprint { margin: 0; font-size: .9rem; opacity: .85; }
-
 .alert {
-  padding: .3rem 1rem;
+  padding: .55rem 1rem;
   border-radius: 12px;
-  margin: 0 0 1rem;
-  border: 1px solid rgba(255,255,255,0.18);
+  margin: 0 auto 1rem;
+  max-width: 1100px;
   color: black;
 }
+
 .alert--success { 
   background: rgba(244, 215, 0, 0.12);
   border: var(--gold) 1px solid;
- }
+}
+
 .alert--error { 
   background: rgba(231, 76, 60, 0.12); 
   border: rgb(183, 60, 46) 1px solid;
 }
 
-/* Honeypot: visually hidden but still in DOM */
 .hp-field {
   position: absolute !important;
   left: -10000px !important;
@@ -2883,37 +2896,57 @@ textarea { resize: vertical; min-height: 160px; }
   overflow: hidden !important;
 }
 
-  /* Responsive */
-  @media (max-width: 900px) {
-    .inquiries-grid { grid-template-columns: 1fr; }
-    .inquiry-form .row { 
-      grid-template-columns: 1fr; 
-      gap: 0;
-    } 
+@media (max-width: 900px) {
+  #inquiries {
+    padding: 2rem 1rem;
   }
 
-  /* =========================================================
-   Leader Inquiries Admin Page (table UI styled like Documents)
-   Applies to: <main class="page leader-inquiries"> ... 
-   ========================================================= */
+  .inquiries-grid {
+    grid-template-columns: 1fr;
+  }
 
-/* Layout */
-.leader-inquiries .inquiries-admin {
-  padding: 2rem 1rem;
+  .inquiry-form .row {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+
+  .actions .btn,
+  .actions .hero-btn {
+    width: 100%;
+    justify-content: center;
+  }
 }
 
-/* Layout */
+@media (max-width: 480px) {
+  #inquiries {
+    padding: 1.5rem .85rem;
+  }
+
+  .inquiries-card {
+    padding: 1rem;
+  }
+
+  .inquiry-form input,
+  .inquiry-form textarea {
+    font-size: 16px;
+  }
+}
+
+
+/* =========================
+   LEADER INQUIRIES ADMIN
+   ========================= */
+
 .inquiries-admin {
-    background: #f8f5ef;
-    color: black;
+  background: #f8f5ef;
+  color: black;
+  padding: 2rem 1rem;
 }
 
 .leader-inquiries .inquiries-admin .wrap {
   max-width: 1200px;
   margin: 0 auto;
 }
-
-
 
 /* Toolbar */
 .leader-inquiries .inq-toolbar {
@@ -2935,8 +2968,8 @@ textarea { resize: vertical; min-height: 160px; }
   border-radius: 10px;
   border: 1px solid rgba(255,255,255,.12);
   color: var(--gold);
-  height: var(--tap-min);
-  font-size: 1em;
+  min-height: var(--tap-min, 44px);
+  font-size: 1rem;
 }
 
 .leader-inquiries .inq-clear {
@@ -2950,18 +2983,19 @@ textarea { resize: vertical; min-height: 160px; }
   white-space: nowrap;
 }
 
-/* Table wrapper (docs-style: no boxed background) */
+/* Table */
 .leader-inquiries .inq-table-wrap {
   overflow-x: auto;
   background: transparent;
   border: 0;
   border-radius: 0;
+  -webkit-overflow-scrolling: touch;
 }
 
-/* Table: keep structure, but look like document list rows */
 .leader-inquiries .inq-table {
   width: 100%;
   min-width: 900px;
+  table-layout: fixed;
   border-collapse: collapse;
   background: transparent;
 }
@@ -2970,7 +3004,7 @@ textarea { resize: vertical; min-height: 160px; }
   text-align: left;
   font-size: 1rem;
   font-weight: 600;
-  opacity: .75;
+  opacity: .9;
   padding: .75rem .5rem;
   border-bottom: 1px solid rgba(177, 171, 171, 0.832);
   white-space: nowrap;
@@ -2980,7 +3014,7 @@ textarea { resize: vertical; min-height: 160px; }
 
 .leader-inquiries .inq-table tbody td {
   padding: .9rem .5rem;
-  border-bottom: 1px solid rgba(228, 222, 222, 0.832);;
+  border-bottom: 1px solid rgba(228, 222, 222, 0.832);
   vertical-align: top;
 }
 
@@ -2988,17 +3022,57 @@ textarea { resize: vertical; min-height: 160px; }
   background: rgba(228, 222, 222, 0.832);
 }
 
-/* Table utilities */
-.leader-inquiries .nowrap { white-space: nowrap; }
-.leader-inquiries .right { text-align: right; white-space: nowrap; }
-.leader-inquiries .empty { text-align: center; padding: 2rem 1rem; opacity: .85; }
+/* Column widths */
+.leader-inquiries .inq-table th:nth-child(1),
+.leader-inquiries .inq-table td:nth-child(1) {
+  width: 100px;
+}
 
-.leader-inquiries .inline { display: inline; }
-.leader-inquiries .small { font-size: .9rem; }
-.leader-inquiries .muted { opacity: .75; }
+.leader-inquiries .inq-table th:nth-child(2),
+.leader-inquiries .inq-table td:nth-child(2) {
+  width: 180px;
+}
 
-/* From block */
-.leader-inquiries .inq-from .inq-name {
+.leader-inquiries .inq-table th:nth-child(3),
+.leader-inquiries .inq-table td:nth-child(3) {
+  width: clamp(160px, 26vw, 260px);
+}
+
+.leader-inquiries .inq-table th:nth-child(5),
+.leader-inquiries .inq-table td:nth-child(5) {
+  width: 150px;
+}
+
+/* Utilities */
+.leader-inquiries .nowrap {
+  white-space: nowrap;
+}
+
+.leader-inquiries .right {
+  text-align: right;
+  white-space: nowrap;
+}
+
+.leader-inquiries .empty {
+  text-align: center;
+  padding: 2rem 1rem;
+  opacity: .85;
+}
+
+.leader-inquiries .inline {
+  display: inline;
+}
+
+.leader-inquiries .small {
+  font-size: .9rem;
+}
+
+.leader-inquiries .muted {
+  opacity: .75;
+}
+
+/* From */
+.leader-inquiries .inq-name {
   font-weight: 600;
   margin-bottom: .1rem;
 }
@@ -3013,120 +3087,141 @@ textarea { resize: vertical; min-height: 160px; }
   opacity: .6;
 }
 
-/* Status badge (minimal) */
+/* Status */
 .leader-inquiries .inq-badge {
   display: inline-flex;
   align-items: center;
   padding: .14rem .5rem;
   border-radius: 999px;
-  font-size: .8rem;
-  border: 1px solid rgba(255,255,255,.14);
+  font-size: 1rem;
+  font-weight: bold;
   background: transparent;
   text-transform: capitalize;
 }
 
 .leader-inquiries .inq-badge--new {
   color: rgba(212,175,55,1);
-  font-size: 1em;
-  font-weight: bold;
 }
 
 .leader-inquiries .inq-badge--responded {
   color: rgb(101, 162, 220);
-  font-size: 1em;
-  font-weight: bold;
 }
 
 .leader-inquiries .inq-badge--closed {
   color: rgb(145, 147, 147);
-  font-size: 1em;
-  font-weight: bold;
 }
 
-/* Details disclosure */
-.leader-inquiries .inq-details summary {
-  cursor: pointer;
-  list-style: none;
-}
-
+/* Details / expandable message */
+.leader-inquiries .inq-subject,
 .leader-inquiries .inq-details {
   white-space: normal;
   max-width: 100%;
-}
-.leader-inquiries .inq-full {
-  max-height: none;
-  overflow: visible;
-}
-
-.leader-inquiries .inq-message {
-  white-space: pre-wrap;
-  overflow-wrap: anywhere; /* prevents sideways growth */
-  word-break: break-word;
-  line-height: 1.5;
-}
-
-
-.leader-inquiries .inq-disclosure {
-  display: block;
-  width: 100%;
-}
-
-.leader-inquiries .inq-disclosure[open] {
-  overflow: visible;
-}
-
-.leader-inquiries .inq-details summary::-webkit-details-marker {
-  display: none;
-}
-
-.leader-inquiries .inq-disclosure summary {
-  display: flex;
-  flex-direction: column;
-  gap: .25rem;
+  min-width: 0;
 }
 
 .leader-inquiries .inq-subject__title {
   font-weight: 600;
 }
 
-.leader-inquiries .inq-preview {
+.leader-inquiries .inq-preview,
+.leader-inquiries .inq-date {
   font-size: .9rem;
   opacity: .75;
 }
-.leader-inquiries .inq-date{
-  font-size: .9rem;
-  opacity: .75;
+
+.leader-inquiries .inq-expand,
+.leader-inquiries .inq-disclosure {
+  display: block;
+  width: 100%;
 }
-/* Full message area */
+
+.leader-inquiries .inq-expand summary,
+.leader-inquiries .inq-disclosure summary,
+.leader-inquiries .inq-details summary {
+  cursor: pointer;
+  list-style: none;
+}
+
+.leader-inquiries .inq-expand summary::-webkit-details-marker,
+.leader-inquiries .inq-disclosure summary::-webkit-details-marker,
+.leader-inquiries .inq-details summary::-webkit-details-marker {
+  display: none;
+}
+
+.leader-inquiries .inq-more {
+  display: inline-block;
+  margin-left: .4rem;
+  font-size: .85rem;
+  opacity: .8;
+  text-decoration: underline;
+}
+
+.leader-inquiries .inq-expand[open] .inq-more {
+  display: none;
+}
+
+.leader-inquiries .inq-expand[open] summary::after {
+  content: "Collapse";
+  margin-left: .5rem;
+  font-size: .85rem;
+  opacity: .8;
+  text-decoration: underline;
+}
+
 .leader-inquiries .inq-full {
   margin-top: .65rem;
   padding: .65rem .75rem;
   border-radius: 10px;
-  background: rgba(255,255,255,.04);
-  border: 1px solid rgba(255,255,255,.08);
+  background: rgba(255,255,255,.5);
+  border: 1px solid rgba(0,0,0,.08);
+  max-height: none;
+  overflow: visible;
+  white-space: normal;
 }
 
 .leader-inquiries .inq-message {
   margin: 0;
   white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  word-break: break-word;
   line-height: 1.45;
   font-size: .95rem;
 }
 
-/* Action button: make it feel like doc "Open →" (text action) */
-.leader-inquiries .btn.btn--primary.btn--small {
+/* Status action chip */
+.leader-inquiries .inq-action-chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: .35rem;
+  min-width: 130px;
+  padding: .3rem .5rem;
+  border-radius: 15px;
+  font-size: .8rem;
+  font-weight: 600;
   background: transparent;
-  border: 0;
-  padding: 0;
-  color: inherit;
-  font: inherit;
+  border: 1px solid rgba(212,175,55,.9);
   cursor: pointer;
-  opacity: .85;
+  opacity: .9;
+  text-align: center;
 }
 
-.leader-inquiries .btn.btn--primary.btn--small:hover {
+.leader-inquiries .inq-action-chip:hover {
   opacity: 1;
-  text-decoration: underline;
+  background: rgba(212,175,55,.9);
+}
+
+.leader-inquiries .inq-action-chip--responded {
+  background-color: rgba(59, 191, 235, 0.45);
+}
+
+.leader-inquiries .inq-action-chip--closed {
+  background-color: rgba(212,175,55,.45);
+}
+
+.leader-inquiries .inq-action-chip[disabled] {
+  opacity: .7;
+  cursor: default;
 }
 
 /* Footer */
@@ -3135,59 +3230,93 @@ textarea { resize: vertical; min-height: 160px; }
   display: flex;
   justify-content: flex-start;
 }
-/* Status action chip */
-.inq-action-chip {
-  display: inline-flex;
-  align-items: center;
-  gap: .35rem;
-  padding: .3rem .5rem;
-  border-radius: 15px;
-  font-size: .8rem;
-  font-weight: 600;
-  background: transparent;
-  border: 1px solid rgba(255,255,255,.18);
-  cursor: pointer;
-  opacity: .9;
-  min-width: 130px;          /* adjust once and forget */
-  justify-content: center;   /* center text inside */
-  text-align: center;
+
+/* Mobile admin table - stacked, left aligned */
+@media (max-width: 760px) {
+  .leader-inquiries .inq-toolbar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .leader-inquiries .inq-filters,
+  .leader-inquiries .inq-select {
+    width: 100%;
+  }
+
+  .leader-inquiries .inq-table-wrap {
+    overflow: visible;
+  }
+
+  .leader-inquiries .inq-table {
+    min-width: 0;
+    width: 100%;
+    display: block;
+  }
+
+  .leader-inquiries .inq-table thead {
+    display: none;
+  }
+
+  .leader-inquiries .inq-table tbody {
+    display: grid;
+    gap: 1rem;
+  }
+
+  .leader-inquiries .inq-table tr {
+    display: block;
+    border: 1px solid rgba(0,0,0,.12);
+    border-radius: 12px;
+    background: rgba(255,255,255,.55);
+    padding: .85rem;
+  }
+
+  .leader-inquiries .inq-table tbody td {
+    display: block;
+    width: 100% !important;
+    padding: .55rem 0;
+    border-bottom: 1px solid rgba(0,0,0,.08);
+    text-align: left !important;
+    white-space: normal;
+  }
+
+  .leader-inquiries .inq-table tbody td:last-child {
+    border-bottom: 0;
+  }
+
+  .leader-inquiries .inq-table tbody td::before {
+    content: attr(data-label);
+    display: block;
+    margin-bottom: .2rem;
+    font-size: .75rem;
+    font-weight: 700;
+    color: var(--gold);
+    text-transform: uppercase;
+    letter-spacing: .03em;
+  }
+
+  .leader-inquiries .inq-badge {
+    justify-content: flex-start;
+    padding-left: 0;
+  }
+
+  .leader-inquiries .inq-meta span {
+    display: block;
+  }
+
+  .leader-inquiries .inq-meta .dot {
+    display: none;
+  }
+
+  .leader-inquiries .inq-action-chip {
+    width: 100%;
+    min-width: 0;
+    margin-top: .25rem;
+  }
+
+  .leader-inquiries .inq-full {
+    width: 100%;
+  }
 }
-
-.inq-action-chip:hover {
-  opacity: 1;
-  background: rgba(212,175,55,.9);
-}
-
-/* Status accents */
-.inq-action-chip--responded {
-  border-color: rgba(212,175,55,.9);
-  background-color: rgba(212,175,55,.45);
-}
-
-.inq-action-chip--closed {
-  border-color: rgba(212,175,55,.9);
-  background-color: rgba(212,175,55,.45);
-}
-
-.inq-action-chip[disabled] {
-  opacity: .7;
-  cursor: default;
-}
-
-.inq-table { table-layout: fixed; width: 100%; }
-
-/* Safe-ish widths that can shrink */
-.inq-table th:nth-child(1),
-.inq-table td:nth-child(1) { width: 100px; } /* Status */
-
-.inq-table th:nth-child(2),
-.inq-table td:nth-child(2) { width: 180px; } /* Date */
-
-.inq-table th:nth-child(3),
-.inq-table td:nth-child(3) { width: clamp(160px, 26vw, 260px); } /* From */
-
-.inq-table th:nth-child(5),
-.inq-table td:nth-child(5) { width: 140px; } /* Action */
 
 /* Costumes */
 
