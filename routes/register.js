@@ -13,6 +13,7 @@ router.get("/success", (req, res) => {
 
 router.get('/', (req, res) => {
     res.render('register', {
+        activePage: 'register',
         errorSummary: [],
         errors: {},
         values: {}

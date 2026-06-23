@@ -215,7 +215,112 @@ a {
   font-style: normal;
 }
 
+/* =====================================
+   Arrival Banner
+===================================== */
 
+.arrival-banner {
+  background: linear-gradient(
+    135deg,
+    #d8b13d 0%,
+    #e6c75a 50%,
+    #d8b13d 100%
+  );
+
+  border-bottom: 1px solid rgba(0,0,0,.15);
+  box-shadow: 0 2px 8px rgba(0,0,0,.12);
+}
+
+.arrival-banner__wrap {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: .5rem 1.5rem;
+
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+.arrival-banner__icon {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: rgba(255,255,255,.25);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.arrival-banner__icon svg {
+  width: 55px;
+  height: 55px;
+  stroke: #111;
+  stroke-width: 1.8;
+}
+
+.arrival-banner__content h3 {
+  margin: 0 0 .25rem;
+  color: #111;
+  font-size: 1.3rem;
+  font-weight: 800;
+}
+
+.arrival-banner__content p {
+  margin: 0;
+  color: rgba(0,0,0,.85);
+  font-size: 1rem;
+}
+
+.arrival-banner__btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: .95rem 1.5rem;
+
+  background: #111;
+  color: var(--gold);
+
+  border-radius: 12px;
+
+  font-weight: 700;
+  text-decoration: none;
+
+  transition: all .2s ease;
+}
+
+.arrival-banner__btn:hover {
+  transform: translateY(-2px);
+  background: #000;
+}
+
+@media (max-width: 900px) {
+
+  .arrival-banner__wrap {
+    grid-template-columns: 1fr;
+    text-align: center;
+    padding: 1.25rem 1rem;
+  }
+
+  .arrival-banner__icon {
+    margin: 0 auto;
+    width: 60px;
+    height: 60px;
+    font-size: 1.6rem;
+  }
+
+  .arrival-banner__content h3 {
+    font-size: 1.4rem;
+  }
+
+  .arrival-banner__btn {
+    width: 100%;
+    max-width: 320px;
+    margin: 0 auto;
+  }
+}
 /* ===============================
    About
 ================================== */
@@ -584,6 +689,11 @@ a {
   white-space: nowrap;
 }
 .menu a:hover { background: rgba(255,255,255,.20); }
+
+.menu .is-active {
+  color: var(--lightgold) !important;
+  font-weight: 700;
+}
 
 /* Disabled menu links */
 .menu a.disabled {

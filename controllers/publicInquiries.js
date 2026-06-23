@@ -2,6 +2,7 @@ const inquiriesService = require('../services/inquiriesService');
 
 const renderForm = (req, res) => {
     res.render('inquiries', {
+        activePage: 'inquiries',
         success: req.query.success === '1',
         error: req.query.error || null,
         errors: null,
