@@ -14,6 +14,16 @@ router.get('/403', (req, res) => {
     });
 });
 
+router.get('/arriving', (req, res) => {
+    res.render('arriving', {
+        mapImageUrl: process.env.MAP_IMAGE_URL || '/img/camp-map.jpg',
+        departTime: process.env.DEPART_TIME,
+        departPlace: process.env.DEPART_PLACE,
+        returnTime: process.env.RETURN_TIME,
+        returnPlace: process.env.RETURN_PLACE
+    });
+});
+
 router.use("/register", require("./register"));
 
 router.use('/photos', require('./photos'));
