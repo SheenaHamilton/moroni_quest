@@ -299,23 +299,26 @@ a {
 @media (max-width: 900px) {
 
   .arrival-banner__wrap {
-    grid-template-columns: 1fr;
-    text-align: center;
-    padding: 1.25rem 1rem;
+    grid-template-columns: auto 1fr;
+    grid-template-areas:
+      "icon content"
+      "button button";
+    gap: 1rem;
+    align-items: center;
   }
 
   .arrival-banner__icon {
-    margin: 0 auto;
-    width: 60px;
-    height: 60px;
-    font-size: 1.6rem;
+    grid-area: icon;
+    margin: 0;
   }
 
-  .arrival-banner__content h3 {
-    font-size: 1.4rem;
+  .arrival-banner__content {
+    grid-area: content;
+    text-align: left;
   }
 
   .arrival-banner__btn {
+    grid-area: button;
     width: 100%;
     max-width: 320px;
     margin: 0 auto;
