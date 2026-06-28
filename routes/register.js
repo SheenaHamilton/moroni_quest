@@ -6,6 +6,7 @@ router.get("/success", (req, res) => {
     const id = req.query.id || null;
 
     res.render("register-success", {
+        activePage: 'register',
         title: "Registration Submitted",
         id,
     });
